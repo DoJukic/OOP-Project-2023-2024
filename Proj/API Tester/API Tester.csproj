@@ -8,4 +8,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="WorldCupDataRepo\efqhg0pv.0ek~" />
+    <None Remove="WorldCupDataRepo\k0u5vxie.3k3~" />
+    <None Remove="WorldCupDataRepo\WorldCupRepoBroker.cs~RF1030d6.TMP" />
+  </ItemGroup>
+
 </Project>
