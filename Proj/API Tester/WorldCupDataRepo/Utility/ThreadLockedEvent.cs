@@ -21,11 +21,11 @@ namespace API_Tester.WorldCupDataRepo
         }
         public ThreadLockedEvent(Action action)
         {
-            this.DoSubscribe(action);
+            this.Subscribe(action);
         }
 
-        public void Subscribe(Action action) { Task.Run(() => this.DoSubscribe(action)); }
-        private void DoSubscribe(Action action)
+        public void SafeSubscribe(Action action) { Task.Run(() => this.Subscribe(action)); }
+        public void Subscribe(Action action)
         {
             lock (theLock)
             {
@@ -34,8 +34,8 @@ namespace API_Tester.WorldCupDataRepo
             }
         }
 
-        internal void Trigger() { Task.Run(this.DoTrigger); }
-        private void DoTrigger()
+        internal void SafeTrigger() { Task.Run(this.Trigger); }
+        public void Trigger()
         {
             /*lock (theLock) { if (!wasDisposed) TheEvent?.Invoke(); }*/
             lock (theLock)
@@ -46,8 +46,8 @@ namespace API_Tester.WorldCupDataRepo
             }
         }
 
-        public void Dispose() { Task.Run(this.DoDispose); }
-        private void DoDispose()
+        public void SafeDispose() { Task.Run(this.Dispose); }
+        public void Dispose()
         {
             lock (theLock)
             {

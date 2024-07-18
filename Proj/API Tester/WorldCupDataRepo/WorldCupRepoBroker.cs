@@ -1,4 +1,5 @@
 ﻿using API_Tester.WorldCupDataRepo.Deserialize;
+using API_Tester.WorldCupDataRepo.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,31 +40,58 @@ namespace API_Tester.WorldCupDataRepo
 
         private static void ChangeOnMain()
         {
-            Console.WriteLine("CHANGE ON MAIN");
+            Console.WriteLine("CHANGE ON MAIN"); //*****************REMOVEME*****************
             EnsureAllFoldersAreMonitored();
         }
         private static void ErrorOnMain()
         {
-            Console.WriteLine("ERROR ON MAIN");
+            Console.WriteLine("ERROR ON MAIN"); //*****************REMOVEME*****************
         }
         private static void DeletedTargetFolderOnMain()
         {
-            Console.WriteLine("DELETED TARGET FOLDER ON MAIN");
+            Console.WriteLine("DELETED TARGET FOLDER ON MAIN"); //*****************REMOVEME*****************
+        }
+        
+        private static void SubChanged()
+        {
+            Console.WriteLine("One of our updaters changed! I'm triggered tbh..."); //*****************REMOVEME*****************
+            /*
+             TODO: AGGREGATE TRIGGERS!!!
+             */
+            OnAvailableFileDetailsChanged.SafeTrigger();
+        }
+        private static void SubDisposed(AvailableFileDetailsUpdater updater)
+        {
+            Console.WriteLine("One of our updaters died! Disposing of corpse now..."); //*****************REMOVEME*****************
+
+            lock (operationsLock)
+            {
+                availableFileDetailsUpdaters.Remove(updater);
+            }
+            OnAvailableFileDetailsChanged.SafeTrigger();
         }
 
         private static List<String> GetAllMonitoredFoldersWithFullPath()
         {
             List<String> returnMe = new();
 
-            foreach (var updater in availableFileDetailsUpdaters)
+            lock (operationsLock)
             {
-                returnMe.Add(new DirectoryInfo(updater.GetTargetPath()).FullName);
+                foreach (var updater in availableFileDetailsUpdaters)
+                {
+                    string? targetPath = updater.GetTargetPath();
+                    if (targetPath == null) continue;
+
+                    returnMe.Add(new DirectoryInfo(targetPath).FullName);
+                }
             }
 
             return returnMe;
         }
         private static void EnsureAllFoldersAreMonitored()
         {
+            Console.WriteLine("Ensuring all folders are monitored now..."); //*****************REMOVEME*****************
+
             var subfolders = Directory.GetDirectories(baseFilesDir);
 
             lock (operationsLock)
@@ -74,21 +102,29 @@ namespace API_Tester.WorldCupDataRepo
                 {
                     string fullSubfolderPath = new DirectoryInfo(subfolder).FullName;
                     if (!monitoredFolders.Contains(fullSubfolderPath))
-                        monitoredFolders.Add(new(fullSubfolderPath));
+                    {
+                        Console.WriteLine(fullSubfolderPath + " is not monitored! Adding now..."); //*****************REMOVEME*****************
+
+                        AvailableFileDetailsUpdater updater = AvailableFileDetailsUpdater.GetInstanceWithoutInit();
+                        availableFileDetailsUpdaters.Add(updater);
+
+                        updater.Init(fullSubfolderPath, new(SubChanged), new(() => { WorldCupRepoBroker.SubDisposed(updater); }));
+                    }
                 }
             }
         }
 
-        internal static void FileSystemMonitorReportsFailure(AvailableFileDetailsUpdater target)
-        {
-            lock (operationsLock)
-            {
-                availableFileDetailsUpdaters.Remove(target);
-            }
-        }
         public static IEnumerable<AvailableFileDetails> GetAvailableFileDetails()
         {
-            throw new NotImplementedException();
+            LinkedList<AvailableFileDetails> deets = new();
+            lock (operationsLock)
+            {
+                foreach (var updater in availableFileDetailsUpdaters)
+                {
+                    deets.AddLast(updater.GetCurrentDetailsCopy());
+                }
+            }
+            return deets;
         }
 
         /// <summary>
@@ -109,15 +145,28 @@ namespace API_Tester.WorldCupDataRepo
             throw new NotImplementedException();
         }
 
-        internal static IWorldCupDataRepo? GetRepoFromFolder(String path, ref bool fatalError)
+        internal static IWorldCupDataRepo? GetRepoFromFolder(String path, ref bool noErrors)
         {
-            var jsonGroupResults = File.ReadAllText(path + allFilesGroupResultsRelativeLoc);
-            var jsonMatches = File.ReadAllText(path + allFilesMatchesRelativeLoc);
+            string? jsonGroupResults;
+            string? jsonMatches;
+            try
+            {
+                jsonGroupResults = PatientFileAccessor.ReadAllText(path + allFilesGroupResultsRelativeLoc);
+                jsonMatches = PatientFileAccessor.ReadAllText(path + allFilesMatchesRelativeLoc);
+
+                if (jsonGroupResults == null || jsonMatches == null)
+                    throw new Exception("Ruh roh");
+            }
+            catch (Exception)
+            {
+                noErrors = false;
+                return null;
+            }
 
             var groupResults = GroupResults.FromJson(jsonGroupResults);
             var matches = Matches.FromJson(jsonMatches);
 
-            return new WorldCupMemoryRepo(groupResults, matches, ref fatalError);
+            return new WorldCupMemoryRepo(groupResults, matches, ref noErrors);
         }
 
         /*

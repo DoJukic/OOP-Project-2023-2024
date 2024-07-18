@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using API_Tester.WorldCupDataRepo.Utility;
 
 namespace API_Tester.WorldCupDataRepo
 {
@@ -57,8 +58,6 @@ namespace API_Tester.WorldCupDataRepo
 
         public static AvailableFileDetails ReadFromDirectory(string directoryPath)
         {
-            var lines = File.ReadAllLines(directoryPath + realtiveFilePath);
-
             String ID = "ERROR";
             String name = "ERROR";
             int year = 0;
@@ -70,28 +69,12 @@ namespace API_Tester.WorldCupDataRepo
             try
             {
                 ID = new DirectoryInfo(directoryPath).Name;
+
+                var lines = File.ReadAllLines(directoryPath + realtiveFilePath);
+
                 name = lines[0];
                 year = Int32.Parse(lines[1]);
                 remoteLink = lines[2];
-
-                /*
-                if (lines[2] == null || lines[2] == "")
-                    infoFileValid = null;
-                else
-                    infoFileValid = Boolean.Parse(lines[2]);
-
-                if (lines[3] == null || lines[3] == "")
-                    fileStructureValid = null;
-                else
-                    fileStructureValid = Boolean.Parse(lines[3]);
-
-                if (lines[4] == null || lines[4] == "")
-                    jsonValid = null;
-                else
-                    jsonValid = Boolean.Parse(lines[4]);
-
-                remoteLink = lines[5];
-                */
             }
             catch (Exception)
             {
@@ -125,13 +108,32 @@ namespace API_Tester.WorldCupDataRepo
         private long activeSuboperationID = 0;
 
         private AvailableFileDetails updateTarget;
-        private FileSystemMonitor targetPathMonitor;
+        private FileSystemMonitor? targetPathMonitor;
 
-        public readonly ThreadLockedEvent OnDetailsChanged;
-        public readonly ThreadLockedEvent OnDisposed;
+        public ThreadLockedEvent OnDetailsChanged;
+        public ThreadLockedEvent OnDisposed;
+
+        private AvailableFileDetailsUpdater() { }
+
+        /*
+        OK SO
+        If we are adding a func to an event which we need to listen to immediately and that func requires the reference to this object, we cannot do that because that reference doesn't exist yet.
+        Now we can get the object's ref first, and THEN start monitoring the file. ezpz.
+        */
+        public static AvailableFileDetailsUpdater GetInstanceWithoutInit()
+        {
+            return new();
+        }
 
         public AvailableFileDetailsUpdater(String targetDirPath, ThreadLockedEvent? OnDetailsChanged = null, ThreadLockedEvent? OnDisposed = null)
         {
+            this.Init(targetDirPath, OnDetailsChanged, OnDisposed);
+        }
+
+        public bool Init(String targetDirPath, ThreadLockedEvent? OnDetailsChanged = null, ThreadLockedEvent? OnDisposed = null)
+        {
+            if (targetPathMonitor != null) return false;
+
             this.OnDetailsChanged = OnDetailsChanged ?? new();
             this.OnDisposed = OnDisposed ?? new();
 
@@ -139,28 +141,35 @@ namespace API_Tester.WorldCupDataRepo
             {
                 this.updateTarget = AvailableFileDetails.ReadFromDirectory(targetDirPath);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 this.Dispose();
             }
 
             targetPathMonitor = new(targetDirPath, false, 100, new(ReevaluateTargetFolder), new(Dispose), new(Dispose));
+
+            return true;
         }
 
         private void ReevaluateTargetFolder()
         {
             // if a new change was detected after this one was started, we want to make sure we don't write bad data.
             long currentSuboperationID;
+            string? targetPath;
 
             lock (suboperationsLock)
             {
                 activeSuboperationID += 1;
                 currentSuboperationID = activeSuboperationID;
-                this.updateTarget = AvailableFileDetails.ReadFromDirectory(GetTargetPath());
-            }
-            WorldCupRepoBroker.OnAvailableFileDetailsChanged.Trigger();
 
-            if (!File.Exists(GetTargetPath() + WorldCupRepoBroker.allFilesGroupResultsRelativeLoc) || !File.Exists(GetTargetPath() + WorldCupRepoBroker.allFilesMatchesRelativeLoc))
+                targetPath = GetTargetPath();
+                if (targetPath == null) return;
+
+                this.updateTarget = AvailableFileDetails.ReadFromDirectory(targetPath);
+            }
+            OnDetailsChanged.SafeTrigger();
+
+            if (!File.Exists(targetPath + WorldCupRepoBroker.allFilesGroupResultsRelativeLoc) || !File.Exists(targetPath + WorldCupRepoBroker.allFilesMatchesRelativeLoc))
             {
                 lock (suboperationsLock)
                 {
@@ -171,7 +180,7 @@ namespace API_Tester.WorldCupDataRepo
                     this.updateTarget.jsonValid = false;
                 }
 
-                WorldCupRepoBroker.OnAvailableFileDetailsChanged.Trigger();
+                OnDetailsChanged.SafeTrigger();
                 return;
             }
 
@@ -182,19 +191,19 @@ namespace API_Tester.WorldCupDataRepo
 
                 this.updateTarget.fileStructureValid = true;
             }
-            WorldCupRepoBroker.OnAvailableFileDetailsChanged.Trigger();
+            OnDetailsChanged.SafeTrigger();
 
-            bool fatalErrorWhenReadingJson = false;
-            WorldCupRepoBroker.GetRepoFromFolder(GetTargetPath(), ref fatalErrorWhenReadingJson);
+            bool noErrors = true;
+            WorldCupRepoBroker.GetRepoFromFolder(targetPath, ref noErrors);
 
             lock (suboperationsLock)
             {
                 if (currentSuboperationID != activeSuboperationID)
                     return;
 
-                this.updateTarget.jsonValid = fatalErrorWhenReadingJson;
+                this.updateTarget.jsonValid = noErrors;
             }
-            WorldCupRepoBroker.OnAvailableFileDetailsChanged.Trigger();
+            OnDetailsChanged.SafeTrigger();
         }
 
         public void Dispose()
@@ -202,14 +211,14 @@ namespace API_Tester.WorldCupDataRepo
             lock (suboperationsLock)
             {
                 activeSuboperationID = -1;
-                targetPathMonitor.Dispose();
-                OnDisposed.Trigger();
+                targetPathMonitor?.Dispose();
+                OnDisposed.SafeTrigger();
             }
         }
 
-        public string GetTargetPath()
+        public string? GetTargetPath()
         {
-            return targetPathMonitor.targetPath;
+            return targetPathMonitor != null ? targetPathMonitor.targetPath : null;
         }
 
         public AvailableFileDetails GetCurrentDetailsCopy()

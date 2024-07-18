@@ -20,10 +20,9 @@ namespace API_Tester.WorldCupDataRepo
         /// </summary>
         /// <param name="deserializedGroupResults"></param>
         /// <param name="deserializedMatches"></param>
-        /// <param name="fatalErrorOccured"></param>
-        internal WorldCupMemoryRepo(List<GroupResults> deserializedGroupResults, List<Matches> deserializedMatches, ref bool fatalErrorOccured)
+        /// <param name="noErrors"></param>
+        internal WorldCupMemoryRepo(List<GroupResults> deserializedGroupResults, List<Matches> deserializedMatches, ref bool noErrors)
         {
-            fatalErrorOccured = false;
             try
             {
                 foreach (var groupResult in deserializedGroupResults)
@@ -52,7 +51,7 @@ namespace API_Tester.WorldCupDataRepo
                         if (chickenDinner == null)
                         {
                             Console.WriteLine("BAD MATCH DATA!");
-                            fatalErrorOccured = true;
+                            noErrors = false;
                             return; // DANGIT
                         }
                     }
@@ -60,7 +59,7 @@ namespace API_Tester.WorldCupDataRepo
                     if (homeTeam == null || awayTeam == null)
                     {
                         Console.WriteLine("BAD MATCH DATA!!");
-                        fatalErrorOccured = true;
+                        noErrors = false;
                         return; // DANGIT 2: electric boogaloo
                     }
 
@@ -92,7 +91,7 @@ namespace API_Tester.WorldCupDataRepo
             }
             catch (Exception e)
             {
-                fatalErrorOccured = true;
+                noErrors = false;
                 Console.WriteLine("Critical fail while loading data.");
                 Console.WriteLine(e.Message);
             }
