@@ -13,7 +13,7 @@
 #pragma warning disable CS8601
 #pragma warning disable CS8603
 
-namespace APITester.Deserialize
+namespace WorldCupLib.Deserialize
 {
     using System;
     using System.Collections.Generic;
@@ -365,18 +365,18 @@ namespace APITester.Deserialize
 
     public partial class GroupResults
     {
-        public static List<GroupResults> FromJson(string json) => JsonSerializer.Deserialize<List<GroupResults>>(json, APITester.Deserialize.Converter.Settings);
+        public static List<GroupResults> FromJson(string json) => JsonSerializer.Deserialize<List<GroupResults>>(json, WorldCupLib.Deserialize.Converter.Settings);
     }
 
     public partial class Matches
     {
-        public static List<Matches> FromJson(string json) => JsonSerializer.Deserialize<List<Matches>>(json, APITester.Deserialize.Converter.Settings);
+        public static List<Matches> FromJson(string json) => JsonSerializer.Deserialize<List<Matches>>(json, WorldCupLib.Deserialize.Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this List<GroupResults> self) => JsonSerializer.Serialize(self, APITester.Deserialize.Converter.Settings);
-        public static string ToJson(this List<Matches> self) => JsonSerializer.Serialize(self, APITester.Deserialize.Converter.Settings);
+        public static string ToJson(this List<GroupResults> self) => JsonSerializer.Serialize(self, WorldCupLib.Deserialize.Converter.Settings);
+        public static string ToJson(this List<Matches> self) => JsonSerializer.Serialize(self, WorldCupLib.Deserialize.Converter.Settings);
     }
 
     internal static class Converter

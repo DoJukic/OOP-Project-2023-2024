@@ -1,12 +1,12 @@
-﻿using APITester.Deserialize;
-using APITester.Utility;
+﻿using WorldCupLib.Deserialize;
+using WorldCupLib.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APITester
+namespace WorldCupLib
 {
     internal class WorldCupMemoryRepo : IWorldCupDataRepo
     {
@@ -50,7 +50,6 @@ namespace APITester
                         chickenDinner = tryGetTeamFromFifaCode(match.WinnerCode);
                         if (chickenDinner == null)
                         {
-                            Console.WriteLine("BAD MATCH DATA!");
                             noErrors = false;
                             return; // DANGIT
                         }
@@ -58,7 +57,6 @@ namespace APITester
 
                     if (homeTeam == null || awayTeam == null)
                     {
-                        Console.WriteLine("BAD MATCH DATA!!");
                         noErrors = false;
                         return; // DANGIT 2: electric boogaloo
                     }
@@ -92,8 +90,6 @@ namespace APITester
             catch (Exception e)
             {
                 noErrors = false;
-                Console.WriteLine("Critical fail while loading data.");
-                Console.WriteLine(e.Message);
             }
         }
 

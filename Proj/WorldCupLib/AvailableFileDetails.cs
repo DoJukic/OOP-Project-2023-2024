@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using APITester.Utility;
+using WorldCupLib.Utility;
 
-namespace APITester
+namespace WorldCupLib
 {
     public class AvailableFileDetails
     {

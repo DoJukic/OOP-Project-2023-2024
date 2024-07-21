@@ -1,5 +1,5 @@
-﻿using APITester.Deserialize;
-using APITester.Utility;
+﻿using WorldCupLib.Deserialize;
+using WorldCupLib.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APITester
+namespace WorldCupLib
 {
     public static class WorldCupRepoBroker
     {
@@ -44,6 +44,7 @@ namespace APITester
 
         public static readonly ThreadLockedEvent OnAPIStateChanged = new();
         public static readonly ThreadLockedEvent OnAPISourcesLoaded = new();
+        public static readonly ThreadLockedEvent OnAPIFailed = new();
 
         static WorldCupRepoBroker()
         {
@@ -53,13 +54,11 @@ namespace APITester
 
         private static void ChangeOnMainEventTriggered()
         {
-            Console.WriteLine("CHANGE ON MAIN"); //*****************REMOVEME*****************
             EnsureAllFoldersAreMonitored();
             LoadAPISources();
         }
         private static void CriticalErrorOnMainEventTriggered()
         {
-            Console.WriteLine("CRITICAL ERROR ON MAIN"); //*****************REMOVEME*****************
             OnFatalError.SafeTrigger();
             mainDirFSMonitor.Dispose();
         }
@@ -68,8 +67,6 @@ namespace APITester
         {
 
             var currTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-
-            Console.WriteLine("[" + currTime + "]: " + "One of our updaters reported a change!"); //*****************REMOVEME*****************
 
             // We'll want to aggregate these triggers.
 
@@ -89,13 +86,10 @@ namespace APITester
         }
         private static void ActOnSubChangedEventTriggered()
         {
-            Console.WriteLine("Triggering due to sub change!"); //*****************REMOVEME*****************
             OnAvailableFileDetailsChanged.SafeTrigger();
         }
         private static void SubDisposedEventTriggered(AvailableFileDetailsUpdater updater)
         {
-            Console.WriteLine("One of our updaters died! Disposing of corpse now..."); //*****************REMOVEME*****************
-
             lock (fileDetailsOperationsLock)
             {
                 availableFileDetailsUpdaters.Remove(updater);
@@ -123,8 +117,6 @@ namespace APITester
         }
         private static void EnsureAllFoldersAreMonitored()
         {
-            Console.WriteLine("Ensuring all folders are monitored now..."); //*****************REMOVEME*****************
-
             var subfolders = Directory.GetDirectories(baseFilesDir);
 
             lock (fileDetailsOperationsLock)
@@ -136,8 +128,6 @@ namespace APITester
                     string fullSubfolderPath = new DirectoryInfo(subfolder).FullName;
                     if (!monitoredFolders.Contains(fullSubfolderPath))
                     {
-                        Console.WriteLine(fullSubfolderPath + " is not monitored! Adding now..."); //*****************REMOVEME*****************
-
                         AvailableFileDetailsUpdater updater = AvailableFileDetailsUpdater.GetInstanceWithoutInit();
                         updater.Init(fullSubfolderPath, new(() => { WorldCupRepoBroker.SubChangedEventTriggered(); }), new(() => { WorldCupRepoBroker.SubDisposedEventTriggered(updater); }));
 
@@ -165,7 +155,7 @@ namespace APITester
         }
 
         /// <summary>
-        /// Gets data and saves it in the standard folder, if you are subscribed to the details changed event you will get auto-notified once the changes are detected
+        /// Gets data and saves it in the standard folder, if you are subscribed to the details changed event you will get auto-notified once the changes are detected. Returns false if already busy.
         /// </summary>
         public static Task<bool> BeginFetchRepoFromAPI(String link, String name = "", int year = 0)
         {
@@ -213,9 +203,9 @@ namespace APITester
                         AvailableFileDetails AFD = new((maxValue + 1).ToString(), name, year, link);
                         AFD.WriteToDirectory(directoryTarget);
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
-                        Console.WriteLine(e.Message);
+                        OnAPIFailed.SafeTrigger();
                     }
 
                     lock (httpClientOperationsLock)
@@ -342,7 +332,7 @@ namespace APITester
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Line(e.Message);
                 fatalError = true;
             }
             return null;
@@ -358,7 +348,7 @@ namespace APITester
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Line(e.Message);
                 fatalError = true;
             }
             return null;
@@ -386,7 +376,7 @@ namespace APITester
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Line(e.Message);
                 return theReturnables;
             }
 
@@ -400,7 +390,7 @@ namespace APITester
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
+                    Line(e.Message);
                     theReturnables.Add(new(-1, "ERROR", 0, false));
                 }
             }
@@ -421,7 +411,7 @@ namespace APITester
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                Line(e.Message);
             }
 
             return new(id, "ERROR", 0, isValid);

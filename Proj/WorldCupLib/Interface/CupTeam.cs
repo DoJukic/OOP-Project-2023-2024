@@ -1,7 +1,7 @@
-﻿using APITester.Utility;
+﻿using WorldCupLib.Utility;
 using System.Collections.ObjectModel;
 
-namespace APITester
+namespace WorldCupLib
 {
     public class CupTeam : IComparable<CupTeam>
     {

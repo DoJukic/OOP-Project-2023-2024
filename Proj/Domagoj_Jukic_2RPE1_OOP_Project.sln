@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API Tester", "API Tester\API Tester.csproj", "{7EC4D095-C1FC-4BBC-8C4B-6C108FEAF15A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API Tester", "API Tester\API Tester.csproj", "{7EC4D095-C1FC-4BBC-8C4B-6C108FEAF15A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCupLib", "WorldCupLib\WorldCupLib.csproj", "{0ABCEE06-8686-4347-8308-2345488C6065}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7EC4D095-C1FC-4BBC-8C4B-6C108FEAF15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EC4D095-C1FC-4BBC-8C4B-6C108FEAF15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EC4D095-C1FC-4BBC-8C4B-6C108FEAF15A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ABCEE06-8686-4347-8308-2345488C6065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ABCEE06-8686-4347-8308-2345488C6065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ABCEE06-8686-4347-8308-2345488C6065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ABCEE06-8686-4347-8308-2345488C6065}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

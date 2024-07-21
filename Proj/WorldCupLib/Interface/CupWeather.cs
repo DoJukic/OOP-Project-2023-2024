@@ -1,4 +1,4 @@
-﻿namespace APITester
+﻿namespace WorldCupLib
 {
     public class CupWeather
     {

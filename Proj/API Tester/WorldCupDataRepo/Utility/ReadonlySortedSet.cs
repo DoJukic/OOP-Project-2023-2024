@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API_Tester.WorldCupDataRepo.Interface
+namespace APITester.Utility
 {
     public class ReadonlySortedSet<T> : IEnumerable<T>
     {

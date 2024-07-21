@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APITester.Utility
+namespace WorldCupLib.Utility
 {
     internal static class PatientFileAccessor
     {
@@ -36,7 +36,6 @@ namespace APITester.Utility
                     if (timeout <= 0)
                         throw;
 
-                    Console.WriteLine("mimimimimi");
                     Thread.Sleep(5);
                 }
             }
@@ -72,7 +71,6 @@ namespace APITester.Utility
                     if (timeout <= 0)
                         throw;
 
-                    Console.WriteLine("mimimimimi");
                     Thread.Sleep(5);
                 }
             }

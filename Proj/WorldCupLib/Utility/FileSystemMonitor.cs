@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static APITester.WorldCupRepoBroker;
+using static WorldCupLib.WorldCupRepoBroker;
 
-namespace APITester.Utility
+namespace WorldCupLib.Utility
 {
     internal class FileSystemMonitor : IDisposable
     {
@@ -66,12 +66,10 @@ namespace APITester.Utility
                     // We can't have any gaps, so this has to go here
                     // Will also fire on init, but it's whatever. Hopefully.
                     self.OnSnapshotStateChanged.SafeTrigger();
-                    Console.WriteLine("SNAPSHOT STATE CHANGED!");
                 }
                 catch (Exception)
                 {
                     self.OnErrorOccured.SafeTrigger();
-                    Console.WriteLine("ERROR OCCURED!");
                     // Let's just hope we just caught it at a bad time and try again...
                     self.timer = new(LoadCurrentState, self, self.targetRefreshTime, Timeout.Infinite);
                 }
@@ -102,7 +100,6 @@ namespace APITester.Utility
                 catch (Exception)
                 {
                     self.OnErrorOccured.SafeTrigger();
-                    Console.WriteLine("ERROR OCCURRED!");
                     LoadCurrentState(self); // Snapshot validation failed for some reason, not really sure what we should do in this case.
                 }
             }
@@ -110,7 +107,6 @@ namespace APITester.Utility
 
         public void Dispose()
         {
-            Console.WriteLine("DISPOSING!");
             OnSnapshotStateChanged.SafeDispose();
             OnTargetFileDeleted.SafeDispose();
 

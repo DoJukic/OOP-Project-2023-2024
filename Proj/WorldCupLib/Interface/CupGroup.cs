@@ -1,6 +1,6 @@
-﻿using APITester.Utility;
+﻿using WorldCupLib.Utility;
 
-namespace APITester
+namespace WorldCupLib
 {
     public class CupGroup : IComparable<CupGroup>
     {

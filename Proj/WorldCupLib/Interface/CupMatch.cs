@@ -2,7 +2,7 @@
 using System.Reflection.Metadata.Ecma335;
 using System.Transactions;
 
-namespace APITester
+namespace WorldCupLib
 {
     public class CupMatch : IComparable<CupMatch>
     {
