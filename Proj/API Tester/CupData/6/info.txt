@@ -1,0 +1,5 @@
+{
+	"name" : "1Name",
+	"year" : 205,
+	"remoteLink" : "https://worldcup-vua.nullbit.hr/men"
+}

@@ -1,0 +1,12 @@
+[
+	{
+		"name" : "Men's World Cup",
+		"year" : 2018,
+		"link" : "https://worldcup-vua.nullbit.hr/men"
+	},
+	{
+		"name" : "Women's World Cup",
+		"year" : 2019,
+		"link" : "https://worldcup-vua.nullbit.hr/women"
+	}
+]

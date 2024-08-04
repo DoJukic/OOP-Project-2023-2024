@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WorldCupLib.Deserialize;
 
 namespace WorldCupLib
 {
@@ -29,21 +30,21 @@ namespace WorldCupLib
         {
             LinkedList<AvailableRemoteSourceDetails> returnMe = new();
 
-            string[] data;
+            string data;
             try
             {
-                data = PatientFileAccessor.ReadAllLines(dataLocation);
+                data = PatientFileAccessor.ReadAllText(dataLocation);
             }
             catch (Exception)
             {
                 return returnMe;
             }
 
-            int numSources = data.Length / 3;
+            var sources = RemoteDataSource.FromJson(data ?? "");
 
-            for (int i = 0; i < numSources; i++)
+            for (int i = 0; i < sources.Count; i++)
             {
-                returnMe.AddLast(new AvailableRemoteSourceDetails(data[i], (Int32.TryParse(data[i + 1], out int tempInt) ? tempInt : 0), data[i + 2]));
+                returnMe.AddLast(new AvailableRemoteSourceDetails(sources[i].Name, (sources[i].Year != null ? (int)sources[i].Year : 0), sources[i].Link));
             }
 
             return returnMe;

@@ -49,7 +49,13 @@ namespace WorldCupLib
         static WorldCupRepoBroker()
         {
             lock (fileDetailsOperationsLock)
-                mainDirFSMonitor = new(baseFilesDir, true, 100, new(ChangeOnMainEventTriggered), new(CriticalErrorOnMainEventTriggered), new(CriticalErrorOnMainEventTriggered));
+            {
+                lock (httpClientOperationsLock)
+                {
+                    ChangeOnMainEventTriggered(); // reentrant locks my beloved
+                    mainDirFSMonitor = new(baseFilesDir, true, 100, new(ChangeOnMainEventTriggered), new(CriticalErrorOnMainEventTriggered), new(CriticalErrorOnMainEventTriggered));
+                }
+            }
         }
 
         private static void ChangeOnMainEventTriggered()
@@ -65,7 +71,6 @@ namespace WorldCupLib
         
         private static void SubChangedEventTriggered()
         {
-
             var currTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
             // We'll want to aggregate these triggers.
@@ -258,7 +263,10 @@ namespace WorldCupLib
         internal static void LoadAPISources()
         {
             lock (httpClientOperationsLock)
-                availableRemoteSources = AvailableRemoteSourceDetails.GetAllFromFile(baseFilesDir + remoteSourceLinks);
+                try
+                {
+                    availableRemoteSources = AvailableRemoteSourceDetails.GetAllFromFile(baseFilesDir + remoteSourceLinks);
+                } catch (Exception){}
 
             OnAPISourcesLoaded.SafeTrigger();
         }

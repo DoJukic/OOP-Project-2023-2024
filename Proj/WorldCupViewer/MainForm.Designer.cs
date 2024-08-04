@@ -1,4 +1,6 @@
-﻿namespace WorldCupViewer
+﻿using WorldCupViewer.UserControls;
+
+namespace WorldCupViewer
 {
     partial class MainForm
     {
@@ -35,11 +37,10 @@
             dataSelectRightPanel = new Panel();
             panel5 = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
-            groupBox2 = new GroupBox();
-            flowLayoutPanel2 = new FlowLayoutPanel();
-            groupBox1 = new GroupBox();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            label1 = new Label();
+            localDataSourcesGroupBox = new MultilingualGroupBox();
+            dataSelectLocalSourcesPanel = new Panel();
+            remoteDataSourcesGroupBox = new MultilingualGroupBox();
+            label1 = new MultilingualLabel();
             dataSelectLeftPanel = new Panel();
             panel3 = new Panel();
             panel4 = new Panel();
@@ -49,14 +50,14 @@
             languageSelectLabel = new Label();
             languageSelectComboBox = new ComboBox();
             tabPage2 = new TabPage();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             mainTabControl.SuspendLayout();
             dataSelectTab.SuspendLayout();
             dataSelectTableLayout.SuspendLayout();
             dataSelectRightPanel.SuspendLayout();
             panel5.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
-            groupBox2.SuspendLayout();
-            groupBox1.SuspendLayout();
+            localDataSourcesGroupBox.SuspendLayout();
             dataSelectLeftPanel.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -142,8 +143,8 @@
             // 
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Controls.Add(groupBox2, 0, 1);
-            tableLayoutPanel1.Controls.Add(groupBox1, 0, 0);
+            tableLayoutPanel1.Controls.Add(localDataSourcesGroupBox, 0, 1);
+            tableLayoutPanel1.Controls.Add(remoteDataSourcesGroupBox, 0, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(3, 26);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -154,58 +155,54 @@
             tableLayoutPanel1.Size = new Size(381, 363);
             tableLayoutPanel1.TabIndex = 2;
             // 
-            // groupBox2
+            // localDataSourcesGroupBox
             // 
-            groupBox2.Controls.Add(flowLayoutPanel2);
-            groupBox2.Dock = DockStyle.Fill;
-            groupBox2.Location = new Point(3, 184);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(375, 176);
-            groupBox2.TabIndex = 3;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Local";
+            localDataSourcesGroupBox.CharacterCasing = CharacterCasing.Normal;
+            localDataSourcesGroupBox.Controls.Add(dataSelectLocalSourcesPanel);
+            localDataSourcesGroupBox.Dock = DockStyle.Fill;
+            localDataSourcesGroupBox.Localization = Localization.LocalizationOptions.Local;
+            localDataSourcesGroupBox.Location = new Point(3, 184);
+            localDataSourcesGroupBox.Name = "localDataSourcesGroupBox";
+            localDataSourcesGroupBox.PreceedingText = "";
+            localDataSourcesGroupBox.Size = new Size(375, 176);
+            localDataSourcesGroupBox.SucceedingText = "";
+            localDataSourcesGroupBox.TabIndex = 3;
+            localDataSourcesGroupBox.TabStop = false;
             // 
-            // flowLayoutPanel2
+            // dataSelectLocalSourcesPanel
             // 
-            flowLayoutPanel2.AutoScroll = true;
-            flowLayoutPanel2.Dock = DockStyle.Fill;
-            flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel2.Location = new Point(3, 19);
-            flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(369, 154);
-            flowLayoutPanel2.TabIndex = 2;
-            flowLayoutPanel2.WrapContents = false;
+            dataSelectLocalSourcesPanel.AutoScroll = true;
+            dataSelectLocalSourcesPanel.BackColor = Color.White;
+            dataSelectLocalSourcesPanel.Dock = DockStyle.Fill;
+            dataSelectLocalSourcesPanel.Location = new Point(3, 19);
+            dataSelectLocalSourcesPanel.Name = "dataSelectLocalSourcesPanel";
+            dataSelectLocalSourcesPanel.Size = new Size(369, 154);
+            dataSelectLocalSourcesPanel.TabIndex = 0;
             // 
-            // groupBox1
+            // remoteDataSourcesGroupBox
             // 
-            groupBox1.Controls.Add(flowLayoutPanel1);
-            groupBox1.Dock = DockStyle.Fill;
-            groupBox1.Location = new Point(3, 3);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(375, 175);
-            groupBox1.TabIndex = 2;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Remote";
-            // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(3, 19);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(369, 153);
-            flowLayoutPanel1.TabIndex = 2;
-            flowLayoutPanel1.WrapContents = false;
+            remoteDataSourcesGroupBox.CharacterCasing = CharacterCasing.Normal;
+            remoteDataSourcesGroupBox.Dock = DockStyle.Fill;
+            remoteDataSourcesGroupBox.Localization = Localization.LocalizationOptions.Remote;
+            remoteDataSourcesGroupBox.Location = new Point(3, 3);
+            remoteDataSourcesGroupBox.Name = "remoteDataSourcesGroupBox";
+            remoteDataSourcesGroupBox.PreceedingText = "";
+            remoteDataSourcesGroupBox.Size = new Size(375, 175);
+            remoteDataSourcesGroupBox.SucceedingText = "";
+            remoteDataSourcesGroupBox.TabIndex = 2;
+            remoteDataSourcesGroupBox.TabStop = false;
             // 
             // label1
             // 
+            label1.CharacterCasing = CharacterCasing.Normal;
             label1.Dock = DockStyle.Top;
+            label1.Localization = Localization.LocalizationOptions.DataSources;
             label1.Location = new Point(3, 3);
             label1.Name = "label1";
+            label1.PreceedingText = "";
             label1.Size = new Size(381, 23);
+            label1.SucceedingText = "";
             label1.TabIndex = 0;
-            label1.Text = "Data Sources:";
             label1.TextAlign = ContentAlignment.BottomCenter;
             // 
             // dataSelectLeftPanel
@@ -294,11 +291,13 @@
             // languageSelectComboBox
             // 
             languageSelectComboBox.Anchor = AnchorStyles.Left;
+            languageSelectComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             languageSelectComboBox.FormattingEnabled = true;
             languageSelectComboBox.Location = new Point(196, 4);
             languageSelectComboBox.Name = "languageSelectComboBox";
-            languageSelectComboBox.Size = new Size(121, 23);
+            languageSelectComboBox.Size = new Size(95, 23);
             languageSelectComboBox.TabIndex = 1;
+            languageSelectComboBox.SelectedIndexChanged += languageSelectComboBox_SelectedIndexChanged;
             // 
             // tabPage2
             // 
@@ -317,7 +316,8 @@
             ClientSize = new Size(800, 450);
             Controls.Add(mainTabControl);
             Controls.Add(statusStrip);
-            MinimumSize = new Size(600, 400);
+            DoubleBuffered = true;
+            MinimumSize = new Size(800, 475);
             Name = "MainForm";
             Text = "WorldCupViewer";
             mainTabControl.ResumeLayout(false);
@@ -326,8 +326,7 @@
             dataSelectRightPanel.ResumeLayout(false);
             panel5.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
-            groupBox2.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
+            localDataSourcesGroupBox.ResumeLayout(false);
             dataSelectLeftPanel.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel2.ResumeLayout(false);
@@ -356,10 +355,10 @@
         private Panel panel4;
         private Panel panel5;
         private TableLayoutPanel tableLayoutPanel1;
-        private GroupBox groupBox2;
-        private FlowLayoutPanel flowLayoutPanel2;
-        private GroupBox groupBox1;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private Label label1;
+        private MultilingualLabel label1;
+        private MultilingualGroupBox localDataSourcesGroupBox;
+        private MultilingualGroupBox remoteDataSourcesGroupBox;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private Panel dataSelectLocalSourcesPanel;
     }
 }

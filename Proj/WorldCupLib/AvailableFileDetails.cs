@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WorldCupLib.Deserialize;
 using WorldCupLib.Utility;
 
 namespace WorldCupLib
@@ -78,27 +79,27 @@ namespace WorldCupLib
             {
                 ID = new DirectoryInfo(directoryPath).Name;
 
-                var lines = PatientFileAccessor.ReadAllLines(directoryPath + realtiveFilePath);
+                var data = PatientFileAccessor.ReadAllText(directoryPath + realtiveFilePath);
+                var info = LocalDataSource.FromJson(data ?? "");
 
-                name = lines[0];
-                year = Int32.Parse(lines[1]);
-                remoteLink = lines[2];
+                name = info.Name;
+                year = info.Year ?? 0;
+                remoteLink = info.RemoteLink;
             }
             catch (Exception)
             {
                 infoFileValid = false;
             }
 
+            if (name == null || name == "ERROR" || remoteLink == null || remoteLink == "ERROR")
+                infoFileValid = false;
+
             return new(ID, name, year, infoFileValid, fileStructureValid, jsonValid, remoteLink);
         }
 
         public void WriteToDirectory(string directoryPath)
         {
-            String _name = Name;
-            String _year = Year.ToString();
-            String _remoteLink = RemoteLink;
-
-            File.WriteAllLines(directoryPath + realtiveFilePath, new string[] { _name, _year, _remoteLink });
+            File.WriteAllText(directoryPath + realtiveFilePath, LocalDataSource.ToJson(new() { Name = this.Name, Year = this.Year, RemoteLink = this.RemoteLink}));
         }
 
         public Task<IWorldCupDataRepo?> BeginGetAssociatedDataRepo()
