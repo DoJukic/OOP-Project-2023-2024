@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WorldCupLib
+namespace TooManyUtils
 {
 
     /// <summary>
@@ -34,7 +34,7 @@ namespace WorldCupLib
             }
         }
 
-        internal void SafeTrigger() { Task.Run(this.Trigger).ConfigureAwait(false); }
+        public void SafeTrigger() { Task.Run(this.Trigger).ConfigureAwait(false); }
         public void Trigger()
         {
             lock (theLock)

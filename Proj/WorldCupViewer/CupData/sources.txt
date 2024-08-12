@@ -2,11 +2,13 @@
 	{
 		"name" : "Men's World Cup",
 		"year" : 2018,
-		"link" : "https://worldcup-vua.nullbit.hr/men"
+		"link" : "https://worldcup-vua.nullbit.hr/men",
+		"internalImageID" : "FifaWorldCup2018Men"
 	},
 	{
 		"name" : "Women's World Cup",
 		"year" : 2019,
-		"link" : "https://worldcup-vua.nullbit.hr/women"
+		"link" : "https://worldcup-vua.nullbit.hr/women",
+		"internalImageID" : "FifaWorldCup2019Women"
 	}
 ]

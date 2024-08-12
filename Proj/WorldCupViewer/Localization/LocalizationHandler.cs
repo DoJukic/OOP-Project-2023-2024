@@ -6,6 +6,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using SharedDataLib;
 using WorldCupViewer.Properties;
 using WorldCupViewer.Resources;
 
@@ -26,7 +27,8 @@ namespace WorldCupViewer.Localization
         Data,
         Wait,
         Okay,
-        Error
+        Error,
+        Download
     }
 
     /// <summary>
@@ -36,10 +38,6 @@ namespace WorldCupViewer.Localization
     {
         private static event Action? OnLocalizationChanged;
         private static CultureInfo currentCultureInfo;
-
-        // Magic strings :(
-        public static readonly string CULTURE_HR = "hr";
-        public static readonly string CULTURE_EN = "en";
 
         public static string GetCurrentLocOptionsString(LocalizationOptions link)
         {
@@ -59,13 +57,14 @@ namespace WorldCupViewer.Localization
                 LocalizationOptions.Wait => Resource.LOC_Wait,
                 LocalizationOptions.Okay => Resource.LOC_Okay,
                 LocalizationOptions.Error => Resource.LOC_Error,
+                LocalizationOptions.Download => Resource.LOC_Download,
                 _ => throw new NotImplementedException(),
             };
         }
 
         static LocalizationHandler()
         {
-            currentCultureInfo = new(CULTURE_EN);
+            currentCultureInfo = SupportedLanguages.GetDefaultSupportedLanguageInfo().culture;
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 {
 	"name" : "DELTA DELTA DELTA",
-	"year" : 2011
+	"year" : 2011,
+	"internalImageID" : "FifaWorldCup2018Men"
 }

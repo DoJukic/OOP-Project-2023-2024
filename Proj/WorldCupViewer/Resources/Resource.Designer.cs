@@ -97,6 +97,15 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Download.
+        /// </summary>
+        internal static string LOC_Download {
+            get {
+                return ResourceManager.GetString("LOC_Download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Error.
         /// </summary>
         internal static string LOC_Error {

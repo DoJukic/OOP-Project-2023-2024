@@ -1,6 +1,6 @@
 ﻿namespace WorldCupViewer.UserControls
 {
-    partial class SelectableFileDataSource_v2
+    partial class LocalCupDataSource
     {
         /// <summary> 
         /// Required designer variable.
@@ -72,6 +72,7 @@
             titleLabel.Size = new Size(207, 50);
             titleLabel.TabIndex = 1;
             titleLabel.Text = "Name + Year here";
+            titleLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel1
             // 
@@ -116,6 +117,7 @@
             mainPictureBox.Location = new Point(3, 3);
             mainPictureBox.Name = "mainPictureBox";
             mainPictureBox.Size = new Size(50, 50);
+            mainPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             mainPictureBox.TabIndex = 11;
             mainPictureBox.TabStop = false;
             // 
@@ -251,7 +253,7 @@
             infoStatusLabel.TabIndex = 4;
             infoStatusLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // SelectableFileDataSource_v2
+            // LocalCupDataSource
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -259,7 +261,7 @@
             Controls.Add(tableLayoutPanel1);
             Controls.Add(mainPictureBox);
             MinimumSize = new Size(255, 90);
-            Name = "SelectableFileDataSource_v2";
+            Name = "LocalCupDataSource";
             Size = new Size(350, 90);
             tableLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);

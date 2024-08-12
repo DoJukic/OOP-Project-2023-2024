@@ -129,6 +129,9 @@
   <data name="LOC_Delete" xml:space="preserve">
     <value>Izbriši</value>
   </data>
+  <data name="LOC_Download" xml:space="preserve">
+    <value>Preuzmi</value>
+  </data>
   <data name="LOC_Error" xml:space="preserve">
     <value>Greška</value>
   </data>

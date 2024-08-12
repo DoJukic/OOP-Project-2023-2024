@@ -1,4 +1,4 @@
-﻿using WorldCupLib.Utility;
+﻿using TooManyUtils;
 using System.Collections.ObjectModel;
 
 namespace WorldCupLib
@@ -45,11 +45,14 @@ namespace WorldCupLib
             this.goalsAgainst = goalsAgainst ?? 0;
             this._sortedMatches = matches ?? new();
         }
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         // for CompareTo ONLY
         public CupTeam(string fifaCode)
         {
             this.fifaCode = fifaCode;
         }
+#pragma warning restore CS8618
 
         public int CompareTo(CupTeam? other)
         {

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static WorldCupLib.WorldCupRepoBroker;
 
-namespace WorldCupLib.Utility
+namespace TooManyUtils
 {
-    internal class FileSystemMonitor : IDisposable
+    public class FileSystemMonitor : IDisposable
     {
         public readonly string targetPath;
         public readonly bool isSurfaceLevel;
@@ -23,12 +22,12 @@ namespace WorldCupLib.Utility
         public ThreadLockedEvent OnErrorOccured;
         public ThreadLockedEvent OnTargetFileDeleted;
 
-        public FileSystemMonitor(string targetPath, bool isSurfaceLevel = false, long targetRefreshTime = 100,
+        public FileSystemMonitor(string targetPath, bool isSurfaceLevel = false, long targetRefreshTimeMs = 100,
             ThreadLockedEvent? OnFilesystemChangeDetected = null, ThreadLockedEvent? OnErrorOccured = null, ThreadLockedEvent? OnTargetFileDeleted = null)
         {
             this.targetPath = targetPath;
             this.isSurfaceLevel = isSurfaceLevel;
-            this.targetRefreshTime = targetRefreshTime;
+            this.targetRefreshTime = targetRefreshTimeMs;
 
             OnSnapshotStateChanged = OnFilesystemChangeDetected ?? new();
             this.OnErrorOccured = OnErrorOccured ?? new();

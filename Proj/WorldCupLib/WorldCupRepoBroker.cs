@@ -1,5 +1,5 @@
 ﻿using WorldCupLib.Deserialize;
-using WorldCupLib.Utility;
+using TooManyUtils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -162,7 +162,7 @@ namespace WorldCupLib
         /// <summary>
         /// Gets data and saves it in the standard folder, if you are subscribed to the details changed event you will get auto-notified once the changes are detected. Returns false if already busy.
         /// </summary>
-        public static Task<bool> BeginFetchRepoFromAPI(String link, String name = "", int year = 0)
+        public static Task<bool> BeginFetchRepoFromAPI(String link, String name = "", int year = 0, String internalImageID = "")
         {
             return Task.Run(() =>
             {
@@ -188,10 +188,8 @@ namespace WorldCupLib
                         jsonMatches.Wait();
                         jsonGroupResults.Wait();
 
-                        IEnumerable<AvailableFileDetails> deets = GetAvailableFileDetails();
-
                         long maxValue = 0;
-                        foreach (var deet in deets)
+                        foreach (var deet in GetAvailableFileDetails())
                         {
                             long result = 0;
                             if (Int64.TryParse(deet.ID, out result))
@@ -205,7 +203,7 @@ namespace WorldCupLib
                         File.WriteAllText(directoryTarget + allFilesGroupResultsRelativeLoc, jsonGroupResults.Result);
                         File.WriteAllText(directoryTarget + allFilesMatchesRelativeLoc, jsonMatches.Result);
 
-                        AvailableFileDetails AFD = new((maxValue + 1).ToString(), name, year, link);
+                        AvailableFileDetails AFD = new((maxValue + 1).ToString(), name, year, link, internalImageID);
                         AFD.WriteToDirectory(directoryTarget);
                     }
                     catch (Exception)
@@ -285,13 +283,26 @@ namespace WorldCupLib
             }).ConfigureAwait(false);
         }
 
-        public static Task<IWorldCupDataRepo?> BeginGetRepoByIDAsync(String id)
+        public static Task<IWorldCupDataRepo?> BeginGetRepoByID(String id)
         {
             return Task.Run(() =>
             {
                 bool noErrors = true;
                 return GetRepoFromFolder(baseFilesDir + "/" + id, ref noErrors);
             });
+        }
+
+        public static bool TryDeleteRepoByID(String id)
+        {
+            try
+            {
+                Directory.Delete(baseFilesDir + "/" + id, true);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         internal static IWorldCupDataRepo? GetRepoFromFolder(String path, ref bool noErrors)

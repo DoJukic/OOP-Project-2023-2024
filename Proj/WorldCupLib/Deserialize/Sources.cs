@@ -30,11 +30,15 @@ namespace WorldCupLib.Deserialize
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("link")]
         public string Link { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("internalImageID")]
+        public string InternalImageID { get; set; }
     }
 
     public partial class RemoteDataSource
     {
-        public static List<RemoteDataSource> FromJson(string json) => JsonSerializer.Deserialize<List<RemoteDataSource>>(json, WorldCupLib.Deserialize.Converter.Settings);
+        public static List<RemoteDataSource> FromJson(string json) => JsonSerializer.Deserialize<List<RemoteDataSource>>(json, TooManyUtils.JsonConverters.Settings);
     }
 }
 #pragma warning restore CS8618

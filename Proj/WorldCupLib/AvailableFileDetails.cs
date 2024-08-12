@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WorldCupLib.Deserialize;
-using WorldCupLib.Utility;
+using TooManyUtils;
 
 namespace WorldCupLib
 {
@@ -21,6 +21,7 @@ namespace WorldCupLib
         internal bool? jsonValid;
 
         internal String remoteLink;
+        private String internalImageID;
 
         public string ID { get => id; }
         public string Name { get => name; }
@@ -31,8 +32,9 @@ namespace WorldCupLib
         public bool? JsonValid { get => jsonValid; }
 
         public string RemoteLink { get => remoteLink; }
+        public string InternalImageID { get => internalImageID; }
 
-        private AvailableFileDetails(String ID, String? name, int year, bool infoFileValid, bool? fileStructureValid, bool? jsonValid, String? remoteLink)
+        private AvailableFileDetails(String ID, String? name, int year, bool infoFileValid, bool? fileStructureValid, bool? jsonValid, String? remoteLink, String? internalImageID)
         {
             this.id = ID;
             this.name = name ?? "ERROR";
@@ -43,6 +45,7 @@ namespace WorldCupLib
             this.jsonValid = jsonValid;
 
             this.remoteLink = remoteLink ?? "";
+            this.internalImageID = internalImageID ?? "";
         }
         public AvailableFileDetails(AvailableFileDetails copyTarget)
         {
@@ -55,14 +58,16 @@ namespace WorldCupLib
             this.jsonValid = copyTarget.JsonValid;
 
             this.remoteLink = copyTarget.RemoteLink ?? "";
+            this.internalImageID = copyTarget.InternalImageID ?? "";
         }
-        public AvailableFileDetails(String ID, String? name, int year, String? remoteLink)
+        public AvailableFileDetails(String ID, String? name, int year, String? remoteLink, String? internalImageID)
         {
             this.id = ID;
             this.name = name ?? "ERROR";
             this.year = year;
 
             this.remoteLink = remoteLink ?? "";
+            this.internalImageID = internalImageID ?? "";
         }
 
         public static AvailableFileDetails ReadFromDirectory(string directoryPath)
@@ -74,6 +79,7 @@ namespace WorldCupLib
             bool? fileStructureValid = null;
             bool? jsonValid = null;
             String remoteLink = "ERROR";
+            String? InternalImageID = null;
 
             try
             {
@@ -85,26 +91,33 @@ namespace WorldCupLib
                 name = info.Name;
                 year = info.Year ?? 0;
                 remoteLink = info.RemoteLink;
+                InternalImageID = info.InternalImageID;
             }
             catch (Exception)
             {
                 infoFileValid = false;
             }
 
-            if (name == null || name == "ERROR" || remoteLink == null || remoteLink == "ERROR")
+            if (name == null || name == "ERROR" || remoteLink == null || remoteLink == "ERROR" || InternalImageID == null)
                 infoFileValid = false;
 
-            return new(ID, name, year, infoFileValid, fileStructureValid, jsonValid, remoteLink);
+            return new(ID, name, year, infoFileValid, fileStructureValid, jsonValid, remoteLink, InternalImageID);
         }
 
         public void WriteToDirectory(string directoryPath)
         {
-            File.WriteAllText(directoryPath + realtiveFilePath, LocalDataSource.ToJson(new() { Name = this.Name, Year = this.Year, RemoteLink = this.RemoteLink}));
+            File.WriteAllText(directoryPath + realtiveFilePath, LocalDataSource.ToJson(
+                new() { Name = this.Name, Year = this.Year, RemoteLink = this.RemoteLink, InternalImageID = this.InternalImageID}));
         }
 
         public Task<IWorldCupDataRepo?> BeginGetAssociatedDataRepo()
         {
-            return WorldCupRepoBroker.BeginGetRepoByIDAsync(this.ID);
+            return WorldCupRepoBroker.BeginGetRepoByID(this.ID);
+        }
+
+        public bool TryDelete()
+        {
+            return WorldCupRepoBroker.TryDeleteRepoByID(this.ID);
         }
     }
 
@@ -121,7 +134,14 @@ namespace WorldCupLib
         public ThreadLockedEvent OnDetailsChanged;
         public ThreadLockedEvent OnDisposed;
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private AvailableFileDetailsUpdater() { }
+
+        public AvailableFileDetailsUpdater(String targetDirPath, ThreadLockedEvent? OnDetailsChanged = null, ThreadLockedEvent? OnDisposed = null)
+        {
+            this.Init(targetDirPath, OnDetailsChanged, OnDisposed);
+        }
+#pragma warning restore CS8618
 
         /*
         OK SO
@@ -131,11 +151,6 @@ namespace WorldCupLib
         public static AvailableFileDetailsUpdater GetInstanceWithoutInit()
         {
             return new();
-        }
-
-        public AvailableFileDetailsUpdater(String targetDirPath, ThreadLockedEvent? OnDetailsChanged = null, ThreadLockedEvent? OnDisposed = null)
-        {
-            this.Init(targetDirPath, OnDetailsChanged, OnDisposed);
         }
 
         public bool Init(String targetDirPath, ThreadLockedEvent? OnDetailsChanged = null, ThreadLockedEvent? OnDisposed = null)

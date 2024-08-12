@@ -51,6 +51,7 @@ namespace WorldCupViewer
             languageSelectComboBox = new ComboBox();
             tabPage2 = new TabPage();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            dataSelectRemoteSourcesPanel = new Panel();
             mainTabControl.SuspendLayout();
             dataSelectTab.SuspendLayout();
             dataSelectTableLayout.SuspendLayout();
@@ -58,6 +59,7 @@ namespace WorldCupViewer
             panel5.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             localDataSourcesGroupBox.SuspendLayout();
+            remoteDataSourcesGroupBox.SuspendLayout();
             dataSelectLeftPanel.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -67,9 +69,9 @@ namespace WorldCupViewer
             // 
             // statusStrip
             // 
-            statusStrip.Location = new Point(0, 428);
+            statusStrip.Location = new Point(0, 489);
             statusStrip.Name = "statusStrip";
-            statusStrip.Size = new Size(800, 22);
+            statusStrip.Size = new Size(784, 22);
             statusStrip.TabIndex = 0;
             statusStrip.Text = "statusStrip1";
             // 
@@ -83,7 +85,7 @@ namespace WorldCupViewer
             mainTabControl.Name = "mainTabControl";
             mainTabControl.Padding = new Point(0, 0);
             mainTabControl.SelectedIndex = 0;
-            mainTabControl.Size = new Size(800, 428);
+            mainTabControl.Size = new Size(784, 489);
             mainTabControl.TabIndex = 1;
             // 
             // dataSelectTab
@@ -92,17 +94,17 @@ namespace WorldCupViewer
             dataSelectTab.Location = new Point(4, 24);
             dataSelectTab.Margin = new Padding(0);
             dataSelectTab.Name = "dataSelectTab";
-            dataSelectTab.Size = new Size(792, 400);
+            dataSelectTab.Size = new Size(776, 461);
             dataSelectTab.TabIndex = 0;
-            dataSelectTab.Text = "Data Select / Config";
+            dataSelectTab.Text = "Data Select Slash Config";
             dataSelectTab.UseVisualStyleBackColor = true;
             // 
             // dataSelectTableLayout
             // 
             dataSelectTableLayout.ColumnCount = 3;
-            dataSelectTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            dataSelectTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
             dataSelectTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 3F));
-            dataSelectTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            dataSelectTableLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
             dataSelectTableLayout.Controls.Add(dataSelectRightPanel, 2, 0);
             dataSelectTableLayout.Controls.Add(dataSelectLeftPanel, 0, 0);
             dataSelectTableLayout.Dock = DockStyle.Fill;
@@ -111,19 +113,18 @@ namespace WorldCupViewer
             dataSelectTableLayout.Name = "dataSelectTableLayout";
             dataSelectTableLayout.RowCount = 1;
             dataSelectTableLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            dataSelectTableLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            dataSelectTableLayout.Size = new Size(792, 400);
+            dataSelectTableLayout.Size = new Size(776, 461);
             dataSelectTableLayout.TabIndex = 0;
             // 
             // dataSelectRightPanel
             // 
             dataSelectRightPanel.Controls.Add(panel5);
             dataSelectRightPanel.Dock = DockStyle.Fill;
-            dataSelectRightPanel.Location = new Point(397, 0);
+            dataSelectRightPanel.Location = new Point(312, 0);
             dataSelectRightPanel.Margin = new Padding(0);
             dataSelectRightPanel.Name = "dataSelectRightPanel";
             dataSelectRightPanel.Padding = new Padding(3);
-            dataSelectRightPanel.Size = new Size(395, 400);
+            dataSelectRightPanel.Size = new Size(464, 461);
             dataSelectRightPanel.TabIndex = 5;
             // 
             // panel5
@@ -136,7 +137,7 @@ namespace WorldCupViewer
             panel5.Margin = new Padding(0);
             panel5.Name = "panel5";
             panel5.Padding = new Padding(3);
-            panel5.Size = new Size(389, 394);
+            panel5.Size = new Size(458, 455);
             panel5.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -149,10 +150,9 @@ namespace WorldCupViewer
             tableLayoutPanel1.Location = new Point(3, 26);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(381, 363);
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 67F));
+            tableLayoutPanel1.Size = new Size(450, 424);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // localDataSourcesGroupBox
@@ -161,10 +161,11 @@ namespace WorldCupViewer
             localDataSourcesGroupBox.Controls.Add(dataSelectLocalSourcesPanel);
             localDataSourcesGroupBox.Dock = DockStyle.Fill;
             localDataSourcesGroupBox.Localization = Localization.LocalizationOptions.Local;
-            localDataSourcesGroupBox.Location = new Point(3, 184);
+            localDataSourcesGroupBox.Location = new Point(1, 140);
+            localDataSourcesGroupBox.Margin = new Padding(1);
             localDataSourcesGroupBox.Name = "localDataSourcesGroupBox";
             localDataSourcesGroupBox.PreceedingText = "";
-            localDataSourcesGroupBox.Size = new Size(375, 176);
+            localDataSourcesGroupBox.Size = new Size(448, 283);
             localDataSourcesGroupBox.SucceedingText = "";
             localDataSourcesGroupBox.TabIndex = 3;
             localDataSourcesGroupBox.TabStop = false;
@@ -176,18 +177,20 @@ namespace WorldCupViewer
             dataSelectLocalSourcesPanel.Dock = DockStyle.Fill;
             dataSelectLocalSourcesPanel.Location = new Point(3, 19);
             dataSelectLocalSourcesPanel.Name = "dataSelectLocalSourcesPanel";
-            dataSelectLocalSourcesPanel.Size = new Size(369, 154);
+            dataSelectLocalSourcesPanel.Padding = new Padding(3);
+            dataSelectLocalSourcesPanel.Size = new Size(442, 261);
             dataSelectLocalSourcesPanel.TabIndex = 0;
             // 
             // remoteDataSourcesGroupBox
             // 
             remoteDataSourcesGroupBox.CharacterCasing = CharacterCasing.Normal;
+            remoteDataSourcesGroupBox.Controls.Add(dataSelectRemoteSourcesPanel);
             remoteDataSourcesGroupBox.Dock = DockStyle.Fill;
             remoteDataSourcesGroupBox.Localization = Localization.LocalizationOptions.Remote;
             remoteDataSourcesGroupBox.Location = new Point(3, 3);
             remoteDataSourcesGroupBox.Name = "remoteDataSourcesGroupBox";
             remoteDataSourcesGroupBox.PreceedingText = "";
-            remoteDataSourcesGroupBox.Size = new Size(375, 175);
+            remoteDataSourcesGroupBox.Size = new Size(444, 133);
             remoteDataSourcesGroupBox.SucceedingText = "";
             remoteDataSourcesGroupBox.TabIndex = 2;
             remoteDataSourcesGroupBox.TabStop = false;
@@ -200,7 +203,7 @@ namespace WorldCupViewer
             label1.Location = new Point(3, 3);
             label1.Name = "label1";
             label1.PreceedingText = "";
-            label1.Size = new Size(381, 23);
+            label1.Size = new Size(450, 23);
             label1.SucceedingText = "";
             label1.TabIndex = 0;
             label1.TextAlign = ContentAlignment.BottomCenter;
@@ -213,7 +216,7 @@ namespace WorldCupViewer
             dataSelectLeftPanel.Location = new Point(0, 0);
             dataSelectLeftPanel.Margin = new Padding(0);
             dataSelectLeftPanel.Name = "dataSelectLeftPanel";
-            dataSelectLeftPanel.Size = new Size(394, 400);
+            dataSelectLeftPanel.Size = new Size(309, 461);
             dataSelectLeftPanel.TabIndex = 0;
             // 
             // panel3
@@ -224,7 +227,7 @@ namespace WorldCupViewer
             panel3.Margin = new Padding(0);
             panel3.Name = "panel3";
             panel3.Padding = new Padding(3);
-            panel3.Size = new Size(394, 360);
+            panel3.Size = new Size(309, 421);
             panel3.TabIndex = 5;
             // 
             // panel4
@@ -235,7 +238,7 @@ namespace WorldCupViewer
             panel4.Location = new Point(3, 3);
             panel4.Margin = new Padding(0);
             panel4.Name = "panel4";
-            panel4.Size = new Size(388, 354);
+            panel4.Size = new Size(303, 415);
             panel4.TabIndex = 0;
             // 
             // panel2
@@ -246,7 +249,7 @@ namespace WorldCupViewer
             panel2.Margin = new Padding(0);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(3);
-            panel2.Size = new Size(394, 40);
+            panel2.Size = new Size(309, 40);
             panel2.TabIndex = 4;
             // 
             // panel1
@@ -257,7 +260,7 @@ namespace WorldCupViewer
             panel1.Location = new Point(3, 3);
             panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(388, 34);
+            panel1.Size = new Size(303, 34);
             panel1.TabIndex = 4;
             // 
             // languageTableLayoutPanel
@@ -274,14 +277,14 @@ namespace WorldCupViewer
             languageTableLayoutPanel.RowCount = 1;
             languageTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             languageTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            languageTableLayoutPanel.Size = new Size(386, 32);
+            languageTableLayoutPanel.Size = new Size(301, 32);
             languageTableLayoutPanel.TabIndex = 3;
             // 
             // languageSelectLabel
             // 
             languageSelectLabel.Anchor = AnchorStyles.Right;
             languageSelectLabel.AutoSize = true;
-            languageSelectLabel.Location = new Point(93, 8);
+            languageSelectLabel.Location = new Point(50, 8);
             languageSelectLabel.Name = "languageSelectLabel";
             languageSelectLabel.Size = new Size(97, 15);
             languageSelectLabel.TabIndex = 0;
@@ -293,7 +296,7 @@ namespace WorldCupViewer
             languageSelectComboBox.Anchor = AnchorStyles.Left;
             languageSelectComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             languageSelectComboBox.FormattingEnabled = true;
-            languageSelectComboBox.Location = new Point(196, 4);
+            languageSelectComboBox.Location = new Point(153, 4);
             languageSelectComboBox.Name = "languageSelectComboBox";
             languageSelectComboBox.Size = new Size(95, 23);
             languageSelectComboBox.TabIndex = 1;
@@ -304,20 +307,30 @@ namespace WorldCupViewer
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(792, 400);
+            tabPage2.Size = new Size(776, 461);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
+            tabPage2.Text = "tabPageTheSecond";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dataSelectRemoteSourcesPanel
+            // 
+            dataSelectRemoteSourcesPanel.AutoScroll = true;
+            dataSelectRemoteSourcesPanel.BackColor = Color.White;
+            dataSelectRemoteSourcesPanel.Dock = DockStyle.Fill;
+            dataSelectRemoteSourcesPanel.Location = new Point(3, 19);
+            dataSelectRemoteSourcesPanel.Name = "dataSelectRemoteSourcesPanel";
+            dataSelectRemoteSourcesPanel.Padding = new Padding(3);
+            dataSelectRemoteSourcesPanel.Size = new Size(438, 111);
+            dataSelectRemoteSourcesPanel.TabIndex = 1;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(784, 511);
             Controls.Add(mainTabControl);
             Controls.Add(statusStrip);
-            DoubleBuffered = true;
-            MinimumSize = new Size(800, 475);
+            MinimumSize = new Size(650, 400);
             Name = "MainForm";
             Text = "WorldCupViewer";
             mainTabControl.ResumeLayout(false);
@@ -327,6 +340,7 @@ namespace WorldCupViewer
             panel5.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             localDataSourcesGroupBox.ResumeLayout(false);
+            remoteDataSourcesGroupBox.ResumeLayout(false);
             dataSelectLeftPanel.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel2.ResumeLayout(false);
@@ -353,12 +367,13 @@ namespace WorldCupViewer
         private ComboBox languageSelectComboBox;
         private Panel panel3;
         private Panel panel4;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Panel panel5;
         private TableLayoutPanel tableLayoutPanel1;
-        private MultilingualLabel label1;
         private MultilingualGroupBox localDataSourcesGroupBox;
-        private MultilingualGroupBox remoteDataSourcesGroupBox;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Panel dataSelectLocalSourcesPanel;
+        private MultilingualGroupBox remoteDataSourcesGroupBox;
+        private MultilingualLabel label1;
+        private Panel dataSelectRemoteSourcesPanel;
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WorldCupLib.Utility
+namespace TooManyUtils
 {
-    internal static class PatientFileAccessor
+    public static class PatientFileAccessor
     {
         /// <summary>
         /// ATTENTION: this WILL make the thread sleep a bit. You have been warned.

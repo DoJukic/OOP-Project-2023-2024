@@ -1,5 +1,5 @@
 ﻿using WorldCupLib.Deserialize;
-using WorldCupLib.Utility;
+using TooManyUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,7 +68,7 @@ namespace WorldCupLib
                     CupMatchTeamInfo cupAwayInfo = new(awayTeam, match.AwayTeam.Goals, match.AwayTeam.Penalties);
                     CupMatchTeamStatistics cupAwayStatistics = convertMatchTeamStatisticsToCupMatchTeamStatistics(match.AwayTeamStatistics, awayTeam);
 
-                    CupMatch cupMatch = new(match.Venue, match.Location, match.Status, match.Time, match.FifaId?.ToString(), cupWeather,
+                    CupMatch cupMatch = new(match.Venue, match.Location, match.Status, match.Time, match.FifaId.ToString(), cupWeather,
                         match.Attendance, match.Officials.ToList(), match.StageName, cupHomeInfo, cupHomeStatistics, cupAwayInfo, cupAwayStatistics,
                         chickenDinner, match.Datetime, match.LastEventUpdateAt, match.LastScoreUpdateAt);
 
@@ -87,7 +87,7 @@ namespace WorldCupLib
                         cupPlayer._sortedMatches.Add(cupMatch);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 noErrors = false;
             }

@@ -129,6 +129,9 @@
   <data name="LOC_Delete" xml:space="preserve">
     <value>LOC_Delete</value>
   </data>
+  <data name="LOC_Download" xml:space="preserve">
+    <value>LOC_Download</value>
+  </data>
   <data name="LOC_Error" xml:space="preserve">
     <value>LOC_Error</value>
   </data>

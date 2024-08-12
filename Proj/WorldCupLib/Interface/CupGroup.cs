@@ -1,4 +1,4 @@
-﻿using WorldCupLib.Utility;
+﻿using TooManyUtils;
 
 namespace WorldCupLib
 {

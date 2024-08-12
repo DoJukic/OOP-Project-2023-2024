@@ -117,49 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LOC_Data" xml:space="preserve">
-    <value>Data</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="anomalyNoData" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>img\anomalyNoData.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="LOC_Data_Select_/_Config" xml:space="preserve">
-    <value>Data Select / Config</value>
+  <data name="FIFAWorldCup2018Men" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>img\FIFAWorldCup2018Men.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="LOC_Data_Sources" xml:space="preserve">
-    <value>Data Sources</value>
+  <data name="FIFAWorldCup2019Women" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>img\FIFAWorldCup2019Women.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="LOC_Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="LOC_Download" xml:space="preserve">
-    <value>Download</value>
-  </data>
-  <data name="LOC_Error" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="LOC_Info" xml:space="preserve">
-    <value>Info</value>
-  </data>
-  <data name="LOC_Load" xml:space="preserve">
-    <value>Load</value>
-  </data>
-  <data name="LOC_Local" xml:space="preserve">
-    <value>Local</value>
-  </data>
-  <data name="LOC_Okay" xml:space="preserve">
-    <value>Okay</value>
-  </data>
-  <data name="LOC_Remote" xml:space="preserve">
-    <value>Remote</value>
-  </data>
-  <data name="LOC_Structure" xml:space="preserve">
-    <value>Structure</value>
-  </data>
-  <data name="LOC_Wait" xml:space="preserve">
-    <value>Wait</value>
-  </data>
-  <data name="TestString" xml:space="preserve">
-    <value>English Test</value>
-  </data>
-  <data name="TestString2" xml:space="preserve">
-    <value>English Test2</value>
+  <data name="ImgNotFound" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>img\ImgNotFound.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

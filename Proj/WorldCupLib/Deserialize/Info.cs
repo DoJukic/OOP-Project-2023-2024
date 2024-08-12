@@ -30,11 +30,15 @@ namespace WorldCupLib.Deserialize
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("remoteLink")]
         public string RemoteLink { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("internalImageID")]
+        public string InternalImageID { get; set; }
     }
 
     public partial class LocalDataSource
     {
-        public static LocalDataSource FromJson(string json) => JsonSerializer.Deserialize<LocalDataSource>(json, WorldCupLib.Deserialize.Converter.Settings);
+        public static LocalDataSource FromJson(string json) => JsonSerializer.Deserialize<LocalDataSource>(json, TooManyUtils.JsonConverters.Settings);
         public static string ToJson(LocalDataSource obj) => JsonSerializer.Serialize(obj);
     }
 }

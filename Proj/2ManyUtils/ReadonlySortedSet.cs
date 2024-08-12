@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WorldCupLib.Utility
+namespace TooManyUtils
 {
     public class ReadonlySortedSet<T> : IEnumerable<T>
     {
@@ -36,7 +36,7 @@ namespace WorldCupLib.Utility
             return internalSet.GetEnumerator();
         }
 
-        public bool TryGetValue(T equalValue, out T actualValue)
+        public bool TryGetValue(T equalValue, out T? actualValue)
         {
             return internalSet.TryGetValue(equalValue, out actualValue);
         }
