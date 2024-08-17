@@ -23,8 +23,8 @@ namespace SharedDataLib
         {
             return target switch
             {
-                SupportedLanguage.HR => new(new("hr"), "Hrvatski"),
-                SupportedLanguage.EN => new(new("en"), "English"),
+                SupportedLanguage.HR => new(new("hr"), "Hrvatski", SupportedLanguage.HR),
+                SupportedLanguage.EN => new(new("en"), "English", SupportedLanguage.EN),
                 _ => throw new NotImplementedException()
             };
         }
@@ -47,11 +47,15 @@ namespace SharedDataLib
         {
             public readonly CultureInfo culture;
             public readonly String name;
+            public readonly SupportedLanguage langID;
 
-            internal SupportedLanguageInfo(String _culture, String _name)
+            public String Name { get { return name; } }
+
+            internal SupportedLanguageInfo(String _culture, String _name, SupportedLanguage langID)
             {
                 culture = new(_culture);
                 name = _name;
+                this.langID = langID;
             }
         }
     }

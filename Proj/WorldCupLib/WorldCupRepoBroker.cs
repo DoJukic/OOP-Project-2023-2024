@@ -16,7 +16,7 @@ namespace WorldCupLib
     {
         internal static readonly string baseFilesDir = "CupData";
 
-        internal static readonly string remoteSourceLinks = "/sources.txt";
+        internal static readonly string remoteSourceLinks = "/sources.json";
 
         internal static readonly string allFilesGroupResultsRelativeLoc = "/group_results.json";
         internal static readonly string allFilesMatchesRelativeLoc = "/matches.json";
@@ -203,7 +203,7 @@ namespace WorldCupLib
                         File.WriteAllText(directoryTarget + allFilesGroupResultsRelativeLoc, jsonGroupResults.Result);
                         File.WriteAllText(directoryTarget + allFilesMatchesRelativeLoc, jsonMatches.Result);
 
-                        AvailableFileDetails AFD = new((maxValue + 1).ToString(), name, year, link, internalImageID);
+                        AvailableFileDetails AFD = new((maxValue + 1).ToString(), Guid.NewGuid(), name, year, link, internalImageID);
                         AFD.WriteToDirectory(directoryTarget);
                     }
                     catch (Exception)
@@ -227,7 +227,7 @@ namespace WorldCupLib
             {
                 lock (httpClientOperationsLock)
                 {
-                    if (!GetAPIFetchIsReady()) return false;
+                    if (GetAPIFetchIsReady()) return false;
                     currentHTTPCTS?.Cancel();
                     currentHTTPCTS = null;
 
@@ -288,8 +288,27 @@ namespace WorldCupLib
             return Task.Run(() =>
             {
                 bool noErrors = true;
-                return GetRepoFromFolder(baseFilesDir + "/" + id, ref noErrors);
+                var returnMe = GetRepoFromFolder(baseFilesDir + "/" + id, ref noErrors);
+                return noErrors ? returnMe : null;
             });
+        }
+        public static Task<IWorldCupDataRepo?>? BeginGetRepoByGUID(String guid, out AvailableFileDetails? details)
+        {
+            String? id = null;
+            lock (fileDetailsOperationsLock)
+            {
+                foreach (var repo in GetAvailableFileDetails())
+                {
+                    if (repo.guid != Guid.Empty && repo.guid.ToString() == guid)
+                    {
+                        details = repo;
+                        return BeginGetRepoByID(repo.ID);
+                    }
+                }
+            }
+
+            details = null;
+            return null;
         }
 
         public static bool TryDeleteRepoByID(String id)

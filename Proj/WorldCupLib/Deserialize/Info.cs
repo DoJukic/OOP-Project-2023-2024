@@ -24,6 +24,10 @@ namespace WorldCupLib.Deserialize
         public string Name { get; set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        [JsonPropertyName("guid")]
+        public Guid? GUID { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         [JsonPropertyName("year")]
         public int? Year { get; set; }
 

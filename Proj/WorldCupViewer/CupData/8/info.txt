@@ -1,1 +1,0 @@
-{"name":"Women\u0027s World Cup","year":2019,"remoteLink":"https://worldcup-vua.nullbit.hr/women","internalImageID":"FifaWorldCup2019Women"}

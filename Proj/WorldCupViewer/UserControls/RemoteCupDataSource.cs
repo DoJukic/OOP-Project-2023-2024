@@ -14,7 +14,6 @@ namespace WorldCupViewer.UserControls
     public partial class RemoteCupDataSource : UserControl
     {
         public AvailableRemoteSourceDetails deets;
-        public event Action<Task<bool>>? OnDownloadButtonPressed;
 
         public RemoteCupDataSource()
         {
@@ -28,32 +27,43 @@ namespace WorldCupViewer.UserControls
 
             deets = details;
 
-            mainPictureBox.Image = Image.FromStream(SharedDataLib.Images.getInternalImageStream_DO_NOT_DISPOSE_OR_WRITE(deets.internalImageID)
+            mainPictureBox.Image = Image.FromStream(SharedDataLib.Images.GetInternalImageStream_DO_NOT_DISPOSE_OR_WRITE(deets.internalImageID)
                 ?? SharedDataLib.Images.GetImgNotFoundPngStream_DO_NOT_DISPOSE_OR_WRITE());
 
             titleLabel.Text = deets.name + " (" + deets.year + ")";
 
-            downloadButton.Click += downloadButton_Click;
+        }
+
+        internal void setAPIState(bool APIState)
+        {
+            var parentForm = this.FindForm();
+            if (parentForm == null)
+                return;
+
+            if (APIState)
+            {
+                downloadButton.Visible = true;
+                cancelDownloadButton.Visible = false;
+                if (parentForm.ActiveControl == cancelDownloadButton)
+                    parentForm.ActiveControl = downloadButton;
+            }
+            else
+            {
+                cancelDownloadButton.Visible = true;
+                downloadButton.Visible = false;
+                if (parentForm.ActiveControl == downloadButton)
+                    parentForm.ActiveControl = cancelDownloadButton;
+            }
         }
 
         private void downloadButton_Click(object? sender, EventArgs e)
         {
-            var parentForm = this.FindForm();
-            if (parentForm != null)
-                parentForm.ActiveControl = null;
+            deets.TryBeginDownload();
+        }
 
-            downloadButton.Enabled = false;
-            var targetTask = deets.TryBeginDownload();
-            OnDownloadButtonPressed?.Invoke(targetTask);
-
-            Task.Run(() =>
-            {
-                targetTask.Wait();
-                this.Invoke(() =>
-                {
-                    downloadButton.Enabled = true;
-                });
-            });
+        private void cancelDownloadButton_Click(object sender, EventArgs e)
+        {
+            WorldCupRepoBroker.BeginCancelAPIRequest();
         }
     }
 }

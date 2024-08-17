@@ -117,14 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LOC_Are_You_Sure" xml:space="preserve">
+    <value>Are you sure</value>
+  </data>
+  <data name="LOC_Are_You_Sure_You_Want_To_Change_The_Language" xml:space="preserve">
+    <value>Are you sure you want to change the language</value>
+  </data>
+  <data name="LOC_Busy" xml:space="preserve">
+    <value>Busy</value>
+  </data>
+  <data name="LOC_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="LOC_Data" xml:space="preserve">
     <value>Data</value>
   </data>
+  <data name="LOC_Data_is_Loading" xml:space="preserve">
+    <value>Data is loading</value>
+  </data>
   <data name="LOC_Data_Select_/_Config" xml:space="preserve">
-    <value>Data Select / Config</value>
+    <value>Data select / config</value>
   </data>
   <data name="LOC_Data_Sources" xml:space="preserve">
-    <value>Data Sources</value>
+    <value>Data sources</value>
   </data>
   <data name="LOC_Delete" xml:space="preserve">
     <value>Delete</value>
@@ -132,8 +147,29 @@
   <data name="LOC_Download" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="LOC_Download_Failed" xml:space="preserve">
+    <value>Download failed</value>
+  </data>
+  <data name="LOC_Download_State" xml:space="preserve">
+    <value>Download state</value>
+  </data>
   <data name="LOC_Error" xml:space="preserve">
     <value>Error</value>
+  </data>
+  <data name="LOC_Failed_to_Load_Data" xml:space="preserve">
+    <value>Failed to load data</value>
+  </data>
+  <data name="LOC_Failed_To_Load_Settings_Data_Will_Not_Be_Saved" xml:space="preserve">
+    <value>Failed to load settings, data will not be saved</value>
+  </data>
+  <data name="LOC_Failed_To_Save_Settings" xml:space="preserve">
+    <value>Saving settings failed</value>
+  </data>
+  <data name="LOC_Favourites" xml:space="preserve">
+    <value>Favourites</value>
+  </data>
+  <data name="LOC_Guid_Error_Data_Might_Not_Be_Saved" xml:space="preserve">
+    <value>GUID error - data might not be saved</value>
   </data>
   <data name="LOC_Info" xml:space="preserve">
     <value>Info</value>
@@ -144,22 +180,52 @@
   <data name="LOC_Local" xml:space="preserve">
     <value>Local</value>
   </data>
+  <data name="LOC_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="LOC_No" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="LOC_Okay" xml:space="preserve">
     <value>Okay</value>
+  </data>
+  <data name="LOC_Players" xml:space="preserve">
+    <value>Players</value>
+  </data>
+  <data name="LOC_Player_List" xml:space="preserve">
+    <value>Player list</value>
+  </data>
+  <data name="LOC_Ready" xml:space="preserve">
+    <value>Ready</value>
   </data>
   <data name="LOC_Remote" xml:space="preserve">
     <value>Remote</value>
   </data>
+  <data name="LOC_Selected_Team" xml:space="preserve">
+    <value>Selcted team</value>
+  </data>
   <data name="LOC_Structure" xml:space="preserve">
     <value>Structure</value>
+  </data>
+  <data name="LOC_Team_Slash_Player_Select" xml:space="preserve">
+    <value>Team / player select</value>
   </data>
   <data name="LOC_Wait" xml:space="preserve">
     <value>Wait</value>
   </data>
+  <data name="LOC_Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="LOC_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="LOC_Yes_And_Do_Not_Ask_Again" xml:space="preserve">
+    <value>Yes, and don't ask again</value>
+  </data>
   <data name="TestString" xml:space="preserve">
-    <value>English Test</value>
+    <value>English test</value>
   </data>
   <data name="TestString2" xml:space="preserve">
-    <value>English Test2</value>
+    <value>English test2</value>
   </data>
 </root>

@@ -11,9 +11,9 @@ using WorldCupViewer.Localization;
 
 namespace WorldCupViewer.UserControls
 {
-    public partial class MultilingualLabel : System.Windows.Forms.Label, ILocalizeable
+    public partial class MultilingualToolStripStatusLabel : System.Windows.Forms.ToolStripStatusLabel, ILocalizeable
     {
-        public MultilingualLabel() : base()
+        public MultilingualToolStripStatusLabel() : base()
         {
             Localization = LocalizationOptions.TestString;
         }
@@ -22,9 +22,7 @@ namespace WorldCupViewer.UserControls
         public override String Text
         {
             get { return base.Text; }
-#pragma warning disable CS8765 // Nullability of type of parameter doesn't match overridden member (possibly because of nullability attributes).
             set { AssembleText(); }
-#pragma warning restore CS8765
         }
 
         private LocalizationOptions localization;

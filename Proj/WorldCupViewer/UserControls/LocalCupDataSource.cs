@@ -15,11 +15,11 @@ namespace WorldCupViewer.UserControls
     public partial class LocalCupDataSource : UserControl
     {
         private readonly AvailableFileDetails associatedDeets;
-        public event Action<Task<IWorldCupDataRepo?>>? OnLoadButtonPressed;
+        public event Action<Task<IWorldCupDataRepo?>, String, AvailableFileDetails>? OnLoadButtonPressed;
 
         public LocalCupDataSource()
         {
-            associatedDeets = new("WHY_THO", "If you see this, something has gone horribly wrong.", 0, null, null);
+            associatedDeets = new("WHY_THO", Guid.NewGuid(), "If you see this, something has gone horribly wrong.", 0, null, null);
             InitializeComponent();
         }
 
@@ -29,7 +29,7 @@ namespace WorldCupViewer.UserControls
 
             associatedDeets = deets;
 
-            mainPictureBox.Image = Image.FromStream(SharedDataLib.Images.getInternalImageStream_DO_NOT_DISPOSE_OR_WRITE(deets.InternalImageID)
+            mainPictureBox.Image = Image.FromStream(SharedDataLib.Images.GetInternalImageStream_DO_NOT_DISPOSE_OR_WRITE(deets.InternalImageID)
                 ?? SharedDataLib.Images.GetImgNotFoundPngStream_DO_NOT_DISPOSE_OR_WRITE());
 
             titleLabel.Text = "[" + deets.ID + "] " + deets.Name + " (" + deets.Year + ")";
@@ -87,7 +87,7 @@ namespace WorldCupViewer.UserControls
 
             loadButton.Enabled = false;
             var targetTask = associatedDeets.BeginGetAssociatedDataRepo();
-            OnLoadButtonPressed?.Invoke(targetTask);
+            OnLoadButtonPressed?.Invoke(targetTask, associatedDeets.GUID, associatedDeets);
 
             Task.Run(() =>
             {

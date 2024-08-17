@@ -2,31 +2,50 @@
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using static SharedDataLib.SupportedLanguages;
 
 namespace SharedDataLib
 {
     public static class SettingsProvider
     {
         private const String settingsPath = "settings.json";
+        private static FileStream? lockStream;
 
-        public static CurrSettings? TryGet()
+        private static bool error = false;
+        private static CurrSettings settings;
+
+
+        static SettingsProvider()
         {
             try
             {
-                return CurrSettings.FromJson(File.ReadAllText(settingsPath));
+                settings = CurrSettings.FromJson(File.ReadAllText(settingsPath));
             }
             catch (Exception)
             {
-                return null;
+                if (File.Exists(settingsPath))
+                {
+                    error = true;
+                }
+                settings = new();
             }
+            TryLock();
         }
 
-        /// <returns>True if write succeeded, false if write failed.</returns>
-        public static bool TrySet(CurrSettings newSettings)
+        public static CurrSettings GetSettings()
+        {
+            return settings;
+        }
+        public static bool GetErrorOccured()
+        {
+            return error;
+        }
+
+        private static bool TryLock()
         {
             try
             {
-                File.WriteAllText(settingsPath, CurrSettings.ToJson(newSettings));
+                lockStream = File.Open(settingsPath, FileMode.Append, FileAccess.Write, FileShare.None);
                 return true;
             }
             catch (Exception)
@@ -34,37 +53,106 @@ namespace SharedDataLib
                 return false;
             }
         }
-    }
+        private static void Unlock()
+        {
+            if (lockStream != null)
+            {
+                lockStream.Dispose();
+            }
+        }
+
+        /// <returns>True if write succeeded, false if write failed.</returns>
+        public static bool TrySave()
+        {
+            if (error)
+                return false;
+
+            Unlock();
+            try
+            {
+                File.WriteAllText(settingsPath, CurrSettings.ToJson(settings));
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                TryLock();
+            }
+        }
+
+        public static WorldCupData? GetDataFromGuid(CurrSettings settings, String guid)
+        {
+            if (settings.WorldCupData == null)
+                return null;
+
+            foreach (var cupData in settings.WorldCupData)
+            {
+                if (cupData.GUID == guid)
+                    return cupData;
+            }
+
+            return null;
+        }
 
 #pragma warning disable CS8603
-    public class CurrSettings
-    {
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("language")]
-        public SupportedLanguages.SupportedLanguage? Language { get; set; }
+        public class CurrSettings
+        {
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("language")]
+            public SupportedLanguage? Language { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("world_cup_id")]
-        public SupportedLanguages.SupportedLanguage? WorldCupID { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("selected_world_cup_guid")]
+            public String? SelectedWorldCupGUID { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("fav_player_1_shirt_num")]
-        public long? FavPlayer1ShirtNum { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("world_cup_data")]
+            public List<WorldCupData>? WorldCupData { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("fav_player_2_shirt_num")]
-        public long? FavPlayer2ShirtNum { get; set; }
+            public static CurrSettings FromJson(string json) => JsonSerializer.Deserialize<CurrSettings>(json, TooManyUtils.JsonConverters.Settings);
+            public static string ToJson(CurrSettings obj) => JsonSerializer.Serialize(obj);
+        }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("fav_player_3_shirt_num")]
-        public long? FavPlayer3ShirtNum { get; set; }
+        public class WorldCupData
+        {
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("guid")]
+            public String? GUID { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        [JsonPropertyName("player_image_pairs")]
-        public List<KeyValuePair<long, String>>? PlayerImagePairs { get; set; }
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("selected_team_fifa_ID")]
+            public String? SelectedTeamFifaID { get; set; }
 
-        public static CurrSettings FromJson(string json) => JsonSerializer.Deserialize<CurrSettings>(json, TooManyUtils.JsonConverters.Settings);
-        public static string ToJson(CurrSettings obj) => JsonSerializer.Serialize(obj);
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("teams")]
+            List<TeamData>? Teams { get; set; }
+        }
+
+        public class TeamData
+        {
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("fifa_ID")]
+            public String? FifaID { get; set; }
+
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("fav_player_1_shirt_num")]
+            public long? FavPlayer1ShirtNum { get; set; }
+
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("fav_player_2_shirt_num")]
+            public long? FavPlayer2ShirtNum { get; set; }
+
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("fav_player_3_shirt_num")]
+            public long? FavPlayer3ShirtNum { get; set; }
+
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("player_image_pairs")]
+            public List<KeyValuePair<long, String>>? PlayerImagePairs { get; set; }
+        }
     }
 #pragma warning restore CS8603
 }

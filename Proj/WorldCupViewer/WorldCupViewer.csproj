@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="MainForm.Designer.cs~RF985996.TMP" />
     <None Remove="UserControls\vmpvyvzx.tgl~" />
   </ItemGroup>
 
@@ -30,6 +31,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Update="UserControls\MultilingualCheckBox.cs" />
+    <Compile Update="UserControls\MultilingualToolStripStatusLabel.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,10 +47,28 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="CupData\10\group_results.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="CupData\10\info.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="CupData\10\matches.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="CupData\11\group_results.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="CupData\11\info.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="CupData\11\matches.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="CupData\1\group_results.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="CupData\1\info.txt">
+    <None Update="CupData\1\info.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="CupData\1\matches.json">
@@ -77,7 +98,7 @@
     <None Update="CupData\6\group_results.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="CupData\6\info.txt">
+    <None Update="CupData\6\info.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="CupData\6\matches.json">
@@ -86,7 +107,7 @@
     <None Update="CupData\8\group_results.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="CupData\8\info.txt">
+    <None Update="CupData\8\info.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="CupData\8\matches.json">
@@ -95,7 +116,7 @@
     <None Update="CupData\9\group_results.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="CupData\9\info.txt">
+    <None Update="CupData\9\info.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="CupData\9\matches.json">
@@ -104,13 +125,13 @@
     <None Update="CupData\Homework\group_results.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="CupData\Homework\info.txt">
+    <None Update="CupData\Homework\info.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="CupData\Homework\matches.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="CupData\sources.txt">
+    <None Update="CupData\sources.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

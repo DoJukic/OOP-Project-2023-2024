@@ -31,6 +31,7 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             titleLabel = new Label();
             panel1 = new Panel();
+            cancelDownloadButton = new MultilingualButton();
             downloadButton = new MultilingualButton();
             mainPictureBox = new PictureBox();
             tableLayoutPanel1.SuspendLayout();
@@ -67,6 +68,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(cancelDownloadButton);
             panel1.Controls.Add(downloadButton);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(208, 0);
@@ -74,6 +76,20 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(80, 50);
             panel1.TabIndex = 2;
+            // 
+            // cancelDownloadButton
+            // 
+            cancelDownloadButton.CharacterCasing = CharacterCasing.Normal;
+            cancelDownloadButton.Localization = Localization.LocalizationOptions.Cancel;
+            cancelDownloadButton.Location = new Point(0, 14);
+            cancelDownloadButton.Name = "cancelDownloadButton";
+            cancelDownloadButton.PreceedingText = "X ";
+            cancelDownloadButton.Size = new Size(80, 23);
+            cancelDownloadButton.SucceedingText = "";
+            cancelDownloadButton.TabIndex = 9;
+            cancelDownloadButton.UseVisualStyleBackColor = true;
+            cancelDownloadButton.Visible = false;
+            cancelDownloadButton.Click += cancelDownloadButton_Click;
             // 
             // downloadButton
             // 
@@ -86,6 +102,7 @@
             downloadButton.SucceedingText = "";
             downloadButton.TabIndex = 8;
             downloadButton.UseVisualStyleBackColor = true;
+            downloadButton.Click += downloadButton_Click;
             // 
             // mainPictureBox
             // 
@@ -103,7 +120,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tableLayoutPanel1);
             Controls.Add(mainPictureBox);
-            MinimumSize = new Size(255, 60);
+            MinimumSize = new Size(200, 60);
             Name = "RemoteCupDataSource";
             Size = new Size(350, 60);
             tableLayoutPanel1.ResumeLayout(false);
@@ -119,5 +136,6 @@
         private Panel panel1;
         private MultilingualButton downloadButton;
         private PictureBox mainPictureBox;
+        private MultilingualButton cancelDownloadButton;
     }
 }

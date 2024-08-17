@@ -5,14 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using WorldCupLib.Deserialize;
 using TooManyUtils;
+using System.Runtime.CompilerServices;
 
 namespace WorldCupLib
 {
     public class AvailableFileDetails
     {
-        const string realtiveFilePath = "/info.txt";
+        const string realtiveFilePath = "/info.json";
 
         internal String id;
+        // These are gonna be funny in a thousand years or so when some military hardware gets a dupicate guid and kills a couple billion people
+        internal Guid guid;
         internal String name;
         internal int year;
 
@@ -24,6 +27,7 @@ namespace WorldCupLib
         private String internalImageID;
 
         public string ID { get => id; }
+        public string GUID { get => guid.ToString(); }
         public string Name { get => name; }
         public int Year { get => year; }
 
@@ -34,9 +38,10 @@ namespace WorldCupLib
         public string RemoteLink { get => remoteLink; }
         public string InternalImageID { get => internalImageID; }
 
-        private AvailableFileDetails(String ID, String? name, int year, bool infoFileValid, bool? fileStructureValid, bool? jsonValid, String? remoteLink, String? internalImageID)
+        private AvailableFileDetails(String ID, Guid guid, String? name, int year, bool infoFileValid, bool? fileStructureValid, bool? jsonValid, String? remoteLink, String? internalImageID)
         {
             this.id = ID;
+            this.guid = guid;
             this.name = name ?? "ERROR";
             this.year = year;
 
@@ -50,6 +55,7 @@ namespace WorldCupLib
         public AvailableFileDetails(AvailableFileDetails copyTarget)
         {
             this.id = copyTarget.ID;
+            this.guid = copyTarget.guid;
             this.name = copyTarget.Name ?? "ERROR";
             this.year = copyTarget.Year;
 
@@ -60,9 +66,10 @@ namespace WorldCupLib
             this.remoteLink = copyTarget.RemoteLink ?? "";
             this.internalImageID = copyTarget.InternalImageID ?? "";
         }
-        public AvailableFileDetails(String ID, String? name, int year, String? remoteLink, String? internalImageID)
+        public AvailableFileDetails(String ID, Guid guid, String? name, int year, String? remoteLink, String? internalImageID)
         {
             this.id = ID;
+            this.guid= guid;
             this.name = name ?? "ERROR";
             this.year = year;
 
@@ -73,6 +80,7 @@ namespace WorldCupLib
         public static AvailableFileDetails ReadFromDirectory(string directoryPath)
         {
             String ID = "ERROR";
+            Guid? GUID = null;
             String name = "ERROR";
             int year = 0;
             bool infoFileValid = true;
@@ -88,6 +96,7 @@ namespace WorldCupLib
                 var data = PatientFileAccessor.ReadAllText(directoryPath + realtiveFilePath);
                 var info = LocalDataSource.FromJson(data ?? "");
 
+                GUID = info.GUID;
                 name = info.Name;
                 year = info.Year ?? 0;
                 remoteLink = info.RemoteLink;
@@ -98,16 +107,17 @@ namespace WorldCupLib
                 infoFileValid = false;
             }
 
-            if (name == null || name == "ERROR" || remoteLink == null || remoteLink == "ERROR" || InternalImageID == null)
+            if (name == null || name == "ERROR" || remoteLink == null || remoteLink == "ERROR" || InternalImageID == null || InternalImageID == "" ||
+                GUID == null || GUID == Guid.Empty)
                 infoFileValid = false;
 
-            return new(ID, name, year, infoFileValid, fileStructureValid, jsonValid, remoteLink, InternalImageID);
+            return new(ID, (Guid)(GUID ?? Guid.Empty), name, year, infoFileValid, fileStructureValid, jsonValid, remoteLink, InternalImageID);
         }
 
         public void WriteToDirectory(string directoryPath)
         {
             File.WriteAllText(directoryPath + realtiveFilePath, LocalDataSource.ToJson(
-                new() { Name = this.Name, Year = this.Year, RemoteLink = this.RemoteLink, InternalImageID = this.InternalImageID}));
+                new() { Name = this.Name, GUID = this.guid, Year = this.Year, RemoteLink = this.RemoteLink, InternalImageID = this.InternalImageID}));
         }
 
         public Task<IWorldCupDataRepo?> BeginGetAssociatedDataRepo()

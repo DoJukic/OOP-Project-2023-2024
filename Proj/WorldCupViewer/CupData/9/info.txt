@@ -1,1 +1,0 @@
-{"name":"Men\u0027s World Cup","year":2018,"remoteLink":"https://worldcup-vua.nullbit.hr/men","internalImageID":"FifaWorldCup2018Men"}

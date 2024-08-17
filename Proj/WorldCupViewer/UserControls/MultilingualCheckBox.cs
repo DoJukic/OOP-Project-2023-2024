@@ -11,9 +11,9 @@ using WorldCupViewer.Localization;
 
 namespace WorldCupViewer.UserControls
 {
-    public partial class MultilingualLabel : System.Windows.Forms.Label, ILocalizeable
+    public partial class MultilingualCheckBox : System.Windows.Forms.CheckBox, ILocalizeable
     {
-        public MultilingualLabel() : base()
+        public MultilingualCheckBox() : base()
         {
             Localization = LocalizationOptions.TestString;
         }
@@ -79,7 +79,7 @@ namespace WorldCupViewer.UserControls
         {
             base.Text = PreceedingText + localizationString + SucceedingText;
 
-             switch (CharacterCasing)
+            switch (CharacterCasing)
             {
                 case CharacterCasing.Upper:
                     base.Text = base.Text.ToUpper();
@@ -87,7 +87,7 @@ namespace WorldCupViewer.UserControls
                 case CharacterCasing.Lower:
                     base.Text = base.Text.ToLower();
                     break;
-            }; 
+            };
         }
 
         public LocalizationOptions GetLocalizationTarget()

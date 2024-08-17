@@ -12,16 +12,17 @@ namespace WorldCupViewer
     internal static class LocalUtils
     {
         // https://stackoverflow.com/questions/653284/get-available-controls-from-a-form - ProfK's answer, slightly modified.
-        public static IEnumerable<Control> GetAllControls(Control form)
+        public static IEnumerable<Control> GetAllControls(Control control)
         {
             var controlList = new List<Control>();
 
-            foreach (Control childControl in form.Controls)
+            foreach (Control childControl in control.Controls)
             {
                 // Recurse child controls.
                 controlList.Add(childControl);
                 controlList.AddRange(GetAllControls(childControl));
             }
+
             return controlList;
         }
 

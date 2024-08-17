@@ -36,6 +36,7 @@ namespace SharedDataLib
             {
                 Directory.CreateDirectory(baseDir);
                 fileSystemMonitor = new(baseDir, true, 100, new(ExternalImagesChanged), new(ExternalImagesFailed), new(ExternalImagesFailed));
+                ExternalImagesChanged();
             }
             catch (Exception)
             {
@@ -54,10 +55,10 @@ namespace SharedDataLib
                 {
                     switch (file.Extension.ToLower())
                     {
-                        case "png":
-                        case "jpeg":
-                        case "tiff":
-                        case "bmp":
+                        case ".png":
+                        case ".jpeg":
+                        case ".tiff":
+                        case ".bmp":
                             break;
                         default:
                             continue;
@@ -82,12 +83,26 @@ namespace SharedDataLib
                 OnExternalImagesChanged?.Invoke();
             }
         }
-        private static void ExternalImagesFailed()
+        public static void SubscribeToExternalImagesChanged(Action action)
         {
-
             lock (operationsLock)
             {
+                OnExternalImagesChanged += action;
+            }
+        }
+        private static void ExternalImagesFailed()
+        {
+            lock (operationsLock)
+            {
+                errorDetected = true;
                 OnExternalImagesError?.Invoke();
+            }
+        }
+        public static void SubscribeToExternalImagesFailed(Action action)
+        {
+            lock (operationsLock)
+            {
+                OnExternalImagesError += action;
             }
         }
 
@@ -111,7 +126,7 @@ namespace SharedDataLib
             return personNotFoundStream;
         }
 
-        public static Stream? getInternalImageStream_DO_NOT_DISPOSE_OR_WRITE(string ID)
+        public static Stream? GetInternalImageStream_DO_NOT_DISPOSE_OR_WRITE(string ID)
         {
             var tgt = internalImages.Where((tgt) => tgt.identifier == ID);
 
@@ -130,20 +145,24 @@ namespace SharedDataLib
             return names;
         }
 
-        public static String? getExternalImagePath(string ID)
+        public static bool GetExternalImagesHasError()
+        {
+            return errorDetected;
+        }
+        public static String? GetExternalImagePath(string ID)
         {
             IEnumerable<ExternalImageDetails> tgt;
             lock (externalImagesPlsLock)
             {
                 tgt = externalImagesPlsLock.Where((tgt) => tgt.identifier == ID);
-            }
 
-            if (tgt.Any())
-                return tgt.First().path;
+                if (tgt.Any())
+                    return tgt.First().path;
+            }
 
             return null;
         }
-        public static IEnumerable<String> getAllExternalImageNames(string ID)
+        public static IEnumerable<String> GetAllExternalImageNames()
         {
             List<String> names = new();
 
