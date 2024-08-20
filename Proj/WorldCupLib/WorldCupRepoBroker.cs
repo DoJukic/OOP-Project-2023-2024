@@ -294,7 +294,6 @@ namespace WorldCupLib
         }
         public static Task<IWorldCupDataRepo?>? BeginGetRepoByGUID(String guid, out AvailableFileDetails? details)
         {
-            String? id = null;
             lock (fileDetailsOperationsLock)
             {
                 foreach (var repo in GetAvailableFileDetails())

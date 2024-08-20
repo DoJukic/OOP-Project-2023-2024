@@ -30,6 +30,10 @@ namespace WorldCupViewer
 
         public MainForm()
         {
+            InitializeComponent();
+
+            cbSelectedTeam.MouseWheel += ignoreMouseWheel;
+
             supportedLanguages = SupportedLanguages.GetSupportedLanguageInfoList();
 
             currSettings = SettingsProvider.GetSettings();
@@ -39,9 +43,7 @@ namespace WorldCupViewer
             if (currSettings.SelectedWorldCupGUID != null)
                 lastSelectedRepository = currSettings.SelectedWorldCupGUID;
 
-            InitializeComponent();
-
-            mainTabControl.Controls.Remove(teamAndPlayerSelectTab);
+            mainTabControl.Controls.Remove(tpTeamAndPlayerSelect);
 
             // https://stackoverflow.com/questions/17423348/how-can-i-wait-until-a-form-handle-has-been-created-before-using-its-components
             // I think I could've just used the load event tbh
@@ -77,16 +79,16 @@ namespace WorldCupViewer
                 targetLang = SupportedLanguages.GetDefaultSupportedLanguageInfo();
             }
 
-            languageSelectComboBox.SelectedIndexChanged += languageSelectComboBox_SelectedIndexChanged;
-            languageSelectComboBox.DisplayMember = "Name";
+            cblanguageSelect.SelectedIndexChanged += languageSelectComboBox_SelectedIndexChanged;
+            cblanguageSelect.DisplayMember = "Name";
 
             foreach (SupportedLanguages.SupportedLanguageInfo language in supportedLanguages)
             {
-                languageSelectComboBox.Items.Add(language);
+                cblanguageSelect.Items.Add(language);
 
                 if (language.langID == targetLang.langID)
                 {
-                    languageSelectComboBox.SelectedIndex = languageSelectComboBox.Items.IndexOf(language);
+                    cblanguageSelect.SelectedIndex = cblanguageSelect.Items.IndexOf(language);
                 }
             }
         }
@@ -120,48 +122,76 @@ namespace WorldCupViewer
                     }
 
                     activeRepository = repo.Result;
+                    activeRepositoryDetails = deets;
+                    activeRepoData = new() { GUID = Guid.Empty.ToString(), TeamDataList = new() };
 
                     //TODO: All tabs other than the main one must be removed here
-                    mainTabControl.Controls.Remove(teamAndPlayerSelectTab);
-
-                    activeRepositoryDetails = deets;
+                    mainTabControl.Controls.Remove(tpTeamAndPlayerSelect);
 
                     // add all the data here
                     if (activeRepositoryDetails != null)
                     {
-                        SelectedCupDataNameLabel.Text = activeRepositoryDetails.Name;
-                        SelectedCupDataYearLabel.Text = activeRepositoryDetails.Year.ToString();
-                        SelectedCupDataPictureBox.Image = Image.FromStream(
+                        lblSelectedCupDataName.Text = activeRepositoryDetails.Name;
+                        lblSelectedCupDataYear.Text = activeRepositoryDetails.Year.ToString();
+                        pbSelectedCupImage.Image = Image.FromStream(
                             Images.GetInternalImageStream_DO_NOT_DISPOSE_OR_WRITE(activeRepositoryDetails.InternalImageID) ??
                             Images.GetImgNotFoundPngStream_DO_NOT_DISPOSE_OR_WRITE());
 
                         if (activeRepositoryDetails.GUID == null || activeRepositoryDetails.GUID == Guid.Empty.ToString())
+                        {
                             MTSSLGUIDError.Visible = true;
+                        }
                         else
+                        {
                             MTSSLGUIDError.Visible = false;
+
+                            activeRepoData = SettingsProvider.TryGetDataFromGuid(currSettings, activeRepositoryDetails.GUID);
+
+                            if (activeRepoData == null)
+                            {
+                                if (currSettings.WorldCupDataList == null)
+                                    currSettings.WorldCupDataList = new();
+
+                                activeRepoData = new() { GUID = activeRepositoryDetails.GUID, TeamDataList = new() };
+                                currSettings.WorldCupDataList.Add(activeRepoData);
+
+                                SaveSettings();
+                            }
+                        }
                     }
                     else
                     {
-                        SelectedCupDataNameLabel.Text = "Unknown";
-                        SelectedCupDataYearLabel.Text = "????";
-                        SelectedCupDataPictureBox.Image = Image.FromStream(Images.GetImgNotFoundPngStream_DO_NOT_DISPOSE_OR_WRITE());
+                        lblSelectedCupDataName.Text = "Unknown";
+                        lblSelectedCupDataYear.Text = "????";
+                        pbSelectedCupImage.Image = Image.FromStream(Images.GetImgNotFoundPngStream_DO_NOT_DISPOSE_OR_WRITE());
                         MTSSLGUIDError.Visible = true;
                     }
 
-                    SelectedTeamComboBox.Items.Clear();
-                    //SelectedTeamComboBox.SelectedIndex = -1;
-                    //SelectedTeamComboBox.ResetText();
-
-
+                    cbSelectedTeam.Items.Clear();
                     foreach (var team in activeRepository.GetCupTeams())
                     {
                         if (team == null) //Shouldn't happen
                             continue;
-                        SelectedTeamComboBox.Items.Add(new KeyValuePair<string, CupTeam>(team.countryName + "(" + team.fifaCode + ")", team));
+                        cbSelectedTeam.Items.Add(new KeyValuePair<string, CupTeam>(team.countryName + "(" + team.fifaCode + ")", team));
                     }
 
-                    mainTabControl.Controls.Add(teamAndPlayerSelectTab);
-                    mainTabControl.SelectedTab = teamAndPlayerSelectTab;
+                    if (activeRepoData.SelectedTeamFifaID != null)
+                    {
+                        for (int i = 0; i < cbSelectedTeam.Items.Count; i++)
+                        {
+                            if (cbSelectedTeam.Items[i] is not KeyValuePair<string, CupTeam> kvp)
+                                continue;
+
+                            if (kvp.Value.fifaCode == activeRepoData.SelectedTeamFifaID)
+                            {
+                                cbSelectedTeam.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                    }
+
+                    mainTabControl.Controls.Add(tpTeamAndPlayerSelect);
+                    mainTabControl.SelectedTab = tpTeamAndPlayerSelect;
                 }));
             });
         }
@@ -194,9 +224,9 @@ namespace WorldCupViewer
                         bool isFirst = true;
                         int tabIndex = deets.Count() + 20000;
 
-                        dataSelectLocalSourcesPanel.Visible = false;
-                        dataSelectLocalSourcesPanel.SuspendLayout();
-                        dataSelectLocalSourcesPanel.Controls.Clear();
+                        pnlDataSelectLocalSources.Visible = false;
+                        pnlDataSelectLocalSources.SuspendLayout();
+                        pnlDataSelectLocalSources.Controls.Clear();
 
                         var nonNullDeets = deets.Where((deet) => deet != null);
 
@@ -228,7 +258,7 @@ namespace WorldCupViewer
                             {
                                 Panel gap = new();
                                 gap.Height = 6;
-                                dataSelectLocalSourcesPanel.Controls.Add(gap);
+                                pnlDataSelectLocalSources.Controls.Add(gap);
                                 gap.Dock = DockStyle.Top;
                             }
 
@@ -238,12 +268,12 @@ namespace WorldCupViewer
                             SFDSV2.OnLoadButtonPressed += this.NewCupDataTaskStarted;
 
                             SFDSV2.BorderStyle = BorderStyle.FixedSingle;
-                            dataSelectLocalSourcesPanel.Controls.Add(SFDSV2);
+                            pnlDataSelectLocalSources.Controls.Add(SFDSV2);
                             SFDSV2.Dock = DockStyle.Top;
                         }
 
-                        dataSelectLocalSourcesPanel.ResumeLayout();
-                        dataSelectLocalSourcesPanel.Visible = true;
+                        pnlDataSelectLocalSources.ResumeLayout();
+                        pnlDataSelectLocalSources.Visible = true;
                     });
                 });
 
@@ -269,9 +299,9 @@ namespace WorldCupViewer
                         bool isFirst = true;
                         int tabIndex = deets.Count() + 10000;
 
-                        dataSelectRemoteSourcesPanel.Visible = false;
-                        dataSelectRemoteSourcesPanel.SuspendLayout();
-                        dataSelectRemoteSourcesPanel.Controls.Clear();
+                        pnlDataSelectRemoteSources.Visible = false;
+                        pnlDataSelectRemoteSources.SuspendLayout();
+                        pnlDataSelectRemoteSources.Controls.Clear();
 
                         foreach (var deet in deets.Where((deet) => deet != null))
                         {
@@ -283,7 +313,7 @@ namespace WorldCupViewer
                             {
                                 Panel gap = new();
                                 gap.Height = 6;
-                                dataSelectRemoteSourcesPanel.Controls.Add(gap);
+                                pnlDataSelectRemoteSources.Controls.Add(gap);
                                 gap.Dock = DockStyle.Top;
                             }
 
@@ -292,13 +322,13 @@ namespace WorldCupViewer
                             RFDS.TabIndex = tabIndex;
 
                             RFDS.BorderStyle = BorderStyle.FixedSingle;
-                            dataSelectRemoteSourcesPanel.Controls.Add(RFDS);
+                            pnlDataSelectRemoteSources.Controls.Add(RFDS);
                             RFDS.Dock = DockStyle.Top;
                         }
 
                         ApplyAPIStateToRemoteDataSources();
-                        dataSelectRemoteSourcesPanel.ResumeLayout();
-                        dataSelectRemoteSourcesPanel.Visible = true;
+                        pnlDataSelectRemoteSources.ResumeLayout();
+                        pnlDataSelectRemoteSources.Visible = true;
                     });
                 });
 
@@ -333,18 +363,18 @@ namespace WorldCupViewer
         {
             this.Invoke(() =>
             {
-                LocalizationHandler.LocalizeAllChildren(dataSelectTab);
-                LocalizationHandler.LocalizeAllChildren(teamAndPlayerSelectTab);
+                LocalizationHandler.LocalizeAllChildren(tpDataSelect);
+                LocalizationHandler.LocalizeAllChildren(tpTeamAndPlayerSelect);
 
                 // status strips are *special*
                 foreach (var unkn in statusStrip.Items)
                     if (unkn is ILocalizeable loc)
                         LocalizationHandler.LocalizeOne(loc);
 
-                dataSelectTab.Text =
+                tpDataSelect.Text =
                     LocalizationHandler.GetCurrentLocOptionsString(
                         LocalizationOptions.Data_Select_Slash_Config);
-                teamAndPlayerSelectTab.Text =
+                tpTeamAndPlayerSelect.Text =
                     LocalizationHandler.GetCurrentLocOptionsString(
                         LocalizationOptions.Team_Slash_Player_Select);
             });
@@ -354,8 +384,8 @@ namespace WorldCupViewer
         {
             this.Invoke(() =>
             {
-                ExternalImageUpdater.UpdateAllChildren(dataSelectTab);
-                ExternalImageUpdater.UpdateAllChildren(teamAndPlayerSelectTab);
+                ExternalImageUpdater.UpdateAllChildren(tpDataSelect);
+                ExternalImageUpdater.UpdateAllChildren(tpTeamAndPlayerSelect);
             });
         }
 
@@ -379,7 +409,7 @@ namespace WorldCupViewer
 
         public void ApplyAPIStateToRemoteDataSources()
         {
-            foreach (var thing in dataSelectRemoteSourcesPanel.Controls)
+            foreach (var thing in pnlDataSelectRemoteSources.Controls)
             {
                 if (thing is not RemoteCupDataSource RCDS)
                     continue;
@@ -404,9 +434,48 @@ namespace WorldCupViewer
                 MTSSLFailedToSaveSettings.Visible = true;
         }
 
-        private void SelectedCupDataPictureBox_Click(object sender, EventArgs e)
+        private void SelectedTeamChanged(object sender, EventArgs e)
         {
+            if (sender is not ComboBox cb || activeRepoData == null)
+                return;
 
+            if (cb.SelectedItem is not KeyValuePair<String, CupTeam> targetCupTeam)
+                return;
+
+            activeRepoData.SelectedTeamFifaID = targetCupTeam.Value.fifaCode;
+
+            pnlPlayerList.Controls.Clear();
+            pnlFavouritePlayers.Controls.Clear();
+
+            pnlPlayerList.SuspendLayout();
+            pnlPlayerList.Visible = false;
+
+            foreach (var player in targetCupTeam.Value.SortedPlayers)
+            {
+                if (!(pnlPlayerList.Controls.Count == 0))
+                {
+                    Panel spacingPanel = new();
+                    spacingPanel.Height = 6;
+
+                    pnlPlayerList.Controls.Add(spacingPanel);
+                    spacingPanel.Dock = DockStyle.Top;
+                }
+
+                CupPlayerDisplay PD = new (player, pnlPlayerList.Width - 6, false);
+                pnlPlayerList.Controls.Add(PD);
+
+                PD.Dock = DockStyle.Top;
+            }
+
+            pnlPlayerList.ResumeLayout();
+            pnlPlayerList.Visible = true;
+
+            SaveSettings();
+        }
+
+        void ignoreMouseWheel(object sender, MouseEventArgs e)
+        {
+            ((HandledMouseEventArgs)e).Handled = true;
         }
     }
 }

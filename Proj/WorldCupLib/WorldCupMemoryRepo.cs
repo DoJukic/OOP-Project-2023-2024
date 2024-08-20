@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace WorldCupLib
 {
@@ -61,12 +62,80 @@ namespace WorldCupLib
                         return; // DANGIT 2: electric boogaloo
                     }
 
+                    if (homeTeam.fifaCode == "URU" || awayTeam.fifaCode == "URU")
+                    {
+                        int a = 0;
+                    }
+
                     CupWeather cupWeather = new(match.Weather.Humidity, match.Weather.TempCelsius, match.Weather.WindSpeed, match.Weather.Description);
 
-                    CupMatchTeamInfo cupHomeInfo = new(homeTeam, match.HomeTeam.Goals, match.HomeTeam.Penalties);
+                    //So this is a bit messy, I probably could've just merged statistics and info but it's a bit late now
+
                     CupMatchTeamStatistics cupHomeStatistics = convertMatchTeamStatisticsToCupMatchTeamStatistics(match.HomeTeamStatistics, homeTeam);
-                    CupMatchTeamInfo cupAwayInfo = new(awayTeam, match.AwayTeam.Goals, match.AwayTeam.Penalties);
+
+                    List<CupPlayer> homeTeamCaptains = new();
+                    List<KeyValuePair<CupPlayer, String>> homeTeamPositionPairs = new();
+                    foreach (var man in match.HomeTeamStatistics.StartingEleven.Union(match.HomeTeamStatistics.Substitutes))
+                    {
+                        if (man.ShirtNumber == null)
+                        {
+                            noErrors = false;
+                            continue;
+                        }
+
+                        CupPlayer? cupPlayer =
+                            cupHomeStatistics._startingElevenPlayers.
+                                Union(cupHomeStatistics._substitutePlayers).
+                                    SingleOrDefault((player) => player.shirtNumber == man.ShirtNumber);
+
+                        if (cupPlayer == null)
+                        {
+                            noErrors = false;
+                            continue;
+                        }
+
+                        homeTeamPositionPairs.Add(new(cupPlayer, man.Position));
+
+                        if (man.Captain != null && (bool)man.Captain)
+                        {
+                            homeTeamCaptains.Add(cupPlayer);
+                        }
+                    }
+
+                    CupMatchTeamInfo cupHomeInfo = new(homeTeam, match.HomeTeam.Goals, match.HomeTeam.Penalties, homeTeamCaptains, homeTeamPositionPairs);
+
                     CupMatchTeamStatistics cupAwayStatistics = convertMatchTeamStatisticsToCupMatchTeamStatistics(match.AwayTeamStatistics, awayTeam);
+
+                    List<CupPlayer> awayTeamCaptains = new();
+                    List<KeyValuePair<CupPlayer, String>> awayTeamPositionPairs = new();
+                    foreach (var man in match.AwayTeamStatistics.StartingEleven.Union(match.AwayTeamStatistics.Substitutes))
+                    {
+                        if (man.ShirtNumber == null)
+                        {
+                            noErrors = false;
+                            continue;
+                        }
+
+                        CupPlayer? cupPlayer =
+                            cupAwayStatistics._startingElevenPlayers.
+                                Union(cupAwayStatistics._substitutePlayers).
+                                    SingleOrDefault((player) => player.shirtNumber == man.ShirtNumber);
+
+                        if (cupPlayer == null)
+                        {
+                            noErrors = false;
+                            continue;
+                        }
+
+                        awayTeamPositionPairs.Add(new(cupPlayer, man.Position));
+
+                        if (man.Captain != null && (bool)man.Captain)
+                        {
+                            awayTeamCaptains.Add(cupPlayer);
+                        }
+                    }
+
+                    CupMatchTeamInfo cupAwayInfo = new(awayTeam, match.AwayTeam.Goals, match.AwayTeam.Penalties, awayTeamCaptains, awayTeamPositionPairs);
 
                     CupMatch cupMatch = new(match.Venue, match.Location, match.Status, match.Time, match.FifaId.ToString(), cupWeather,
                         match.Attendance, match.Officials.ToList(), match.StageName, cupHomeInfo, cupHomeStatistics, cupAwayInfo, cupAwayStatistics,

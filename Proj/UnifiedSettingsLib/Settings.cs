@@ -83,12 +83,12 @@ namespace SharedDataLib
             }
         }
 
-        public static WorldCupData? GetDataFromGuid(CurrSettings settings, String guid)
+        public static WorldCupData? TryGetDataFromGuid(CurrSettings settings, String guid)
         {
-            if (settings.WorldCupData == null)
+            if (settings.WorldCupDataList == null)
                 return null;
 
-            foreach (var cupData in settings.WorldCupData)
+            foreach (var cupData in settings.WorldCupDataList)
             {
                 if (cupData.GUID == guid)
                     return cupData;
@@ -110,7 +110,7 @@ namespace SharedDataLib
 
             [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
             [JsonPropertyName("world_cup_data")]
-            public List<WorldCupData>? WorldCupData { get; set; }
+            public List<WorldCupData>? WorldCupDataList { get; set; }
 
             public static CurrSettings FromJson(string json) => JsonSerializer.Deserialize<CurrSettings>(json, TooManyUtils.JsonConverters.Settings);
             public static string ToJson(CurrSettings obj) => JsonSerializer.Serialize(obj);
@@ -128,7 +128,7 @@ namespace SharedDataLib
 
             [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
             [JsonPropertyName("teams")]
-            List<TeamData>? Teams { get; set; }
+            public List<TeamData>? TeamDataList { get; set; }
         }
 
         public class TeamData
@@ -151,7 +151,7 @@ namespace SharedDataLib
 
             [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
             [JsonPropertyName("player_image_pairs")]
-            public List<KeyValuePair<long, String>>? PlayerImagePairs { get; set; }
+            public List<KeyValuePair<long, String>>? PlayerImagePairList { get; set; }
         }
     }
 #pragma warning restore CS8603

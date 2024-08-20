@@ -40,50 +40,50 @@ namespace WorldCupViewer
             MTSSLDownloadStateState = new MultilingualToolStripStatusLabel();
             MTSSLDataIsLoading = new MultilingualToolStripStatusLabel();
             mainTabControl = new TabControl();
-            dataSelectTab = new TabPage();
-            dataSelectBotTLP = new TableLayoutPanel();
-            localDataSourcesGroupBox = new MultilingualGroupBox();
-            dataSelectLocalSourcesPanel = new Panel();
-            remoteDataSourcesGroupBox = new MultilingualGroupBox();
-            dataSelectRemoteSourcesPanel = new Panel();
-            dataSelectTopTLP = new TableLayoutPanel();
-            languageSelectTLP = new TableLayoutPanel();
-            languageSelectLabel = new Label();
-            languageSelectComboBox = new ComboBox();
+            tpDataSelect = new TabPage();
+            tlpDataSelectBot = new TableLayoutPanel();
+            mgbLocalDataSources = new MultilingualGroupBox();
+            pnlDataSelectLocalSources = new Panel();
+            mgbRemoteDataSources = new MultilingualGroupBox();
+            pnlDataSelectRemoteSources = new Panel();
+            tlpDataSelectTop = new TableLayoutPanel();
+            tlpLanguageSelect = new TableLayoutPanel();
+            lblLanguageSelect = new Label();
+            cblanguageSelect = new ComboBox();
             label1 = new MultilingualLabel();
-            teamAndPlayerSelectTab = new TabPage();
+            tpTeamAndPlayerSelect = new TabPage();
             panel3 = new Panel();
-            tlpTeamPlayerSelectTop = new TableLayoutPanel();
+            tlpTeamDataAndSelect = new TableLayoutPanel();
             panel2 = new Panel();
-            SelectedCupDataYearLabel = new Label();
-            SelectedCupDataNameLabel = new Label();
+            lblSelectedCupDataYear = new Label();
+            lblSelectedCupDataName = new Label();
             multilingualLabel4 = new MultilingualLabel();
             multilingualLabel2 = new MultilingualLabel();
-            SelectedTeamComboBox = new ComboBox();
+            cbSelectedTeam = new ComboBox();
             multilingualLabel1 = new MultilingualLabel();
-            SelectedCupDataPictureBox = new ExternalImage();
-            multilingualGroupBox3 = new MultilingualGroupBox();
-            panel6 = new Panel();
-            multilingualGroupBox1 = new MultilingualGroupBox();
-            panel4 = new Panel();
+            pbSelectedCupImage = new ExternalImage();
+            mgbFavouritePlayers = new MultilingualGroupBox();
+            pnlFavouritePlayers = new Panel();
+            mgbPlayerList = new MultilingualGroupBox();
+            pnlPlayerList = new Panel();
             panel1 = new Panel();
             multilingualGroupBox2 = new MultilingualGroupBox();
             panel5 = new Panel();
             statusStrip.SuspendLayout();
             mainTabControl.SuspendLayout();
-            dataSelectTab.SuspendLayout();
-            dataSelectBotTLP.SuspendLayout();
-            localDataSourcesGroupBox.SuspendLayout();
-            remoteDataSourcesGroupBox.SuspendLayout();
-            dataSelectTopTLP.SuspendLayout();
-            languageSelectTLP.SuspendLayout();
-            teamAndPlayerSelectTab.SuspendLayout();
+            tpDataSelect.SuspendLayout();
+            tlpDataSelectBot.SuspendLayout();
+            mgbLocalDataSources.SuspendLayout();
+            mgbRemoteDataSources.SuspendLayout();
+            tlpDataSelectTop.SuspendLayout();
+            tlpLanguageSelect.SuspendLayout();
+            tpTeamAndPlayerSelect.SuspendLayout();
             panel3.SuspendLayout();
-            tlpTeamPlayerSelectTop.SuspendLayout();
+            tlpTeamDataAndSelect.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)SelectedCupDataPictureBox).BeginInit();
-            multilingualGroupBox3.SuspendLayout();
-            multilingualGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbSelectedCupImage).BeginInit();
+            mgbFavouritePlayers.SuspendLayout();
+            mgbPlayerList.SuspendLayout();
             panel1.SuspendLayout();
             multilingualGroupBox2.SuspendLayout();
             SuspendLayout();
@@ -189,8 +189,8 @@ namespace WorldCupViewer
             // 
             // mainTabControl
             // 
-            mainTabControl.Controls.Add(dataSelectTab);
-            mainTabControl.Controls.Add(teamAndPlayerSelectTab);
+            mainTabControl.Controls.Add(tpDataSelect);
+            mainTabControl.Controls.Add(tpTeamAndPlayerSelect);
             mainTabControl.Dock = DockStyle.Fill;
             mainTabControl.Location = new Point(0, 0);
             mainTabControl.Margin = new Padding(0);
@@ -200,141 +200,141 @@ namespace WorldCupViewer
             mainTabControl.Size = new Size(784, 489);
             mainTabControl.TabIndex = 1;
             // 
-            // dataSelectTab
+            // tpDataSelect
             // 
-            dataSelectTab.Controls.Add(dataSelectBotTLP);
-            dataSelectTab.Controls.Add(dataSelectTopTLP);
-            dataSelectTab.Location = new Point(4, 24);
-            dataSelectTab.Margin = new Padding(0);
-            dataSelectTab.Name = "dataSelectTab";
-            dataSelectTab.Size = new Size(776, 461);
-            dataSelectTab.TabIndex = 0;
-            dataSelectTab.Text = "Data Select Slash Config";
-            dataSelectTab.UseVisualStyleBackColor = true;
+            tpDataSelect.Controls.Add(tlpDataSelectBot);
+            tpDataSelect.Controls.Add(tlpDataSelectTop);
+            tpDataSelect.Location = new Point(4, 24);
+            tpDataSelect.Margin = new Padding(0);
+            tpDataSelect.Name = "tpDataSelect";
+            tpDataSelect.Size = new Size(776, 461);
+            tpDataSelect.TabIndex = 0;
+            tpDataSelect.Text = "Data Select Slash Config";
+            tpDataSelect.UseVisualStyleBackColor = true;
             // 
-            // dataSelectBotTLP
+            // tlpDataSelectBot
             // 
-            dataSelectBotTLP.ColumnCount = 3;
-            dataSelectBotTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
-            dataSelectBotTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 6F));
-            dataSelectBotTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
-            dataSelectBotTLP.Controls.Add(localDataSourcesGroupBox, 2, 0);
-            dataSelectBotTLP.Controls.Add(remoteDataSourcesGroupBox, 0, 0);
-            dataSelectBotTLP.Dock = DockStyle.Fill;
-            dataSelectBotTLP.Location = new Point(0, 32);
-            dataSelectBotTLP.Name = "dataSelectBotTLP";
-            dataSelectBotTLP.RowCount = 1;
-            dataSelectBotTLP.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            dataSelectBotTLP.Size = new Size(776, 429);
-            dataSelectBotTLP.TabIndex = 12;
+            tlpDataSelectBot.ColumnCount = 3;
+            tlpDataSelectBot.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
+            tlpDataSelectBot.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 6F));
+            tlpDataSelectBot.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
+            tlpDataSelectBot.Controls.Add(mgbLocalDataSources, 2, 0);
+            tlpDataSelectBot.Controls.Add(mgbRemoteDataSources, 0, 0);
+            tlpDataSelectBot.Dock = DockStyle.Fill;
+            tlpDataSelectBot.Location = new Point(0, 32);
+            tlpDataSelectBot.Name = "tlpDataSelectBot";
+            tlpDataSelectBot.RowCount = 1;
+            tlpDataSelectBot.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tlpDataSelectBot.Size = new Size(776, 429);
+            tlpDataSelectBot.TabIndex = 12;
             // 
-            // localDataSourcesGroupBox
+            // mgbLocalDataSources
             // 
-            localDataSourcesGroupBox.CharacterCasing = CharacterCasing.Normal;
-            localDataSourcesGroupBox.Controls.Add(dataSelectLocalSourcesPanel);
-            localDataSourcesGroupBox.Dock = DockStyle.Fill;
-            localDataSourcesGroupBox.Localization = Localization.LocalizationOptions.Local;
-            localDataSourcesGroupBox.Location = new Point(315, 1);
-            localDataSourcesGroupBox.Margin = new Padding(1);
-            localDataSourcesGroupBox.Name = "localDataSourcesGroupBox";
-            localDataSourcesGroupBox.PreceedingText = "";
-            localDataSourcesGroupBox.Size = new Size(460, 427);
-            localDataSourcesGroupBox.SucceedingText = "";
-            localDataSourcesGroupBox.TabIndex = 9;
-            localDataSourcesGroupBox.TabStop = false;
+            mgbLocalDataSources.CharacterCasing = CharacterCasing.Normal;
+            mgbLocalDataSources.Controls.Add(pnlDataSelectLocalSources);
+            mgbLocalDataSources.Dock = DockStyle.Fill;
+            mgbLocalDataSources.Localization = Localization.LocalizationOptions.Local;
+            mgbLocalDataSources.Location = new Point(315, 1);
+            mgbLocalDataSources.Margin = new Padding(1);
+            mgbLocalDataSources.Name = "mgbLocalDataSources";
+            mgbLocalDataSources.PreceedingText = "";
+            mgbLocalDataSources.Size = new Size(460, 427);
+            mgbLocalDataSources.SucceedingText = "";
+            mgbLocalDataSources.TabIndex = 9;
+            mgbLocalDataSources.TabStop = false;
             // 
-            // dataSelectLocalSourcesPanel
+            // pnlDataSelectLocalSources
             // 
-            dataSelectLocalSourcesPanel.AutoScroll = true;
-            dataSelectLocalSourcesPanel.BackColor = Color.White;
-            dataSelectLocalSourcesPanel.Dock = DockStyle.Fill;
-            dataSelectLocalSourcesPanel.Location = new Point(3, 19);
-            dataSelectLocalSourcesPanel.Name = "dataSelectLocalSourcesPanel";
-            dataSelectLocalSourcesPanel.Padding = new Padding(3);
-            dataSelectLocalSourcesPanel.Size = new Size(454, 405);
-            dataSelectLocalSourcesPanel.TabIndex = 0;
+            pnlDataSelectLocalSources.AutoScroll = true;
+            pnlDataSelectLocalSources.BackColor = Color.White;
+            pnlDataSelectLocalSources.Dock = DockStyle.Fill;
+            pnlDataSelectLocalSources.Location = new Point(3, 19);
+            pnlDataSelectLocalSources.Name = "pnlDataSelectLocalSources";
+            pnlDataSelectLocalSources.Padding = new Padding(3);
+            pnlDataSelectLocalSources.Size = new Size(454, 405);
+            pnlDataSelectLocalSources.TabIndex = 0;
             // 
-            // remoteDataSourcesGroupBox
+            // mgbRemoteDataSources
             // 
-            remoteDataSourcesGroupBox.CharacterCasing = CharacterCasing.Normal;
-            remoteDataSourcesGroupBox.Controls.Add(dataSelectRemoteSourcesPanel);
-            remoteDataSourcesGroupBox.Dock = DockStyle.Fill;
-            remoteDataSourcesGroupBox.Localization = Localization.LocalizationOptions.Remote;
-            remoteDataSourcesGroupBox.Location = new Point(1, 1);
-            remoteDataSourcesGroupBox.Margin = new Padding(1);
-            remoteDataSourcesGroupBox.Name = "remoteDataSourcesGroupBox";
-            remoteDataSourcesGroupBox.PreceedingText = "";
-            remoteDataSourcesGroupBox.Size = new Size(306, 427);
-            remoteDataSourcesGroupBox.SucceedingText = "";
-            remoteDataSourcesGroupBox.TabIndex = 8;
-            remoteDataSourcesGroupBox.TabStop = false;
+            mgbRemoteDataSources.CharacterCasing = CharacterCasing.Normal;
+            mgbRemoteDataSources.Controls.Add(pnlDataSelectRemoteSources);
+            mgbRemoteDataSources.Dock = DockStyle.Fill;
+            mgbRemoteDataSources.Localization = Localization.LocalizationOptions.Remote;
+            mgbRemoteDataSources.Location = new Point(1, 1);
+            mgbRemoteDataSources.Margin = new Padding(1);
+            mgbRemoteDataSources.Name = "mgbRemoteDataSources";
+            mgbRemoteDataSources.PreceedingText = "";
+            mgbRemoteDataSources.Size = new Size(306, 427);
+            mgbRemoteDataSources.SucceedingText = "";
+            mgbRemoteDataSources.TabIndex = 8;
+            mgbRemoteDataSources.TabStop = false;
             // 
-            // dataSelectRemoteSourcesPanel
+            // pnlDataSelectRemoteSources
             // 
-            dataSelectRemoteSourcesPanel.AutoScroll = true;
-            dataSelectRemoteSourcesPanel.BackColor = Color.White;
-            dataSelectRemoteSourcesPanel.Dock = DockStyle.Fill;
-            dataSelectRemoteSourcesPanel.Location = new Point(3, 19);
-            dataSelectRemoteSourcesPanel.Name = "dataSelectRemoteSourcesPanel";
-            dataSelectRemoteSourcesPanel.Padding = new Padding(3);
-            dataSelectRemoteSourcesPanel.Size = new Size(300, 405);
-            dataSelectRemoteSourcesPanel.TabIndex = 1;
+            pnlDataSelectRemoteSources.AutoScroll = true;
+            pnlDataSelectRemoteSources.BackColor = Color.White;
+            pnlDataSelectRemoteSources.Dock = DockStyle.Fill;
+            pnlDataSelectRemoteSources.Location = new Point(3, 19);
+            pnlDataSelectRemoteSources.Name = "pnlDataSelectRemoteSources";
+            pnlDataSelectRemoteSources.Padding = new Padding(3);
+            pnlDataSelectRemoteSources.Size = new Size(300, 405);
+            pnlDataSelectRemoteSources.TabIndex = 1;
             // 
-            // dataSelectTopTLP
+            // tlpDataSelectTop
             // 
-            dataSelectTopTLP.ColumnCount = 3;
-            dataSelectTopTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            dataSelectTopTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            dataSelectTopTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            dataSelectTopTLP.Controls.Add(languageSelectTLP, 0, 0);
-            dataSelectTopTLP.Controls.Add(label1, 1, 0);
-            dataSelectTopTLP.Dock = DockStyle.Top;
-            dataSelectTopTLP.Location = new Point(0, 0);
-            dataSelectTopTLP.Name = "dataSelectTopTLP";
-            dataSelectTopTLP.RowCount = 1;
-            dataSelectTopTLP.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            dataSelectTopTLP.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            dataSelectTopTLP.Size = new Size(776, 32);
-            dataSelectTopTLP.TabIndex = 11;
+            tlpDataSelectTop.ColumnCount = 3;
+            tlpDataSelectTop.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tlpDataSelectTop.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tlpDataSelectTop.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tlpDataSelectTop.Controls.Add(tlpLanguageSelect, 0, 0);
+            tlpDataSelectTop.Controls.Add(label1, 1, 0);
+            tlpDataSelectTop.Dock = DockStyle.Top;
+            tlpDataSelectTop.Location = new Point(0, 0);
+            tlpDataSelectTop.Name = "tlpDataSelectTop";
+            tlpDataSelectTop.RowCount = 1;
+            tlpDataSelectTop.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tlpDataSelectTop.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tlpDataSelectTop.Size = new Size(776, 32);
+            tlpDataSelectTop.TabIndex = 11;
             // 
-            // languageSelectTLP
+            // tlpLanguageSelect
             // 
-            languageSelectTLP.ColumnCount = 4;
-            languageSelectTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            languageSelectTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-            languageSelectTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
-            languageSelectTLP.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            languageSelectTLP.Controls.Add(languageSelectLabel, 1, 0);
-            languageSelectTLP.Controls.Add(languageSelectComboBox, 2, 0);
-            languageSelectTLP.Dock = DockStyle.Fill;
-            languageSelectTLP.Location = new Point(0, 0);
-            languageSelectTLP.Margin = new Padding(0);
-            languageSelectTLP.Name = "languageSelectTLP";
-            languageSelectTLP.RowCount = 1;
-            languageSelectTLP.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            languageSelectTLP.Size = new Size(258, 32);
-            languageSelectTLP.TabIndex = 9;
+            tlpLanguageSelect.ColumnCount = 4;
+            tlpLanguageSelect.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tlpLanguageSelect.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
+            tlpLanguageSelect.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
+            tlpLanguageSelect.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tlpLanguageSelect.Controls.Add(lblLanguageSelect, 1, 0);
+            tlpLanguageSelect.Controls.Add(cblanguageSelect, 2, 0);
+            tlpLanguageSelect.Dock = DockStyle.Fill;
+            tlpLanguageSelect.Location = new Point(0, 0);
+            tlpLanguageSelect.Margin = new Padding(0);
+            tlpLanguageSelect.Name = "tlpLanguageSelect";
+            tlpLanguageSelect.RowCount = 1;
+            tlpLanguageSelect.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tlpLanguageSelect.Size = new Size(258, 32);
+            tlpLanguageSelect.TabIndex = 9;
             // 
-            // languageSelectLabel
+            // lblLanguageSelect
             // 
-            languageSelectLabel.Anchor = AnchorStyles.Right;
-            languageSelectLabel.AutoSize = true;
-            languageSelectLabel.Location = new Point(29, 8);
-            languageSelectLabel.Name = "languageSelectLabel";
-            languageSelectLabel.Size = new Size(97, 15);
-            languageSelectLabel.TabIndex = 0;
-            languageSelectLabel.Text = "Language / Jezik:";
-            languageSelectLabel.TextAlign = ContentAlignment.MiddleRight;
+            lblLanguageSelect.Anchor = AnchorStyles.Right;
+            lblLanguageSelect.AutoSize = true;
+            lblLanguageSelect.Location = new Point(29, 8);
+            lblLanguageSelect.Name = "lblLanguageSelect";
+            lblLanguageSelect.Size = new Size(97, 15);
+            lblLanguageSelect.TabIndex = 0;
+            lblLanguageSelect.Text = "Language / Jezik:";
+            lblLanguageSelect.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // languageSelectComboBox
+            // cblanguageSelect
             // 
-            languageSelectComboBox.Anchor = AnchorStyles.Left;
-            languageSelectComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            languageSelectComboBox.FormattingEnabled = true;
-            languageSelectComboBox.Location = new Point(132, 4);
-            languageSelectComboBox.Name = "languageSelectComboBox";
-            languageSelectComboBox.Size = new Size(94, 23);
-            languageSelectComboBox.TabIndex = 1;
+            cblanguageSelect.Anchor = AnchorStyles.Left;
+            cblanguageSelect.DropDownStyle = ComboBoxStyle.DropDownList;
+            cblanguageSelect.FormattingEnabled = true;
+            cblanguageSelect.Location = new Point(132, 4);
+            cblanguageSelect.Name = "cblanguageSelect";
+            cblanguageSelect.Size = new Size(94, 23);
+            cblanguageSelect.TabIndex = 1;
             // 
             // label1
             // 
@@ -349,51 +349,51 @@ namespace WorldCupViewer
             label1.TabIndex = 9;
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // teamAndPlayerSelectTab
+            // tpTeamAndPlayerSelect
             // 
-            teamAndPlayerSelectTab.Controls.Add(panel3);
-            teamAndPlayerSelectTab.Controls.Add(multilingualGroupBox1);
-            teamAndPlayerSelectTab.Location = new Point(4, 24);
-            teamAndPlayerSelectTab.Name = "teamAndPlayerSelectTab";
-            teamAndPlayerSelectTab.Padding = new Padding(3);
-            teamAndPlayerSelectTab.Size = new Size(776, 461);
-            teamAndPlayerSelectTab.TabIndex = 1;
-            teamAndPlayerSelectTab.Text = "Team Slash Player Select";
-            teamAndPlayerSelectTab.UseVisualStyleBackColor = true;
+            tpTeamAndPlayerSelect.Controls.Add(panel3);
+            tpTeamAndPlayerSelect.Controls.Add(mgbPlayerList);
+            tpTeamAndPlayerSelect.Location = new Point(4, 24);
+            tpTeamAndPlayerSelect.Name = "tpTeamAndPlayerSelect";
+            tpTeamAndPlayerSelect.Padding = new Padding(3);
+            tpTeamAndPlayerSelect.Size = new Size(776, 461);
+            tpTeamAndPlayerSelect.TabIndex = 1;
+            tpTeamAndPlayerSelect.Text = "Team Slash Player Select";
+            tpTeamAndPlayerSelect.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel3.Controls.Add(tlpTeamPlayerSelectTop);
-            panel3.Controls.Add(multilingualGroupBox3);
+            panel3.Controls.Add(tlpTeamDataAndSelect);
+            panel3.Controls.Add(mgbFavouritePlayers);
             panel3.Location = new Point(5, 6);
             panel3.Margin = new Padding(0);
             panel3.Name = "panel3";
             panel3.Size = new Size(300, 455);
             panel3.TabIndex = 8;
             // 
-            // tlpTeamPlayerSelectTop
+            // tlpTeamDataAndSelect
             // 
-            tlpTeamPlayerSelectTop.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            tlpTeamPlayerSelectTop.ColumnCount = 2;
-            tlpTeamPlayerSelectTop.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
-            tlpTeamPlayerSelectTop.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tlpTeamPlayerSelectTop.Controls.Add(panel2, 1, 0);
-            tlpTeamPlayerSelectTop.Controls.Add(SelectedCupDataPictureBox, 0, 0);
-            tlpTeamPlayerSelectTop.Location = new Point(0, 0);
-            tlpTeamPlayerSelectTop.Name = "tlpTeamPlayerSelectTop";
-            tlpTeamPlayerSelectTop.RowCount = 1;
-            tlpTeamPlayerSelectTop.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tlpTeamPlayerSelectTop.Size = new Size(300, 148);
-            tlpTeamPlayerSelectTop.TabIndex = 0;
+            tlpTeamDataAndSelect.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tlpTeamDataAndSelect.ColumnCount = 2;
+            tlpTeamDataAndSelect.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            tlpTeamDataAndSelect.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tlpTeamDataAndSelect.Controls.Add(panel2, 1, 0);
+            tlpTeamDataAndSelect.Controls.Add(pbSelectedCupImage, 0, 0);
+            tlpTeamDataAndSelect.Location = new Point(0, 0);
+            tlpTeamDataAndSelect.Name = "tlpTeamDataAndSelect";
+            tlpTeamDataAndSelect.RowCount = 1;
+            tlpTeamDataAndSelect.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tlpTeamDataAndSelect.Size = new Size(300, 148);
+            tlpTeamDataAndSelect.TabIndex = 0;
             // 
             // panel2
             // 
-            panel2.Controls.Add(SelectedCupDataYearLabel);
-            panel2.Controls.Add(SelectedCupDataNameLabel);
+            panel2.Controls.Add(lblSelectedCupDataYear);
+            panel2.Controls.Add(lblSelectedCupDataName);
             panel2.Controls.Add(multilingualLabel4);
             panel2.Controls.Add(multilingualLabel2);
-            panel2.Controls.Add(SelectedTeamComboBox);
+            panel2.Controls.Add(cbSelectedTeam);
             panel2.Controls.Add(multilingualLabel1);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(153, 3);
@@ -401,25 +401,25 @@ namespace WorldCupViewer
             panel2.Size = new Size(144, 142);
             panel2.TabIndex = 1;
             // 
-            // SelectedCupDataYearLabel
+            // lblSelectedCupDataYear
             // 
-            SelectedCupDataYearLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            SelectedCupDataYearLabel.Location = new Point(3, 67);
-            SelectedCupDataYearLabel.Name = "SelectedCupDataYearLabel";
-            SelectedCupDataYearLabel.Size = new Size(138, 25);
-            SelectedCupDataYearLabel.TabIndex = 5;
-            SelectedCupDataYearLabel.Text = "YEAR GOES HERE";
-            SelectedCupDataYearLabel.TextAlign = ContentAlignment.MiddleLeft;
+            lblSelectedCupDataYear.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lblSelectedCupDataYear.Location = new Point(3, 67);
+            lblSelectedCupDataYear.Name = "lblSelectedCupDataYear";
+            lblSelectedCupDataYear.Size = new Size(138, 25);
+            lblSelectedCupDataYear.TabIndex = 5;
+            lblSelectedCupDataYear.Text = "YEAR GOES HERE";
+            lblSelectedCupDataYear.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // SelectedCupDataNameLabel
+            // lblSelectedCupDataName
             // 
-            SelectedCupDataNameLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            SelectedCupDataNameLabel.Location = new Point(3, 21);
-            SelectedCupDataNameLabel.Name = "SelectedCupDataNameLabel";
-            SelectedCupDataNameLabel.Size = new Size(138, 25);
-            SelectedCupDataNameLabel.TabIndex = 4;
-            SelectedCupDataNameLabel.Text = "NAME GOES HERE";
-            SelectedCupDataNameLabel.TextAlign = ContentAlignment.MiddleLeft;
+            lblSelectedCupDataName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lblSelectedCupDataName.Location = new Point(3, 21);
+            lblSelectedCupDataName.Name = "lblSelectedCupDataName";
+            lblSelectedCupDataName.Size = new Size(138, 25);
+            lblSelectedCupDataName.TabIndex = 4;
+            lblSelectedCupDataName.Text = "NAME GOES HERE";
+            lblSelectedCupDataName.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // multilingualLabel4
             // 
@@ -449,17 +449,18 @@ namespace WorldCupViewer
             multilingualLabel2.TabIndex = 2;
             multilingualLabel2.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // SelectedTeamComboBox
+            // cbSelectedTeam
             // 
-            SelectedTeamComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            SelectedTeamComboBox.DisplayMember = "Key";
-            SelectedTeamComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            SelectedTeamComboBox.FormattingEnabled = true;
-            SelectedTeamComboBox.Location = new Point(3, 116);
-            SelectedTeamComboBox.Name = "SelectedTeamComboBox";
-            SelectedTeamComboBox.Size = new Size(138, 23);
-            SelectedTeamComboBox.TabIndex = 0;
-            SelectedTeamComboBox.ValueMember = "Value";
+            cbSelectedTeam.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cbSelectedTeam.DisplayMember = "Key";
+            cbSelectedTeam.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbSelectedTeam.FormattingEnabled = true;
+            cbSelectedTeam.Location = new Point(3, 116);
+            cbSelectedTeam.Name = "cbSelectedTeam";
+            cbSelectedTeam.Size = new Size(138, 23);
+            cbSelectedTeam.TabIndex = 0;
+            cbSelectedTeam.ValueMember = "Value";
+            cbSelectedTeam.SelectedIndexChanged += SelectedTeamChanged;
             // 
             // multilingualLabel1
             // 
@@ -475,63 +476,63 @@ namespace WorldCupViewer
             multilingualLabel1.TabIndex = 1;
             multilingualLabel1.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // SelectedCupDataPictureBox
+            // pbSelectedCupImage
             // 
-            SelectedCupDataPictureBox.BorderStyle = BorderStyle.FixedSingle;
-            SelectedCupDataPictureBox.Dock = DockStyle.Fill;
-            SelectedCupDataPictureBox.ExternalImageID = null;
-            SelectedCupDataPictureBox.Location = new Point(3, 3);
-            SelectedCupDataPictureBox.Name = "SelectedCupDataPictureBox";
-            SelectedCupDataPictureBox.Size = new Size(144, 142);
-            SelectedCupDataPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-            SelectedCupDataPictureBox.TabIndex = 2;
-            SelectedCupDataPictureBox.TabStop = false;
+            pbSelectedCupImage.BorderStyle = BorderStyle.FixedSingle;
+            pbSelectedCupImage.Dock = DockStyle.Fill;
+            pbSelectedCupImage.ExternalImageID = null;
+            pbSelectedCupImage.Location = new Point(3, 3);
+            pbSelectedCupImage.Name = "pbSelectedCupImage";
+            pbSelectedCupImage.Size = new Size(144, 142);
+            pbSelectedCupImage.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbSelectedCupImage.TabIndex = 2;
+            pbSelectedCupImage.TabStop = false;
             // 
-            // multilingualGroupBox3
+            // mgbFavouritePlayers
             // 
-            multilingualGroupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            multilingualGroupBox3.CharacterCasing = CharacterCasing.Normal;
-            multilingualGroupBox3.Controls.Add(panel6);
-            multilingualGroupBox3.Localization = Localization.LocalizationOptions.Favourites;
-            multilingualGroupBox3.Location = new Point(3, 154);
-            multilingualGroupBox3.Name = "multilingualGroupBox3";
-            multilingualGroupBox3.PreceedingText = "";
-            multilingualGroupBox3.Size = new Size(297, 295);
-            multilingualGroupBox3.SucceedingText = "";
-            multilingualGroupBox3.TabIndex = 8;
-            multilingualGroupBox3.TabStop = false;
+            mgbFavouritePlayers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            mgbFavouritePlayers.CharacterCasing = CharacterCasing.Normal;
+            mgbFavouritePlayers.Controls.Add(pnlFavouritePlayers);
+            mgbFavouritePlayers.Localization = Localization.LocalizationOptions.Favourites;
+            mgbFavouritePlayers.Location = new Point(3, 154);
+            mgbFavouritePlayers.Name = "mgbFavouritePlayers";
+            mgbFavouritePlayers.PreceedingText = "";
+            mgbFavouritePlayers.Size = new Size(297, 295);
+            mgbFavouritePlayers.SucceedingText = "";
+            mgbFavouritePlayers.TabIndex = 8;
+            mgbFavouritePlayers.TabStop = false;
             // 
-            // panel6
+            // pnlFavouritePlayers
             // 
-            panel6.AutoScroll = true;
-            panel6.Dock = DockStyle.Fill;
-            panel6.Location = new Point(3, 19);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(291, 273);
-            panel6.TabIndex = 1;
+            pnlFavouritePlayers.AutoScroll = true;
+            pnlFavouritePlayers.Dock = DockStyle.Fill;
+            pnlFavouritePlayers.Location = new Point(3, 19);
+            pnlFavouritePlayers.Name = "pnlFavouritePlayers";
+            pnlFavouritePlayers.Size = new Size(291, 273);
+            pnlFavouritePlayers.TabIndex = 1;
             // 
-            // multilingualGroupBox1
+            // mgbPlayerList
             // 
-            multilingualGroupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            multilingualGroupBox1.CharacterCasing = CharacterCasing.Normal;
-            multilingualGroupBox1.Controls.Add(panel4);
-            multilingualGroupBox1.Localization = Localization.LocalizationOptions.Player_List;
-            multilingualGroupBox1.Location = new Point(311, 6);
-            multilingualGroupBox1.Name = "multilingualGroupBox1";
-            multilingualGroupBox1.PreceedingText = "";
-            multilingualGroupBox1.Size = new Size(457, 449);
-            multilingualGroupBox1.SucceedingText = "";
-            multilingualGroupBox1.TabIndex = 7;
-            multilingualGroupBox1.TabStop = false;
+            mgbPlayerList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            mgbPlayerList.CharacterCasing = CharacterCasing.Normal;
+            mgbPlayerList.Controls.Add(pnlPlayerList);
+            mgbPlayerList.Localization = Localization.LocalizationOptions.Player_List;
+            mgbPlayerList.Location = new Point(311, 6);
+            mgbPlayerList.Name = "mgbPlayerList";
+            mgbPlayerList.PreceedingText = "";
+            mgbPlayerList.Size = new Size(457, 449);
+            mgbPlayerList.SucceedingText = "";
+            mgbPlayerList.TabIndex = 7;
+            mgbPlayerList.TabStop = false;
             // 
-            // panel4
+            // pnlPlayerList
             // 
-            panel4.AutoScroll = true;
-            panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(3, 19);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(451, 427);
-            panel4.TabIndex = 1;
+            pnlPlayerList.AutoScroll = true;
+            pnlPlayerList.Dock = DockStyle.Fill;
+            pnlPlayerList.Location = new Point(3, 19);
+            pnlPlayerList.Name = "pnlPlayerList";
+            pnlPlayerList.Size = new Size(451, 427);
+            pnlPlayerList.TabIndex = 1;
             // 
             // panel1
             // 
@@ -579,20 +580,20 @@ namespace WorldCupViewer
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
             mainTabControl.ResumeLayout(false);
-            dataSelectTab.ResumeLayout(false);
-            dataSelectBotTLP.ResumeLayout(false);
-            localDataSourcesGroupBox.ResumeLayout(false);
-            remoteDataSourcesGroupBox.ResumeLayout(false);
-            dataSelectTopTLP.ResumeLayout(false);
-            languageSelectTLP.ResumeLayout(false);
-            languageSelectTLP.PerformLayout();
-            teamAndPlayerSelectTab.ResumeLayout(false);
+            tpDataSelect.ResumeLayout(false);
+            tlpDataSelectBot.ResumeLayout(false);
+            mgbLocalDataSources.ResumeLayout(false);
+            mgbRemoteDataSources.ResumeLayout(false);
+            tlpDataSelectTop.ResumeLayout(false);
+            tlpLanguageSelect.ResumeLayout(false);
+            tlpLanguageSelect.PerformLayout();
+            tpTeamAndPlayerSelect.ResumeLayout(false);
             panel3.ResumeLayout(false);
-            tlpTeamPlayerSelectTop.ResumeLayout(false);
+            tlpTeamDataAndSelect.ResumeLayout(false);
             panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)SelectedCupDataPictureBox).EndInit();
-            multilingualGroupBox3.ResumeLayout(false);
-            multilingualGroupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pbSelectedCupImage).EndInit();
+            mgbFavouritePlayers.ResumeLayout(false);
+            mgbPlayerList.ResumeLayout(false);
             panel1.ResumeLayout(false);
             multilingualGroupBox2.ResumeLayout(false);
             ResumeLayout(false);
@@ -603,18 +604,18 @@ namespace WorldCupViewer
 
         private StatusStrip statusStrip;
         private TabControl mainTabControl;
-        private TabPage dataSelectTab;
-        private TabPage teamAndPlayerSelectTab;
+        private TabPage tpDataSelect;
+        private TabPage tpTeamAndPlayerSelect;
         private MultilingualLabel label1;
-        private TableLayoutPanel dataSelectTopTLP;
-        private TableLayoutPanel languageSelectTLP;
-        private Label languageSelectLabel;
-        private ComboBox languageSelectComboBox;
-        private TableLayoutPanel dataSelectBotTLP;
-        private MultilingualGroupBox localDataSourcesGroupBox;
-        private Panel dataSelectLocalSourcesPanel;
-        private MultilingualGroupBox remoteDataSourcesGroupBox;
-        private Panel dataSelectRemoteSourcesPanel;
+        private TableLayoutPanel tlpDataSelectTop;
+        private TableLayoutPanel tlpLanguageSelect;
+        private Label lblLanguageSelect;
+        private ComboBox cblanguageSelect;
+        private TableLayoutPanel tlpDataSelectBot;
+        private MultilingualGroupBox mgbLocalDataSources;
+        private Panel pnlDataSelectLocalSources;
+        private MultilingualGroupBox mgbRemoteDataSources;
+        private Panel pnlDataSelectRemoteSources;
         private MultilingualToolStripStatusLabel MTSSLDownloadState;
         private MultilingualToolStripStatusLabel MTSSLDownloadStateState;
         private MultilingualToolStripStatusLabel MTSSLDataIsLoading;
@@ -623,22 +624,22 @@ namespace WorldCupViewer
         private MultilingualToolStripStatusLabel MTSSLFailedToSaveSettings;
         private MultilingualToolStripStatusLabel MTSSLFailedToLoadSettings;
         private MultilingualToolStripStatusLabel MTSSLGUIDError;
-        private MultilingualGroupBox multilingualGroupBox1;
-        private Panel panel4;
+        private MultilingualGroupBox mgbPlayerList;
+        private Panel pnlPlayerList;
         private Panel panel3;
-        private MultilingualGroupBox multilingualGroupBox3;
-        private Panel panel6;
+        private MultilingualGroupBox mgbFavouritePlayers;
+        private Panel pnlFavouritePlayers;
         private Panel panel1;
         private MultilingualGroupBox multilingualGroupBox2;
         private Panel panel5;
-        private TableLayoutPanel tlpTeamPlayerSelectTop;
+        private TableLayoutPanel tlpTeamDataAndSelect;
         private Panel panel2;
-        private Label SelectedCupDataYearLabel;
-        private Label SelectedCupDataNameLabel;
+        private Label lblSelectedCupDataYear;
+        private Label lblSelectedCupDataName;
         private MultilingualLabel multilingualLabel4;
         private MultilingualLabel multilingualLabel2;
-        private ComboBox SelectedTeamComboBox;
+        private ComboBox cbSelectedTeam;
         private MultilingualLabel multilingualLabel1;
-        private ExternalImage SelectedCupDataPictureBox;
+        private ExternalImage pbSelectedCupImage;
     }
 }
