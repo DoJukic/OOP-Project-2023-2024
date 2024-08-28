@@ -39,6 +39,7 @@ namespace WorldCupViewer
             MTSSLDownloadState = new MultilingualToolStripStatusLabel();
             MTSSLDownloadStateState = new MultilingualToolStripStatusLabel();
             MTSSLDataIsLoading = new MultilingualToolStripStatusLabel();
+            MTSSLPlayerDataIsLoading = new MultilingualToolStripStatusLabel();
             mainTabControl = new TabControl();
             tpDataSelect = new TabPage();
             tlpDataSelectBot = new TableLayoutPanel();
@@ -53,6 +54,7 @@ namespace WorldCupViewer
             label1 = new MultilingualLabel();
             tpTeamAndPlayerSelect = new TabPage();
             panel3 = new Panel();
+            mlbConfirmFavouritePlayerSelection = new MultilingualButton();
             tlpTeamDataAndSelect = new TableLayoutPanel();
             panel2 = new Panel();
             lblSelectedCupDataYear = new Label();
@@ -63,7 +65,7 @@ namespace WorldCupViewer
             multilingualLabel1 = new MultilingualLabel();
             pbSelectedCupImage = new ExternalImage();
             mgbFavouritePlayers = new MultilingualGroupBox();
-            pnlFavouritePlayers = new Panel();
+            pnlFavouritePlayerList = new Panel();
             mgbPlayerList = new MultilingualGroupBox();
             pnlPlayerList = new Panel();
             panel1 = new Panel();
@@ -90,8 +92,8 @@ namespace WorldCupViewer
             // 
             // statusStrip
             // 
-            statusStrip.Items.AddRange(new ToolStripItem[] { MTSSLFailedToLoadSettings, MTSSLFailedToSaveSettings, MTSSLFailedToLoadData, MTSSLGUIDError, MTSSLDownloadFailed, MTSSLDownloadState, MTSSLDownloadStateState, MTSSLDataIsLoading });
-            statusStrip.Location = new Point(0, 489);
+            statusStrip.Items.AddRange(new ToolStripItem[] { MTSSLFailedToLoadSettings, MTSSLFailedToSaveSettings, MTSSLFailedToLoadData, MTSSLGUIDError, MTSSLDownloadFailed, MTSSLDownloadState, MTSSLDownloadStateState, MTSSLDataIsLoading, MTSSLPlayerDataIsLoading });
+            statusStrip.Location = new Point(0, 519);
             statusStrip.Name = "statusStrip";
             statusStrip.Size = new Size(784, 22);
             statusStrip.TabIndex = 0;
@@ -187,6 +189,18 @@ namespace WorldCupViewer
             MTSSLDataIsLoading.SucceedingText = "...";
             MTSSLDataIsLoading.Visible = false;
             // 
+            // MTSSLPlayerDataIsLoading
+            // 
+            MTSSLPlayerDataIsLoading.CharacterCasing = CharacterCasing.Normal;
+            MTSSLPlayerDataIsLoading.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            MTSSLPlayerDataIsLoading.ForeColor = SystemColors.ControlText;
+            MTSSLPlayerDataIsLoading.Localization = Localization.LocalizationOptions.Player_Data_Is_Loading;
+            MTSSLPlayerDataIsLoading.Name = "MTSSLPlayerDataIsLoading";
+            MTSSLPlayerDataIsLoading.PreceedingText = "   ";
+            MTSSLPlayerDataIsLoading.Size = new Size(175, 17);
+            MTSSLPlayerDataIsLoading.SucceedingText = "...";
+            MTSSLPlayerDataIsLoading.Visible = false;
+            // 
             // mainTabControl
             // 
             mainTabControl.Controls.Add(tpDataSelect);
@@ -197,7 +211,7 @@ namespace WorldCupViewer
             mainTabControl.Name = "mainTabControl";
             mainTabControl.Padding = new Point(0, 0);
             mainTabControl.SelectedIndex = 0;
-            mainTabControl.Size = new Size(784, 489);
+            mainTabControl.Size = new Size(784, 519);
             mainTabControl.TabIndex = 1;
             // 
             // tpDataSelect
@@ -207,7 +221,7 @@ namespace WorldCupViewer
             tpDataSelect.Location = new Point(4, 24);
             tpDataSelect.Margin = new Padding(0);
             tpDataSelect.Name = "tpDataSelect";
-            tpDataSelect.Size = new Size(776, 461);
+            tpDataSelect.Size = new Size(776, 491);
             tpDataSelect.TabIndex = 0;
             tpDataSelect.Text = "Data Select Slash Config";
             tpDataSelect.UseVisualStyleBackColor = true;
@@ -225,7 +239,7 @@ namespace WorldCupViewer
             tlpDataSelectBot.Name = "tlpDataSelectBot";
             tlpDataSelectBot.RowCount = 1;
             tlpDataSelectBot.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tlpDataSelectBot.Size = new Size(776, 429);
+            tlpDataSelectBot.Size = new Size(776, 459);
             tlpDataSelectBot.TabIndex = 12;
             // 
             // mgbLocalDataSources
@@ -238,7 +252,7 @@ namespace WorldCupViewer
             mgbLocalDataSources.Margin = new Padding(1);
             mgbLocalDataSources.Name = "mgbLocalDataSources";
             mgbLocalDataSources.PreceedingText = "";
-            mgbLocalDataSources.Size = new Size(460, 427);
+            mgbLocalDataSources.Size = new Size(460, 457);
             mgbLocalDataSources.SucceedingText = "";
             mgbLocalDataSources.TabIndex = 9;
             mgbLocalDataSources.TabStop = false;
@@ -251,7 +265,7 @@ namespace WorldCupViewer
             pnlDataSelectLocalSources.Location = new Point(3, 19);
             pnlDataSelectLocalSources.Name = "pnlDataSelectLocalSources";
             pnlDataSelectLocalSources.Padding = new Padding(3);
-            pnlDataSelectLocalSources.Size = new Size(454, 405);
+            pnlDataSelectLocalSources.Size = new Size(454, 435);
             pnlDataSelectLocalSources.TabIndex = 0;
             // 
             // mgbRemoteDataSources
@@ -264,7 +278,7 @@ namespace WorldCupViewer
             mgbRemoteDataSources.Margin = new Padding(1);
             mgbRemoteDataSources.Name = "mgbRemoteDataSources";
             mgbRemoteDataSources.PreceedingText = "";
-            mgbRemoteDataSources.Size = new Size(306, 427);
+            mgbRemoteDataSources.Size = new Size(306, 457);
             mgbRemoteDataSources.SucceedingText = "";
             mgbRemoteDataSources.TabIndex = 8;
             mgbRemoteDataSources.TabStop = false;
@@ -277,7 +291,7 @@ namespace WorldCupViewer
             pnlDataSelectRemoteSources.Location = new Point(3, 19);
             pnlDataSelectRemoteSources.Name = "pnlDataSelectRemoteSources";
             pnlDataSelectRemoteSources.Padding = new Padding(3);
-            pnlDataSelectRemoteSources.Size = new Size(300, 405);
+            pnlDataSelectRemoteSources.Size = new Size(300, 435);
             pnlDataSelectRemoteSources.TabIndex = 1;
             // 
             // tlpDataSelectTop
@@ -356,7 +370,7 @@ namespace WorldCupViewer
             tpTeamAndPlayerSelect.Location = new Point(4, 24);
             tpTeamAndPlayerSelect.Name = "tpTeamAndPlayerSelect";
             tpTeamAndPlayerSelect.Padding = new Padding(3);
-            tpTeamAndPlayerSelect.Size = new Size(776, 461);
+            tpTeamAndPlayerSelect.Size = new Size(776, 491);
             tpTeamAndPlayerSelect.TabIndex = 1;
             tpTeamAndPlayerSelect.Text = "Team Slash Player Select";
             tpTeamAndPlayerSelect.UseVisualStyleBackColor = true;
@@ -364,13 +378,29 @@ namespace WorldCupViewer
             // panel3
             // 
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            panel3.Controls.Add(mlbConfirmFavouritePlayerSelection);
             panel3.Controls.Add(tlpTeamDataAndSelect);
             panel3.Controls.Add(mgbFavouritePlayers);
             panel3.Location = new Point(5, 6);
             panel3.Margin = new Padding(0);
+            panel3.MaximumSize = new Size(300, 485);
             panel3.Name = "panel3";
-            panel3.Size = new Size(300, 455);
+            panel3.Size = new Size(300, 485);
             panel3.TabIndex = 8;
+            // 
+            // mlbConfirmFavouritePlayerSelection
+            // 
+            mlbConfirmFavouritePlayerSelection.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            mlbConfirmFavouritePlayerSelection.CharacterCasing = CharacterCasing.Normal;
+            mlbConfirmFavouritePlayerSelection.Localization = Localization.LocalizationOptions.Confirm_Selection;
+            mlbConfirmFavouritePlayerSelection.Location = new Point(0, 460);
+            mlbConfirmFavouritePlayerSelection.Margin = new Padding(0, 3, 0, 3);
+            mlbConfirmFavouritePlayerSelection.Name = "mlbConfirmFavouritePlayerSelection";
+            mlbConfirmFavouritePlayerSelection.PreceedingText = "> ";
+            mlbConfirmFavouritePlayerSelection.Size = new Size(300, 23);
+            mlbConfirmFavouritePlayerSelection.SucceedingText = "";
+            mlbConfirmFavouritePlayerSelection.TabIndex = 9;
+            mlbConfirmFavouritePlayerSelection.UseVisualStyleBackColor = true;
             // 
             // tlpTeamDataAndSelect
             // 
@@ -490,26 +520,29 @@ namespace WorldCupViewer
             // 
             // mgbFavouritePlayers
             // 
-            mgbFavouritePlayers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            mgbFavouritePlayers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             mgbFavouritePlayers.CharacterCasing = CharacterCasing.Normal;
-            mgbFavouritePlayers.Controls.Add(pnlFavouritePlayers);
+            mgbFavouritePlayers.Controls.Add(pnlFavouritePlayerList);
             mgbFavouritePlayers.Localization = Localization.LocalizationOptions.Favourites;
-            mgbFavouritePlayers.Location = new Point(3, 154);
+            mgbFavouritePlayers.Location = new Point(0, 154);
+            mgbFavouritePlayers.Margin = new Padding(0, 3, 0, 3);
+            mgbFavouritePlayers.MaximumSize = new Size(300, 305);
             mgbFavouritePlayers.Name = "mgbFavouritePlayers";
             mgbFavouritePlayers.PreceedingText = "";
-            mgbFavouritePlayers.Size = new Size(297, 295);
+            mgbFavouritePlayers.Size = new Size(300, 305);
             mgbFavouritePlayers.SucceedingText = "";
             mgbFavouritePlayers.TabIndex = 8;
             mgbFavouritePlayers.TabStop = false;
             // 
-            // pnlFavouritePlayers
+            // pnlFavouritePlayerList
             // 
-            pnlFavouritePlayers.AutoScroll = true;
-            pnlFavouritePlayers.Dock = DockStyle.Fill;
-            pnlFavouritePlayers.Location = new Point(3, 19);
-            pnlFavouritePlayers.Name = "pnlFavouritePlayers";
-            pnlFavouritePlayers.Size = new Size(291, 273);
-            pnlFavouritePlayers.TabIndex = 1;
+            pnlFavouritePlayerList.AllowDrop = true;
+            pnlFavouritePlayerList.AutoScroll = true;
+            pnlFavouritePlayerList.Dock = DockStyle.Fill;
+            pnlFavouritePlayerList.Location = new Point(3, 19);
+            pnlFavouritePlayerList.Name = "pnlFavouritePlayerList";
+            pnlFavouritePlayerList.Size = new Size(294, 283);
+            pnlFavouritePlayerList.TabIndex = 1;
             // 
             // mgbPlayerList
             // 
@@ -520,18 +553,19 @@ namespace WorldCupViewer
             mgbPlayerList.Location = new Point(311, 6);
             mgbPlayerList.Name = "mgbPlayerList";
             mgbPlayerList.PreceedingText = "";
-            mgbPlayerList.Size = new Size(457, 449);
+            mgbPlayerList.Size = new Size(457, 485);
             mgbPlayerList.SucceedingText = "";
             mgbPlayerList.TabIndex = 7;
             mgbPlayerList.TabStop = false;
             // 
             // pnlPlayerList
             // 
+            pnlPlayerList.AllowDrop = true;
             pnlPlayerList.AutoScroll = true;
             pnlPlayerList.Dock = DockStyle.Fill;
             pnlPlayerList.Location = new Point(3, 19);
             pnlPlayerList.Name = "pnlPlayerList";
-            pnlPlayerList.Size = new Size(451, 427);
+            pnlPlayerList.Size = new Size(451, 463);
             pnlPlayerList.TabIndex = 1;
             // 
             // panel1
@@ -570,7 +604,7 @@ namespace WorldCupViewer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(784, 511);
+            ClientSize = new Size(784, 541);
             Controls.Add(mainTabControl);
             Controls.Add(statusStrip);
             MinimumSize = new Size(650, 400);
@@ -628,7 +662,7 @@ namespace WorldCupViewer
         private Panel pnlPlayerList;
         private Panel panel3;
         private MultilingualGroupBox mgbFavouritePlayers;
-        private Panel pnlFavouritePlayers;
+        private Panel pnlFavouritePlayerList;
         private Panel panel1;
         private MultilingualGroupBox multilingualGroupBox2;
         private Panel panel5;
@@ -641,5 +675,7 @@ namespace WorldCupViewer
         private ComboBox cbSelectedTeam;
         private MultilingualLabel multilingualLabel1;
         private ExternalImage pbSelectedCupImage;
+        private MultilingualToolStripStatusLabel MTSSLPlayerDataIsLoading;
+        private MultilingualButton mlbConfirmFavouritePlayerSelection;
     }
 }

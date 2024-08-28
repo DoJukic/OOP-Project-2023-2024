@@ -51,6 +51,11 @@ namespace WorldCupViewer.Localization
         Guid_Error_Data_Might_Not_Be_Saved,
         Player_List,
         Players,
+        Shirt_Number,
+        Games_Captained,
+        Usual_Position,
+        Player_Data_Is_Loading,
+        Confirm_Selection
     }
 
     /// <summary>
@@ -67,7 +72,12 @@ namespace WorldCupViewer.Localization
             {
                 LocalizationOptions.TestString => Resource.TestString,
                 LocalizationOptions.TestString2 => Resource.TestString2,
+                LocalizationOptions.Confirm_Selection => Resource.LOC_Confirm_Selection,
                 LocalizationOptions.Players => Resource.LOC_Players,
+                LocalizationOptions.Shirt_Number => Resource.LOC_Shirt_Number,
+                LocalizationOptions.Games_Captained => Resource.LOC_Games_Captained,
+                LocalizationOptions.Usual_Position => Resource.LOC_Usual_Position,
+                LocalizationOptions.Player_Data_Is_Loading => Resource.LOC_Player_Data_is_Loading,
                 LocalizationOptions.Data_Select_Slash_Config => Resource.LOC_Data_Select___Config,
                 LocalizationOptions.Player_List => Resource.LOC_Player_List,
                 LocalizationOptions.DataSources => Resource.LOC_Data_Sources,

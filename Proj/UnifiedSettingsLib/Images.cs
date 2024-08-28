@@ -114,6 +114,7 @@ namespace SharedDataLib
         {
             imgNotFoundStream ??= new MemoryStream(Properties.Resources.ImgNotFound);
             return imgNotFoundStream;
+            return new MemoryStream(Properties.Resources.ImgNotFound);
         }
 
         public static byte[] GetNoDataPngBytes()
@@ -124,6 +125,7 @@ namespace SharedDataLib
         {
             personNotFoundStream ??= new MemoryStream(Properties.Resources.anomalyNoData);
             return personNotFoundStream;
+            return new MemoryStream(Properties.Resources.anomalyNoData); ;
         }
 
         public static Stream? GetInternalImageStream_DO_NOT_DISPOSE_OR_WRITE(string ID)

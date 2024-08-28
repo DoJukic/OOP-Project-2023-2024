@@ -129,6 +129,9 @@
   <data name="LOC_Cancel" xml:space="preserve">
     <value>LOC_Cancel</value>
   </data>
+  <data name="LOC_Confirm_Selection" xml:space="preserve">
+    <value>LOC_Confirm_Selection</value>
+  </data>
   <data name="LOC_Data" xml:space="preserve">
     <value>LOC_Data</value>
   </data>
@@ -168,6 +171,9 @@
   <data name="LOC_Favourites" xml:space="preserve">
     <value>LOC_Favourites</value>
   </data>
+  <data name="LOC_Games_Captained" xml:space="preserve">
+    <value>LOC_Games_Captained</value>
+  </data>
   <data name="LOC_Guid_Error_Data_Might_Not_Be_Saved" xml:space="preserve">
     <value>LOC_Guid_Error_Data_Might_Not_Be_Saved</value>
   </data>
@@ -192,6 +198,9 @@
   <data name="LOC_Players" xml:space="preserve">
     <value>LOC_Players</value>
   </data>
+  <data name="LOC_Player_Data_is_Loading" xml:space="preserve">
+    <value>LOC_Player_Data_is_Loading</value>
+  </data>
   <data name="LOC_Player_List" xml:space="preserve">
     <value>LOC_Player_List</value>
   </data>
@@ -204,11 +213,17 @@
   <data name="LOC_Selected_Team" xml:space="preserve">
     <value>LOC_Selected_Team</value>
   </data>
+  <data name="LOC_Shirt_Number" xml:space="preserve">
+    <value>LOC_Shirt_Number</value>
+  </data>
   <data name="LOC_Structure" xml:space="preserve">
     <value>LOC_Structure</value>
   </data>
   <data name="LOC_Team_Slash_Player_Select" xml:space="preserve">
     <value>LOC_Team_Slash_Player_Select</value>
+  </data>
+  <data name="LOC_Usual_Position" xml:space="preserve">
+    <value>LOC_Usual_Position</value>
   </data>
   <data name="LOC_Wait" xml:space="preserve">
     <value>LOC_Wait</value>

@@ -121,7 +121,7 @@
   <data name="epbProfilePicture.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAlgAAAJYCAIAAAAxBA+LAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wQAADsEBuJFr7QAA/7JJREFUeF5c/QVgFNf79g+3hZZSqNFS3N3i7kJC3N3dnbh7iLs7SSCGhKAhuLu7
+        vAAADrwBlbxySQAA/7JJREFUeF5c/QVgFNf79g+3hZZSqNFS3N3i7kJC3N3dnbh7iLs7SSCGhKAhuLu7
         FLe6UOrf9zM7bf+/9zmcbie7szNH7vuS2ZG35CVFUVFRVVVVTU1NU1NTR0dHX1/f0NBw9erVLKxZs4YF
         XV1dbW1tPmKBoqenx0e8v1pPT0dLW0tDU0VJWVlJme0oKCjIKSpIycuukpOhyinLC1VFQU5VUU5NUUFD
         WVFTRXhVU5JXVZRXURCrgrKkKsnLKcrJKsiKVUZehiotJy0tJyUrLyOvLC+tIGxQVkXYoIKqIhtRUldW
@@ -14402,4 +14402,7 @@
         UlL+D9hiQTok5jPbAAAAAElFTkSuQmCC
 </value>
   </data>
+  <metadata name="cmsCupPlayer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>

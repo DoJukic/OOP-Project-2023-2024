@@ -1,12 +1,16 @@
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Microsoft.VisualBasic.Devices;
 using SharedDataLib;
 using WorldCupLib;
 using WorldCupViewer.ExternalImages;
 using WorldCupViewer.Localization;
+using WorldCupViewer.Selectables;
 using WorldCupViewer.UserControls;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace WorldCupViewer
 {
@@ -15,6 +19,14 @@ namespace WorldCupViewer
         private int loadingRepoActionID = 0;
         private int availableFileDetailsChangedActionID = 0;
         private int downloadableFileDetailsChangedActionID = 0;
+
+        private Object pnlPlayerListControlsChangeIDLock = new();
+        private int pnlPlayerListControlsChangeID = 0;
+        private Object pnlFavouritePlayerListControlsChangeIDLock = new();
+        private int pnlFavouritePlayerListControlsChangeID = 0;
+
+        private Object dragAndDropLock = new();
+        private bool dragAndDropPrimed = false;
 
         private SettingsProvider.CurrSettings currSettings;
 
@@ -27,12 +39,14 @@ namespace WorldCupViewer
         private IWorldCupDataRepo? activeRepository = null;
         private AvailableFileDetails? activeRepositoryDetails = null;
         private SettingsProvider.WorldCupData? activeRepoData = null;
+        private SettingsProvider.TeamData? activeRepoTeamData = null;
+        private KeyValuePair<String, CupTeam>? currentTargetCupTeamKVP = null;
 
         public MainForm()
         {
             InitializeComponent();
 
-            cbSelectedTeam.MouseWheel += ignoreMouseWheel;
+            //cbSelectedTeam.MouseWheel += ignoreMouseWheel;
 
             supportedLanguages = SupportedLanguages.GetSupportedLanguageInfoList();
 
@@ -54,6 +68,8 @@ namespace WorldCupViewer
 
         private void MainForm_HandleCreated(object? sender, EventArgs e)
         {
+            SelectablesHandler.Init();
+
             LocalizationHandler.SubscribeToLocalizationChanged(new(this.LocalizationChangeReported));
             WorldCupRepoBroker.OnAvailableFileDetailsChanged.SafeSubscribe(new(this.AvailableFileDetailsChangeReported));
             WorldCupRepoBroker.OnAPISourcesLoaded.SafeSubscribe(new(this.DownloadableFileDetailsChangeReported));
@@ -64,6 +80,17 @@ namespace WorldCupViewer
             AvailableFileDetailsChangeReported();
             DownloadableFileDetailsChangeReported();
             APIChangeReported();
+
+            pnlPlayerList.MouseDown += pnlPlayerList_DragAndDropMouseDown;
+            pnlPlayerList.MouseUp += DragAndDropMouseUp;
+            pnlPlayerList.DragEnter += pnlPlayerList_DragAndDropEnter;
+            pnlPlayerList.DragDrop += pnlPlayerList_DragDrop;
+
+            pnlFavouritePlayerList.MouseDown += pnlFavouritePlayerList_DragAndDropMouseDown;
+            pnlFavouritePlayerList.MouseUp += DragAndDropMouseUp;
+            pnlFavouritePlayerList.DragEnter += pnlFavouritePlayerList_DragAndDropEnter;
+            pnlFavouritePlayerList.DragDrop += pnlFavouritePlayerList_DragDrop;
+            pnlFavouritePlayerListChanged();
 
             // Language logic
 
@@ -174,6 +201,14 @@ namespace WorldCupViewer
                             continue;
                         cbSelectedTeam.Items.Add(new KeyValuePair<string, CupTeam>(team.countryName + "(" + team.fifaCode + ")", team));
                     }
+
+                    lock (pnlPlayerListControlsChangeIDLock)
+                        pnlPlayerListControlsChangeID++;
+                    lock (pnlFavouritePlayerListControlsChangeIDLock)
+                        pnlFavouritePlayerListControlsChangeID++;
+
+                    LocalUtils.ClearWithDispose(pnlPlayerList);
+                    LocalUtils.ClearWithDispose(pnlFavouritePlayerList);
 
                     if (activeRepoData.SelectedTeamFifaID != null)
                     {
@@ -439,38 +474,428 @@ namespace WorldCupViewer
             if (sender is not ComboBox cb || activeRepoData == null)
                 return;
 
-            if (cb.SelectedItem is not KeyValuePair<String, CupTeam> targetCupTeam)
+            if (cb.SelectedItem is not KeyValuePair<String, CupTeam> tgtCupTeamKVP)
                 return;
 
-            activeRepoData.SelectedTeamFifaID = targetCupTeam.Value.fifaCode;
+            activeRepoTeamData = null;
 
-            pnlPlayerList.Controls.Clear();
-            pnlFavouritePlayers.Controls.Clear();
+            currentTargetCupTeamKVP = tgtCupTeamKVP;
+            activeRepoData.SelectedTeamFifaID = currentTargetCupTeamKVP.Value.Value.fifaCode;
 
-            pnlPlayerList.SuspendLayout();
-            pnlPlayerList.Visible = false;
-
-            foreach (var player in targetCupTeam.Value.SortedPlayers)
+            foreach (var team in activeRepoData.TeamDataList ??= new())
             {
-                if (!(pnlPlayerList.Controls.Count == 0))
+                if (team.FifaID == activeRepoData.SelectedTeamFifaID)
                 {
-                    Panel spacingPanel = new();
-                    spacingPanel.Height = 6;
-
-                    pnlPlayerList.Controls.Add(spacingPanel);
-                    spacingPanel.Dock = DockStyle.Top;
+                    activeRepoTeamData = team;
+                    break;
                 }
-
-                CupPlayerDisplay PD = new (player, pnlPlayerList.Width - 6, false);
-                pnlPlayerList.Controls.Add(PD);
-
-                PD.Dock = DockStyle.Top;
             }
 
-            pnlPlayerList.ResumeLayout();
-            pnlPlayerList.Visible = true;
+            if (activeRepoTeamData == null)
+            {
+                activeRepoTeamData = new();
+                activeRepoTeamData.FifaID = currentTargetCupTeamKVP.Value.Value.fifaCode;
+                activeRepoData.TeamDataList.Add(activeRepoTeamData);
+            }
 
             SaveSettings();
+
+            int currentPlayerListChangeID;
+            int currentFavouritePlayerListChangeID;
+
+            lock (pnlPlayerListControlsChangeIDLock)
+                currentPlayerListChangeID = ++pnlPlayerListControlsChangeID;
+            lock (pnlFavouritePlayerListControlsChangeIDLock)
+                currentFavouritePlayerListChangeID = ++pnlFavouritePlayerListControlsChangeID;
+
+            List<Control> pnlPlayerListControls = new();
+            List<Control> pnlFavouritePlayersControls = new();
+            var favouritePlayerShirtNumbers = new[]
+            {
+                activeRepoTeamData.FavPlayer1ShirtNum,
+                activeRepoTeamData.FavPlayer2ShirtNum,
+                activeRepoTeamData.FavPlayer3ShirtNum
+            };
+
+            LocalUtils.ClearWithDispose(pnlPlayerList);
+            LocalUtils.ClearWithDispose(pnlFavouritePlayerList);
+
+            pnlFavouritePlayerListChanged();
+
+            MTSSLPlayerDataIsLoading.Visible = true;
+
+            Task.Run(() =>
+            {
+                foreach (var player in currentTargetCupTeamKVP.Value.Value.SortedPlayers.Reverse())
+                {
+                    if (!(pnlPlayerListControls.Count == 0))
+                    {
+                        Panel spacingPanel = new();
+                        spacingPanel.Height = 6;
+
+                        pnlPlayerListControls.Add(spacingPanel);
+                    }
+
+                    CupPlayerDisplay PlayerDisplay = new(player, false);
+                    pnlPlayerListControls.Add(PlayerDisplay);
+
+                    if (favouritePlayerShirtNumbers.Contains(player.shirtNumber))
+                    {
+                        // just do the same thing except with pnlFavouritePlayersControls instead of pnlPlayerListControls
+                        if (!(pnlFavouritePlayersControls.Count == 0))
+                        {
+                            Panel spacingPanel = new();
+                            spacingPanel.Height = 6;
+
+                            pnlFavouritePlayersControls.Add(spacingPanel);
+                        }
+
+                        CupPlayerDisplay FavouritePlayerDisplay = new(player, false);
+                        pnlFavouritePlayersControls.Add(FavouritePlayerDisplay);
+                    }
+
+                    lock (pnlPlayerListControlsChangeIDLock)
+                        if (currentPlayerListChangeID != pnlPlayerListControlsChangeID)
+                            return;
+                }
+
+                this.Invoke(() =>
+                {
+                    lock (pnlPlayerListControlsChangeIDLock)
+                        if (currentPlayerListChangeID != pnlPlayerListControlsChangeID)
+                            return;
+
+                    MTSSLPlayerDataIsLoading.Visible = false;
+
+                    pnlPlayerList.SuspendLayout();
+                    pnlPlayerList.Visible = false;
+
+                    foreach (var control in pnlPlayerListControls)
+                    {
+                        pnlPlayerList.Controls.Add(control);
+                        control.Dock = DockStyle.Top;
+                    }
+
+                    pnlPlayerList.ResumeLayout();
+                    pnlPlayerList.Visible = true;
+
+                    InitPlayerListDragAndDrop();
+
+                    // just do the same thing except with pnlFavouritePlayersControls instead of pnlPlayerListControls, again.
+                    lock (pnlFavouritePlayerListControlsChangeIDLock)
+                        if (currentFavouritePlayerListChangeID != pnlFavouritePlayerListControlsChangeID)
+                            return;
+
+                    pnlFavouritePlayerList.SuspendLayout();
+                    pnlFavouritePlayerList.Visible = false;
+
+                    foreach (var control in pnlFavouritePlayersControls)
+                    {
+                        pnlFavouritePlayerList.Controls.Add(control);
+                        control.Dock = DockStyle.Top;
+                    }
+
+                    pnlFavouritePlayerList.ResumeLayout();
+                    pnlFavouritePlayerList.Visible = true;
+
+                    InitFavouritePlayerListDragAndDrop();
+                    pnlFavouritePlayerListChanged();
+                });
+            });
+        }
+
+        private void RegenerateFavouritePlayersPanel()
+        {
+            if (activeRepoData == null || currentTargetCupTeamKVP == null || activeRepoTeamData == null)
+                return;
+
+            int currentFavouritePlayerListChangeID;
+            lock (pnlFavouritePlayerListControlsChangeIDLock)
+                currentFavouritePlayerListChangeID = ++pnlFavouritePlayerListControlsChangeID;
+
+            List<Control> pnlFavouritePlayersControls = new();
+            var favouritePlayerShirtNumbers = new[]
+            {
+                activeRepoTeamData.FavPlayer1ShirtNum,
+                activeRepoTeamData.FavPlayer2ShirtNum,
+                activeRepoTeamData.FavPlayer3ShirtNum
+            };
+
+            LocalUtils.ClearWithDispose(pnlFavouritePlayerList);
+
+            Task.Run(() =>
+            {
+                foreach (var player in currentTargetCupTeamKVP.Value.Value.SortedPlayers.Reverse())
+                {
+                    if (favouritePlayerShirtNumbers.Contains(player.shirtNumber))
+                    {
+                        if (!(pnlFavouritePlayersControls.Count == 0))
+                        {
+                            Panel spacingPanel = new();
+                            spacingPanel.Height = 6;
+
+                            pnlFavouritePlayersControls.Add(spacingPanel);
+                        }
+
+                        CupPlayerDisplay FavouritePlayerDisplay = new(player, false);
+                        pnlFavouritePlayersControls.Add(FavouritePlayerDisplay);
+                    }
+
+                    lock (pnlFavouritePlayerListControlsChangeIDLock)
+                        if (currentFavouritePlayerListChangeID != pnlFavouritePlayerListControlsChangeID)
+                            return;
+                }
+
+                this.Invoke(() =>
+                {
+                    lock (pnlFavouritePlayerListControlsChangeIDLock)
+                        if (currentFavouritePlayerListChangeID != pnlFavouritePlayerListControlsChangeID)
+                            return;
+
+                    pnlFavouritePlayerList.SuspendLayout();
+                    pnlFavouritePlayerList.Visible = false;
+
+                    foreach (var control in pnlFavouritePlayersControls)
+                    {
+                        pnlFavouritePlayerList.Controls.Add(control);
+                        control.Dock = DockStyle.Top;
+                    }
+
+                    pnlFavouritePlayerList.ResumeLayout();
+                    pnlFavouritePlayerList.Visible = true;
+
+                    InitFavouritePlayerListDragAndDrop();
+                    pnlFavouritePlayerListChanged();
+                });
+            });
+        }
+
+        private void InitPlayerListDragAndDrop()
+        {
+            foreach (Control control in LocalUtils.GetAllControls(pnlPlayerList))
+            {
+                control.MouseDown += pnlPlayerList_DragAndDropMouseDown;
+                control.MouseUp += DragAndDropMouseUp;
+
+                control.AllowDrop = true;
+                control.DragEnter += pnlPlayerList_DragAndDropEnter;
+                control.DragDrop += pnlPlayerList_DragDrop;
+            }
+        }
+        private void InitFavouritePlayerListDragAndDrop()
+        {
+            foreach (Control control in LocalUtils.GetAllControls(pnlFavouritePlayerList))
+            {
+                control.MouseDown += pnlFavouritePlayerList_DragAndDropMouseDown;
+                control.MouseUp += DragAndDropMouseUp;
+
+                control.AllowDrop = true;
+                control.DragEnter += pnlFavouritePlayerList_DragAndDropEnter;
+                control.DragDrop += pnlFavouritePlayerList_DragDrop;
+            }
+        }
+
+        private void pnlPlayerList_DragAndDropMouseDown(object? sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                BeginMonitoredDragAndDrop(pnlPlayerList);
+        }
+        private void pnlFavouritePlayerList_DragAndDropMouseDown(object? sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                BeginMonitoredDragAndDrop(pnlFavouritePlayerList);
+        }
+        private void DragAndDropMouseUp(object? sender, MouseEventArgs e)
+        {
+            lock (dragAndDropLock)
+                dragAndDropPrimed = false;
+        }
+        private void BeginMonitoredDragAndDrop(Control target)
+        {
+            lock (dragAndDropLock)
+                dragAndDropPrimed = true;
+
+            Task.Run(async () =>
+            {
+                bool dndPrimed;
+                do
+                {
+                    await Task.Delay(1).ConfigureAwait(false);
+
+                    if (SelectablesHandler.IsMouseOffsetTooLarge())
+                    {
+                        this.Invoke(() =>
+                        {
+                            target.DoDragDrop(
+                                new KeyValuePair<String, List<ISelectable>>(target.Name, SelectablesHandler.TryGetSelectedChildren(target) ?? new()),
+                                DragDropEffects.All
+                            );
+                        });
+
+                        lock (dragAndDropLock)
+                            dragAndDropPrimed = false;
+
+                        return;
+                    }
+
+                    lock (dragAndDropLock)
+                        dndPrimed = dragAndDropPrimed;
+
+                } while (dndPrimed);
+            });
+        }
+
+        private void DoDragDropEnterWithNameCheck(Control nameCheck, DragDropEffects effects, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.None;
+
+            IEnumerable<ISelectable>? dataOut;
+            if (!DoDragDropNameCheck(nameCheck, e, out dataOut))
+                return;
+
+            e.Effect = effects;
+        }
+        private bool DoDragDropNameCheck(Control nameCheck, DragEventArgs e, out IEnumerable<ISelectable>? dataOut)
+        {
+            dataOut = null;
+            e.Effect = DragDropEffects.None;
+
+            if (e.Data == null)
+                return false;
+
+            var unknown = e.Data.GetData(e.Data.GetFormats()[0]);
+
+            if (unknown is not KeyValuePair<String, List<ISelectable>> data)
+                return false;
+            if (data.Key != nameCheck.Name)
+                return false;
+
+            dataOut = data.Value;
+            return true;
+        }
+
+        private void pnlFavouritePlayerList_DragAndDropEnter(object? sender, DragEventArgs e)
+        {
+            DoDragDropEnterWithNameCheck(pnlPlayerList, DragDropEffects.Copy, e);
+        }
+        private void pnlPlayerList_DragAndDropEnter(object? sender, DragEventArgs e)
+        {
+            DoDragDropEnterWithNameCheck(pnlFavouritePlayerList, DragDropEffects.Move, e);
+        }
+        private void pnlPlayerList_DragDrop(object? sender, DragEventArgs e)
+        {
+            if (activeRepoTeamData == null || currentTargetCupTeamKVP == null)
+                return;
+
+            IEnumerable<ISelectable>? dataOut;
+            if (!DoDragDropNameCheck(pnlFavouritePlayerList, e, out dataOut))
+                return;
+            if (dataOut == null)
+                return;
+
+            bool changeDetected = false;
+
+            foreach (var thing in dataOut)
+            {
+                if (thing is CupPlayerDisplay crtl)
+                {
+                    if (activeRepoTeamData.FavPlayer1ShirtNum == crtl.associatedPlayer.shirtNumber)
+                    {
+                        activeRepoTeamData.FavPlayer1ShirtNum = null;
+                        changeDetected = true;
+                        continue;
+                    }
+                    if (activeRepoTeamData.FavPlayer2ShirtNum == crtl.associatedPlayer.shirtNumber)
+                    {
+                        activeRepoTeamData.FavPlayer2ShirtNum = null;
+                        changeDetected = true;
+                        continue;
+                    }
+                    if (activeRepoTeamData.FavPlayer3ShirtNum == crtl.associatedPlayer.shirtNumber)
+                    {
+                        activeRepoTeamData.FavPlayer3ShirtNum = null;
+                        changeDetected = true;
+                        continue;
+                    }
+                }
+            }
+
+            if (changeDetected)
+            {
+                SaveSettings();
+                RegenerateFavouritePlayersPanel();
+            }
+        }
+        private void pnlFavouritePlayerList_DragDrop(object? sender, DragEventArgs e)
+        {
+            if (activeRepoTeamData == null || currentTargetCupTeamKVP == null)
+                return;
+
+            IEnumerable<ISelectable>? dataOut;
+            if (!DoDragDropNameCheck(pnlPlayerList, e, out dataOut))
+                return;
+            if (dataOut == null)
+                return;
+
+            var favouritePlayerShirtNumbers = new[]
+            {
+                activeRepoTeamData.FavPlayer1ShirtNum,
+                activeRepoTeamData.FavPlayer2ShirtNum,
+                activeRepoTeamData.FavPlayer3ShirtNum
+            };
+
+            bool changeDetected = false;
+
+            foreach (var thing in dataOut)
+            {
+                if (thing is CupPlayerDisplay crtl)
+                {
+                    if (favouritePlayerShirtNumbers.Contains(crtl.associatedPlayer.shirtNumber))
+                        continue;
+
+                    if (activeRepoTeamData.FavPlayer1ShirtNum == null)
+                    {
+                        activeRepoTeamData.FavPlayer1ShirtNum = crtl.associatedPlayer.shirtNumber;
+                        changeDetected = true;
+                        continue;
+                    }
+                    if (activeRepoTeamData.FavPlayer2ShirtNum == null)
+                    {
+                        activeRepoTeamData.FavPlayer2ShirtNum = crtl.associatedPlayer.shirtNumber;
+                        changeDetected = true;
+                        continue;
+                    }
+                    if (activeRepoTeamData.FavPlayer3ShirtNum == null)
+                    {
+                        activeRepoTeamData.FavPlayer3ShirtNum = crtl.associatedPlayer.shirtNumber;
+                        changeDetected = true;
+                        continue;
+                    }
+                    break;
+                }
+            }
+
+            if (changeDetected)
+            {
+                SaveSettings();
+                RegenerateFavouritePlayersPanel();
+            }
+        }
+        
+        private void pnlFavouritePlayerListChanged()
+        {
+            int numOfFavourites = 0;
+            foreach (var crtl in pnlFavouritePlayerList.Controls)
+            {
+                if (crtl is ISelectable)
+                    numOfFavourites++;
+            }
+
+            mlbConfirmFavouritePlayerSelection.SucceedingText = " (" + numOfFavourites + "/3)";
+            if (numOfFavourites >= 3)
+                mlbConfirmFavouritePlayerSelection.Enabled = true;
+            else
+                mlbConfirmFavouritePlayerSelection.Enabled = false;
         }
 
         void ignoreMouseWheel(object sender, MouseEventArgs e)

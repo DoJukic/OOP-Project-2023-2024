@@ -29,7 +29,8 @@ namespace WorldCupViewer.UserControls
             var imgPath = Images.GetExternalImagePath(ExternalImageID);
             if (imgPath == null)
             {
-                Image = Image.FromStream(Images.GetNoDataPngStream_DO_NOT_DISPOSE_OR_WRITE());
+                var stream = new MemoryStream(Images.GetNoDataPngBytes());
+                Image = Image.FromStream(stream);
             }
 
             this.ImageLocation = imgPath;

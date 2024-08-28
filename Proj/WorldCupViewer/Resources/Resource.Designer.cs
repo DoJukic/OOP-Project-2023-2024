@@ -97,6 +97,15 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Confirm_Selection.
+        /// </summary>
+        internal static string LOC_Confirm_Selection {
+            get {
+                return ResourceManager.GetString("LOC_Confirm_Selection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Data.
         /// </summary>
         internal static string LOC_Data {
@@ -214,6 +223,15 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Games_Captained.
+        /// </summary>
+        internal static string LOC_Games_Captained {
+            get {
+                return ResourceManager.GetString("LOC_Games_Captained", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Guid_Error_Data_Might_Not_Be_Saved.
         /// </summary>
         internal static string LOC_Guid_Error_Data_Might_Not_Be_Saved {
@@ -277,6 +295,15 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Player_Data_is_Loading.
+        /// </summary>
+        internal static string LOC_Player_Data_is_Loading {
+            get {
+                return ResourceManager.GetString("LOC_Player_Data_is_Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Player_List.
         /// </summary>
         internal static string LOC_Player_List {
@@ -322,6 +349,15 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Shirt_Number.
+        /// </summary>
+        internal static string LOC_Shirt_Number {
+            get {
+                return ResourceManager.GetString("LOC_Shirt_Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Structure.
         /// </summary>
         internal static string LOC_Structure {
@@ -336,6 +372,15 @@ namespace WorldCupViewer.Resources {
         internal static string LOC_Team_Slash_Player_Select {
             get {
                 return ResourceManager.GetString("LOC_Team_Slash_Player_Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Usual_Position.
+        /// </summary>
+        internal static string LOC_Usual_Position {
+            get {
+                return ResourceManager.GetString("LOC_Usual_Position", resourceCulture);
             }
         }
         

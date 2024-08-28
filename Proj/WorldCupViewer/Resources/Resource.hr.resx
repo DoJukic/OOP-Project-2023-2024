@@ -129,6 +129,9 @@
   <data name="LOC_Cancel" xml:space="preserve">
     <value>Otkaži</value>
   </data>
+  <data name="LOC_Confirm_Selection" xml:space="preserve">
+    <value>Potvrdi odabir</value>
+  </data>
   <data name="LOC_Data" xml:space="preserve">
     <value>Podaci</value>
   </data>
@@ -168,6 +171,9 @@
   <data name="LOC_Favourites" xml:space="preserve">
     <value>Favoriti</value>
   </data>
+  <data name="LOC_Games_Captained" xml:space="preserve">
+    <value>Puta kapetan</value>
+  </data>
   <data name="LOC_Guid_Error_Data_Might_Not_Be_Saved" xml:space="preserve">
     <value>GUID greška - podatci bi mogli biti izgubljjeni</value>
   </data>
@@ -192,6 +198,9 @@
   <data name="LOC_Players" xml:space="preserve">
     <value>Igrači</value>
   </data>
+  <data name="LOC_Player_Data_is_Loading" xml:space="preserve">
+    <value>Podatci o igračima se učitavaju</value>
+  </data>
   <data name="LOC_Player_List" xml:space="preserve">
     <value>Popis igrača</value>
   </data>
@@ -204,11 +213,17 @@
   <data name="LOC_Selected_Team" xml:space="preserve">
     <value>Odabrani tim</value>
   </data>
+  <data name="LOC_Shirt_Number" xml:space="preserve">
+    <value>Broj majce</value>
+  </data>
   <data name="LOC_Structure" xml:space="preserve">
     <value>Struktura</value>
   </data>
   <data name="LOC_Team_Slash_Player_Select" xml:space="preserve">
     <value>Odabir tima / igrača</value>
+  </data>
+  <data name="LOC_Usual_Position" xml:space="preserve">
+    <value>Uobičajeni položaj</value>
   </data>
   <data name="LOC_Wait" xml:space="preserve">
     <value>Čekaj</value>

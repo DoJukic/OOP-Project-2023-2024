@@ -40,9 +40,9 @@
             btnYes.Localization = Localization.LocalizationOptions.Yes;
             btnYes.Location = new Point(12, 56);
             btnYes.Name = "btnYes";
-            btnYes.PreceedingText = "";
+            btnYes.PreceedingText = "[Y] ";
             btnYes.Size = new Size(75, 23);
-            btnYes.SucceedingText = " (y)";
+            btnYes.SucceedingText = " ";
             btnYes.TabIndex = 0;
             btnYes.UseVisualStyleBackColor = true;
             btnYes.Click += btnYes_Click;
@@ -53,9 +53,9 @@
             btnNo.Localization = Localization.LocalizationOptions.No;
             btnNo.Location = new Point(97, 56);
             btnNo.Name = "btnNo";
-            btnNo.PreceedingText = "";
+            btnNo.PreceedingText = "[N] ";
             btnNo.Size = new Size(75, 23);
-            btnNo.SucceedingText = " (n)";
+            btnNo.SucceedingText = " ";
             btnNo.TabIndex = 1;
             btnNo.UseVisualStyleBackColor = true;
             btnNo.Click += btnNo_Click;
@@ -75,9 +75,9 @@
             btnYesAndBuzzOff.Localization = Localization.LocalizationOptions.Yes_And_Do_Not_Ask_Again;
             btnYesAndBuzzOff.Location = new Point(12, 85);
             btnYesAndBuzzOff.Name = "btnYesAndBuzzOff";
-            btnYesAndBuzzOff.PreceedingText = "";
+            btnYesAndBuzzOff.PreceedingText = "[D] ";
             btnYesAndBuzzOff.Size = new Size(160, 23);
-            btnYesAndBuzzOff.SucceedingText = " (d)";
+            btnYesAndBuzzOff.SucceedingText = "";
             btnYesAndBuzzOff.TabIndex = 3;
             btnYesAndBuzzOff.UseVisualStyleBackColor = true;
             btnYesAndBuzzOff.Click += btnYesAndBuzzOff_Click;

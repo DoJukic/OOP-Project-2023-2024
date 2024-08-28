@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -60,6 +61,20 @@ namespace WorldCupViewer
                 throw new ArgumentException("Cannot find event thrower named " + methodName);
 
             mi.Invoke(targetObject, new object[] { e });
+        }
+
+        // Bruh
+        public static void ClearWithDispose(Control control)
+        {
+            control.SuspendLayout();
+
+            foreach (var thing in control.Controls)
+                if (thing is Control crtl)
+                    crtl.Dispose();
+
+            control.Controls.Clear();
+
+            control.ResumeLayout();
         }
     }
 }
