@@ -17,9 +17,6 @@ namespace SharedDataLib
         private readonly static List<InternalImageDetails> internalImages = new();
         private readonly static List<ExternalImageDetails> externalImagesPlsLock = new();
 
-        private static Stream? imgNotFoundStream;
-        private static Stream? personNotFoundStream;
-
         private static Object operationsLock = new();
         private readonly static FileSystemMonitor? fileSystemMonitor;
         private static bool errorDetected = false;
@@ -29,8 +26,8 @@ namespace SharedDataLib
 
         static Images()
         {
-            internalImages.Add(new("FifaWorldCup2018Men", new MemoryStream(Properties.Resources.FIFAWorldCup2018Men)));
-            internalImages.Add(new("FifaWorldCup2019Women", new MemoryStream(Properties.Resources.FIFAWorldCup2019Women)));
+            internalImages.Add(new("FifaWorldCup2018Men", Properties.Resources.FIFAWorldCup2018Men));
+            internalImages.Add(new("FifaWorldCup2019Women", Properties.Resources.FIFAWorldCup2019Women));
 
             try
             {
@@ -110,10 +107,8 @@ namespace SharedDataLib
         {
             return Properties.Resources.ImgNotFound;
         }
-        public static Stream GetImgNotFoundPngStream_DO_NOT_DISPOSE_OR_WRITE()
+        public static Stream GetImgNotFoundPngStream()
         {
-            imgNotFoundStream ??= new MemoryStream(Properties.Resources.ImgNotFound);
-            return imgNotFoundStream;
             return new MemoryStream(Properties.Resources.ImgNotFound);
         }
 
@@ -121,19 +116,26 @@ namespace SharedDataLib
         {
             return Properties.Resources.anomalyNoData;
         }
-        public static Stream GetNoDataPngStream_DO_NOT_DISPOSE_OR_WRITE()
+        public static Stream GetNoDataPngStream()
         {
-            personNotFoundStream ??= new MemoryStream(Properties.Resources.anomalyNoData);
-            return personNotFoundStream;
             return new MemoryStream(Properties.Resources.anomalyNoData); ;
         }
 
-        public static Stream? GetInternalImageStream_DO_NOT_DISPOSE_OR_WRITE(string ID)
+        public static byte[] GetStarPngBytes()
+        {
+            return Properties.Resources.GoldStarMini;
+        }
+        public static Stream GetStarPngStream()
+        {
+            return new MemoryStream(Properties.Resources.GoldStarMini); ;
+        }
+
+        public static Stream? GetInternalImageStream(string ID)
         {
             var tgt = internalImages.Where((tgt) => tgt.identifier == ID);
 
             if (tgt.Any())
-                return tgt.First().stream_DO_NOT_CLOSE;
+                return new MemoryStream(tgt.First().source);
 
             return null;
         }
@@ -180,12 +182,12 @@ namespace SharedDataLib
         private class InternalImageDetails
         {
             public readonly String identifier;
-            public readonly Stream stream_DO_NOT_CLOSE;
+            public readonly byte[] source;
 
-            public InternalImageDetails(String identifier, Stream stream)
+            public InternalImageDetails(String identifier, byte[] source)
             {
                 this.identifier = identifier;
-                this.stream_DO_NOT_CLOSE = stream;
+                this.source = source;
             }
 
             public int CompareTo(InternalImageDetails? other)

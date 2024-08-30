@@ -186,6 +186,9 @@
   <data name="LOC_Local" xml:space="preserve">
     <value>LOC_Local</value>
   </data>
+  <data name="LOC_Matches_By_Attendance" xml:space="preserve">
+    <value>LOC_Matches_By_Attendance</value>
+  </data>
   <data name="LOC_Name" xml:space="preserve">
     <value>LOC_Name</value>
   </data>
@@ -198,11 +201,20 @@
   <data name="LOC_Players" xml:space="preserve">
     <value>LOC_Players</value>
   </data>
+  <data name="LOC_Players_By_Goals_Scored" xml:space="preserve">
+    <value>LOC_Players_By_Goals_Scored</value>
+  </data>
+  <data name="LOC_Players_By_Yellow_Cards" xml:space="preserve">
+    <value>LOC_Players_By_Yellow_Cards</value>
+  </data>
   <data name="LOC_Player_Data_is_Loading" xml:space="preserve">
     <value>LOC_Player_Data_is_Loading</value>
   </data>
   <data name="LOC_Player_List" xml:space="preserve">
     <value>LOC_Player_List</value>
+  </data>
+  <data name="LOC_Player_Statistics" xml:space="preserve">
+    <value>LOC_Player_Statistics</value>
   </data>
   <data name="LOC_Ready" xml:space="preserve">
     <value>LOC_Ready</value>

@@ -29,8 +29,8 @@ namespace WorldCupViewer.UserControls
 
             associatedDeets = deets;
 
-            mainPictureBox.Image = Image.FromStream(SharedDataLib.Images.GetInternalImageStream_DO_NOT_DISPOSE_OR_WRITE(deets.InternalImageID)
-                ?? SharedDataLib.Images.GetImgNotFoundPngStream_DO_NOT_DISPOSE_OR_WRITE());
+            mainPictureBox.Image = Image.FromStream(SharedDataLib.Images.GetInternalImageStream(deets.InternalImageID)
+                ?? SharedDataLib.Images.GetImgNotFoundPngStream());
 
             titleLabel.Text = "[" + deets.ID + "] " + deets.Name + " (" + deets.Year + ")";
 

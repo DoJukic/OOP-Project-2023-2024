@@ -31,6 +31,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Update="UserControls\CupPlayerStatsDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="UserControls\MultilingualCheckBox.cs" />
     <Compile Update="UserControls\MultilingualToolStripStatusLabel.cs" />
   </ItemGroup>

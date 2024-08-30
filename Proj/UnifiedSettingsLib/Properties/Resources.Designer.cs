@@ -93,6 +93,16 @@ namespace SharedDataLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] GoldStarMini {
+            get {
+                object obj = ResourceManager.GetObject("GoldStarMini", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] ImgNotFound {
             get {
                 object obj = ResourceManager.GetObject("ImgNotFound", resourceCulture);

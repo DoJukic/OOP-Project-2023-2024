@@ -268,6 +268,15 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Matches_By_Attendance.
+        /// </summary>
+        internal static string LOC_Matches_By_Attendance {
+            get {
+                return ResourceManager.GetString("LOC_Matches_By_Attendance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Name.
         /// </summary>
         internal static string LOC_Name {
@@ -313,11 +322,38 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Player_Statistics.
+        /// </summary>
+        internal static string LOC_Player_Statistics {
+            get {
+                return ResourceManager.GetString("LOC_Player_Statistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Players.
         /// </summary>
         internal static string LOC_Players {
             get {
                 return ResourceManager.GetString("LOC_Players", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Players_By_Goals_Scored.
+        /// </summary>
+        internal static string LOC_Players_By_Goals_Scored {
+            get {
+                return ResourceManager.GetString("LOC_Players_By_Goals_Scored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Players_By_Yellow_Cards.
+        /// </summary>
+        internal static string LOC_Players_By_Yellow_Cards {
+            get {
+                return ResourceManager.GetString("LOC_Players_By_Yellow_Cards", resourceCulture);
             }
         }
         

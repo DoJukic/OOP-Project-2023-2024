@@ -127,6 +127,9 @@
   <data name="FIFAWorldCup2019Women" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>img\FIFAWorldCup2019Women.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="GoldStarMini" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>img\GoldStarMini.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="ImgNotFound" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>img\ImgNotFound.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

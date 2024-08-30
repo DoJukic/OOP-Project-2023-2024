@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharedDataLib;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,7 @@ namespace WorldCupViewer.UserControls
     public partial class CupPlayerDisplay : UserControl, ISelectable
     {
         private bool mouseHovering = false;
+        private bool focused = false;
         private bool isSelected = false;
 
         public readonly CupPlayer associatedPlayer;
@@ -28,6 +30,10 @@ namespace WorldCupViewer.UserControls
         public CupPlayerDisplay(CupPlayer player, bool isFavourite)
         {
             InitializeComponent();
+            TabStop = true;
+
+            pbIsFavourite.Image = Image.FromStream(Images.GetStarPngStream());
+            SetIsFavourite(isFavourite);
 
             associatedPlayer = player;
 
@@ -60,7 +66,7 @@ namespace WorldCupViewer.UserControls
                             positionCounterList.Add(new() { positionName = posPair.Value, timesOccured = 1 });
                         }
                     }
-                    breakbreak:;
+                breakbreak:;
                 }
 
                 if (match.homeTeamStatistics.StartingElevenPlayers.Union(match.homeTeamStatistics.SubstitutePlayers).Contains(associatedPlayer))
@@ -83,7 +89,7 @@ namespace WorldCupViewer.UserControls
                             positionCounterList.Add(new() { positionName = posPair.Value, timesOccured = 1 });
                         }
                     }
-                    breakbreak:;
+                breakbreak:;
                 }
             }
 
@@ -117,6 +123,41 @@ namespace WorldCupViewer.UserControls
             }
 
             lblGamesCaptained.Text = gamesCaptained.ToString();
+        }
+
+        public void SetIsFavourite(bool isFavourite)
+        {
+            if (isFavourite)
+                pbIsFavourite.Visible = true;
+            else
+                pbIsFavourite.Visible = false;
+        }
+
+        protected override void OnGotFocus(EventArgs e)
+        {
+            focused = true;
+            SetAppropriateBG();
+            base.OnGotFocus(e);
+        }
+
+        protected override void OnLostFocus(EventArgs e)
+        {
+            focused = false;
+            SetAppropriateBG();
+            base.OnLostFocus(e);
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space)
+            {
+                if (isSelected)
+                    Deselected();
+                else
+                    Selected();
+            }
+            if (e.KeyCode == Keys.Left)
+            base.OnKeyDown(e);
         }
 
         private void CupPlayerDisplay_MouseEnter(object sender, EventArgs e)
@@ -156,6 +197,18 @@ namespace WorldCupViewer.UserControls
             foreach (var thing in LocalUtils.GetAllControls(this))
                 thing.BackColor = SelectablesHandler.hoverColor;
         }
+        private void SetHoverFocusBG()
+        {
+            Color tgtColor = Color.FromArgb(255,
+                (SelectablesHandler.hoverColor.R + SelectablesHandler.selectedColor.R) / 2,
+                (SelectablesHandler.hoverColor.G + SelectablesHandler.selectedColor.G) / 2,
+                (SelectablesHandler.hoverColor.B + SelectablesHandler.selectedColor.B) / 2
+            );
+
+            this.BackColor = tgtColor;
+            foreach (var thing in LocalUtils.GetAllControls(this))
+                thing.BackColor = tgtColor;
+        }
         private void SetSelectedBG()
         {
             this.BackColor = SelectablesHandler.selectedColor;
@@ -165,12 +218,17 @@ namespace WorldCupViewer.UserControls
 
         private void SetAppropriateBG()
         {
+            if (isSelected && focused)
+            {
+                SetHoverFocusBG();
+                return;
+            }
             if (isSelected)
             {
                 SetSelectedBG();
                 return;
             }
-            if (mouseHovering)
+            if (mouseHovering || focused)
             {
                 SetHoverBG();
                 return;
@@ -182,6 +240,8 @@ namespace WorldCupViewer.UserControls
         {
             if (this.Parent == null)
                 return;
+
+            this.Focus();
 
             isSelected = true;
             SetAppropriateBG();

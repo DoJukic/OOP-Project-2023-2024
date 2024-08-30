@@ -33,6 +33,9 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             epbProfilePicture = new ExternalImage();
             panel1 = new Panel();
+            tableLayoutPanel5 = new TableLayoutPanel();
+            lblName = new Label();
+            pbIsFavourite = new PictureBox();
             tableLayoutPanel4 = new TableLayoutPanel();
             multilingualLabel3 = new MultilingualLabel();
             lblUsualPosition = new Label();
@@ -42,13 +45,14 @@
             tableLayoutPanel2 = new TableLayoutPanel();
             lblShirtNumber = new Label();
             multilingualLabel1 = new MultilingualLabel();
-            lblName = new Label();
             cmsCupPlayer = new ContextMenuStrip(components);
             changeImageToolStripMenuItem = new ToolStripMenuItem();
             selectToolStripMenuItem = new ToolStripMenuItem();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)epbProfilePicture).BeginInit();
             panel1.SuspendLayout();
+            tableLayoutPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pbIsFavourite).BeginInit();
             tableLayoutPanel4.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -88,14 +92,48 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.Controls.Add(tableLayoutPanel5);
             panel1.Controls.Add(tableLayoutPanel4);
             panel1.Controls.Add(tableLayoutPanel3);
             panel1.Controls.Add(tableLayoutPanel2);
-            panel1.Controls.Add(lblName);
             panel1.Location = new Point(101, 3);
             panel1.Name = "panel1";
             panel1.Size = new Size(180, 84);
             panel1.TabIndex = 1;
+            // 
+            // tableLayoutPanel5
+            // 
+            tableLayoutPanel5.ColumnCount = 2;
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel5.Controls.Add(lblName, 0, 0);
+            tableLayoutPanel5.Controls.Add(pbIsFavourite, 1, 0);
+            tableLayoutPanel5.Location = new Point(0, 0);
+            tableLayoutPanel5.Margin = new Padding(0);
+            tableLayoutPanel5.Name = "tableLayoutPanel5";
+            tableLayoutPanel5.RowCount = 1;
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel5.Size = new Size(183, 27);
+            tableLayoutPanel5.TabIndex = 8;
+            // 
+            // lblName
+            // 
+            lblName.AutoSize = true;
+            lblName.Location = new Point(3, 5);
+            lblName.Margin = new Padding(3, 5, 3, 0);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(69, 15);
+            lblName.TabIndex = 0;
+            lblName.Text = "NAMEHERE";
+            // 
+            // pbIsFavourite
+            // 
+            pbIsFavourite.Location = new Point(78, 0);
+            pbIsFavourite.Margin = new Padding(3, 0, 3, 6);
+            pbIsFavourite.Name = "pbIsFavourite";
+            pbIsFavourite.Size = new Size(21, 21);
+            pbIsFavourite.TabIndex = 1;
+            pbIsFavourite.TabStop = false;
             // 
             // tableLayoutPanel4
             // 
@@ -109,7 +147,7 @@
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel4.Size = new Size(188, 20);
+            tableLayoutPanel4.Size = new Size(180, 20);
             tableLayoutPanel4.TabIndex = 7;
             // 
             // multilingualLabel3
@@ -131,7 +169,7 @@
             lblUsualPosition.Location = new Point(118, 0);
             lblUsualPosition.Margin = new Padding(0);
             lblUsualPosition.Name = "lblUsualPosition";
-            lblUsualPosition.Size = new Size(70, 20);
+            lblUsualPosition.Size = new Size(62, 20);
             lblUsualPosition.TabIndex = 6;
             lblUsualPosition.Text = "USUALPOSITION";
             // 
@@ -147,7 +185,7 @@
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel3.Size = new Size(188, 20);
+            tableLayoutPanel3.Size = new Size(180, 20);
             tableLayoutPanel3.TabIndex = 7;
             // 
             // lblGamesCaptained
@@ -156,7 +194,7 @@
             lblGamesCaptained.Location = new Point(136, 0);
             lblGamesCaptained.Margin = new Padding(0);
             lblGamesCaptained.Name = "lblGamesCaptained";
-            lblGamesCaptained.Size = new Size(52, 20);
+            lblGamesCaptained.Size = new Size(44, 20);
             lblGamesCaptained.TabIndex = 5;
             lblGamesCaptained.Text = "GAMESCAPTAINED";
             // 
@@ -192,9 +230,10 @@
             // lblShirtNumber
             // 
             lblShirtNumber.AutoSize = true;
-            lblShirtNumber.Location = new Point(117, 0);
+            lblShirtNumber.Location = new Point(114, 0);
+            lblShirtNumber.Margin = new Padding(0);
             lblShirtNumber.Name = "lblShirtNumber";
-            lblShirtNumber.Size = new Size(58, 20);
+            lblShirtNumber.Size = new Size(63, 20);
             lblShirtNumber.TabIndex = 9;
             lblShirtNumber.Text = "NUMBERGOESHERE";
             // 
@@ -210,14 +249,6 @@
             multilingualLabel1.Size = new Size(111, 15);
             multilingualLabel1.SucceedingText = ":";
             multilingualLabel1.TabIndex = 0;
-            // 
-            // lblName
-            // 
-            lblName.Location = new Point(3, 2);
-            lblName.Name = "lblName";
-            lblName.Size = new Size(180, 20);
-            lblName.TabIndex = 0;
-            lblName.Text = "NAMEHERE";
             // 
             // cmsCupPlayer
             // 
@@ -255,6 +286,9 @@
             tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)epbProfilePicture).EndInit();
             panel1.ResumeLayout(false);
+            tableLayoutPanel5.ResumeLayout(false);
+            tableLayoutPanel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pbIsFavourite).EndInit();
             tableLayoutPanel4.ResumeLayout(false);
             tableLayoutPanel4.PerformLayout();
             tableLayoutPanel3.ResumeLayout(false);
@@ -282,5 +316,7 @@
         private MultilingualLabel multilingualLabel2;
         private ToolStripMenuItem selectToolStripMenuItem;
         private Label lblShirtNumber;
+        private TableLayoutPanel tableLayoutPanel5;
+        private PictureBox pbIsFavourite;
     }
 }

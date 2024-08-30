@@ -68,6 +68,14 @@ namespace WorldCupViewer
             pnlFavouritePlayerList = new Panel();
             mgbPlayerList = new MultilingualGroupBox();
             pnlPlayerList = new Panel();
+            tpPlayerStatistics = new TabPage();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            multilingualGroupBox1 = new MultilingualGroupBox();
+            panel4 = new Panel();
+            multilingualGroupBox3 = new MultilingualGroupBox();
+            panel6 = new Panel();
+            multilingualGroupBox4 = new MultilingualGroupBox();
+            panel7 = new Panel();
             panel1 = new Panel();
             multilingualGroupBox2 = new MultilingualGroupBox();
             panel5 = new Panel();
@@ -86,6 +94,11 @@ namespace WorldCupViewer
             ((System.ComponentModel.ISupportInitialize)pbSelectedCupImage).BeginInit();
             mgbFavouritePlayers.SuspendLayout();
             mgbPlayerList.SuspendLayout();
+            tpPlayerStatistics.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            multilingualGroupBox1.SuspendLayout();
+            multilingualGroupBox3.SuspendLayout();
+            multilingualGroupBox4.SuspendLayout();
             panel1.SuspendLayout();
             multilingualGroupBox2.SuspendLayout();
             SuspendLayout();
@@ -205,6 +218,7 @@ namespace WorldCupViewer
             // 
             mainTabControl.Controls.Add(tpDataSelect);
             mainTabControl.Controls.Add(tpTeamAndPlayerSelect);
+            mainTabControl.Controls.Add(tpPlayerStatistics);
             mainTabControl.Dock = DockStyle.Fill;
             mainTabControl.Location = new Point(0, 0);
             mainTabControl.Margin = new Padding(0);
@@ -401,6 +415,7 @@ namespace WorldCupViewer
             mlbConfirmFavouritePlayerSelection.SucceedingText = "";
             mlbConfirmFavouritePlayerSelection.TabIndex = 9;
             mlbConfirmFavouritePlayerSelection.UseVisualStyleBackColor = true;
+            mlbConfirmFavouritePlayerSelection.Click += mlbConfirmFavouritePlayerSelection_Click;
             // 
             // tlpTeamDataAndSelect
             // 
@@ -568,6 +583,109 @@ namespace WorldCupViewer
             pnlPlayerList.Size = new Size(451, 463);
             pnlPlayerList.TabIndex = 1;
             // 
+            // tpPlayerStatistics
+            // 
+            tpPlayerStatistics.Controls.Add(tableLayoutPanel1);
+            tpPlayerStatistics.Location = new Point(4, 24);
+            tpPlayerStatistics.Name = "tpPlayerStatistics";
+            tpPlayerStatistics.Padding = new Padding(3);
+            tpPlayerStatistics.Size = new Size(776, 491);
+            tpPlayerStatistics.TabIndex = 2;
+            tpPlayerStatistics.Text = "Player Statistics";
+            tpPlayerStatistics.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutPanel1.Controls.Add(multilingualGroupBox1, 0, 0);
+            tableLayoutPanel1.Controls.Add(multilingualGroupBox3, 1, 0);
+            tableLayoutPanel1.Controls.Add(multilingualGroupBox4, 2, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(3, 3);
+            tableLayoutPanel1.Margin = new Padding(0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(770, 485);
+            tableLayoutPanel1.TabIndex = 0;
+            // 
+            // multilingualGroupBox1
+            // 
+            multilingualGroupBox1.CharacterCasing = CharacterCasing.Normal;
+            multilingualGroupBox1.Controls.Add(panel4);
+            multilingualGroupBox1.Dock = DockStyle.Fill;
+            multilingualGroupBox1.Localization = Localization.LocalizationOptions.Players_By_Goals_Scored;
+            multilingualGroupBox1.Location = new Point(3, 3);
+            multilingualGroupBox1.Name = "multilingualGroupBox1";
+            multilingualGroupBox1.PreceedingText = "";
+            multilingualGroupBox1.Size = new Size(250, 479);
+            multilingualGroupBox1.SucceedingText = "";
+            multilingualGroupBox1.TabIndex = 0;
+            multilingualGroupBox1.TabStop = false;
+            // 
+            // panel4
+            // 
+            panel4.AutoScroll = true;
+            panel4.Dock = DockStyle.Fill;
+            panel4.Location = new Point(3, 19);
+            panel4.Margin = new Padding(0);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(244, 457);
+            panel4.TabIndex = 0;
+            // 
+            // multilingualGroupBox3
+            // 
+            multilingualGroupBox3.CharacterCasing = CharacterCasing.Normal;
+            multilingualGroupBox3.Controls.Add(panel6);
+            multilingualGroupBox3.Dock = DockStyle.Fill;
+            multilingualGroupBox3.Localization = Localization.LocalizationOptions.Players_By_Yellow_Cards;
+            multilingualGroupBox3.Location = new Point(259, 3);
+            multilingualGroupBox3.Name = "multilingualGroupBox3";
+            multilingualGroupBox3.PreceedingText = "";
+            multilingualGroupBox3.Size = new Size(250, 479);
+            multilingualGroupBox3.SucceedingText = "";
+            multilingualGroupBox3.TabIndex = 1;
+            multilingualGroupBox3.TabStop = false;
+            // 
+            // panel6
+            // 
+            panel6.AutoScroll = true;
+            panel6.Dock = DockStyle.Fill;
+            panel6.Location = new Point(3, 19);
+            panel6.Margin = new Padding(0);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(244, 457);
+            panel6.TabIndex = 0;
+            // 
+            // multilingualGroupBox4
+            // 
+            multilingualGroupBox4.CharacterCasing = CharacterCasing.Normal;
+            multilingualGroupBox4.Controls.Add(panel7);
+            multilingualGroupBox4.Dock = DockStyle.Fill;
+            multilingualGroupBox4.Localization = Localization.LocalizationOptions.Matches_By_Attendance;
+            multilingualGroupBox4.Location = new Point(515, 3);
+            multilingualGroupBox4.Name = "multilingualGroupBox4";
+            multilingualGroupBox4.PreceedingText = "";
+            multilingualGroupBox4.Size = new Size(252, 479);
+            multilingualGroupBox4.SucceedingText = "";
+            multilingualGroupBox4.TabIndex = 2;
+            multilingualGroupBox4.TabStop = false;
+            // 
+            // panel7
+            // 
+            panel7.AutoScroll = true;
+            panel7.Dock = DockStyle.Fill;
+            panel7.Location = new Point(3, 19);
+            panel7.Margin = new Padding(0);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(246, 457);
+            panel7.TabIndex = 1;
+            // 
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -628,6 +746,11 @@ namespace WorldCupViewer
             ((System.ComponentModel.ISupportInitialize)pbSelectedCupImage).EndInit();
             mgbFavouritePlayers.ResumeLayout(false);
             mgbPlayerList.ResumeLayout(false);
+            tpPlayerStatistics.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            multilingualGroupBox1.ResumeLayout(false);
+            multilingualGroupBox3.ResumeLayout(false);
+            multilingualGroupBox4.ResumeLayout(false);
             panel1.ResumeLayout(false);
             multilingualGroupBox2.ResumeLayout(false);
             ResumeLayout(false);
@@ -677,5 +800,13 @@ namespace WorldCupViewer
         private ExternalImage pbSelectedCupImage;
         private MultilingualToolStripStatusLabel MTSSLPlayerDataIsLoading;
         private MultilingualButton mlbConfirmFavouritePlayerSelection;
+        private TabPage tpPlayerStatistics;
+        private TableLayoutPanel tableLayoutPanel1;
+        private MultilingualGroupBox multilingualGroupBox1;
+        private MultilingualGroupBox multilingualGroupBox3;
+        private MultilingualGroupBox multilingualGroupBox4;
+        private Panel panel4;
+        private Panel panel6;
+        private Panel panel7;
     }
 }

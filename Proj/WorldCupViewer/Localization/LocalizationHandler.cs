@@ -55,7 +55,11 @@ namespace WorldCupViewer.Localization
         Games_Captained,
         Usual_Position,
         Player_Data_Is_Loading,
-        Confirm_Selection
+        Confirm_Selection,
+        Player_Statistics,
+        Players_By_Goals_Scored,
+        Players_By_Yellow_Cards,
+        Matches_By_Attendance
     }
 
     /// <summary>
@@ -72,7 +76,11 @@ namespace WorldCupViewer.Localization
             {
                 LocalizationOptions.TestString => Resource.TestString,
                 LocalizationOptions.TestString2 => Resource.TestString2,
+                LocalizationOptions.Players_By_Goals_Scored => Resource.LOC_Players_By_Goals_Scored,
+                LocalizationOptions.Players_By_Yellow_Cards => Resource.LOC_Players_By_Yellow_Cards,
+                LocalizationOptions.Matches_By_Attendance => Resource.LOC_Matches_By_Attendance,
                 LocalizationOptions.Confirm_Selection => Resource.LOC_Confirm_Selection,
+                LocalizationOptions.Player_Statistics => Resource.LOC_Player_Statistics,
                 LocalizationOptions.Players => Resource.LOC_Players,
                 LocalizationOptions.Shirt_Number => Resource.LOC_Shirt_Number,
                 LocalizationOptions.Games_Captained => Resource.LOC_Games_Captained,

@@ -186,6 +186,9 @@
   <data name="LOC_Local" xml:space="preserve">
     <value>Lokalno</value>
   </data>
+  <data name="LOC_Matches_By_Attendance" xml:space="preserve">
+    <value>Utakmice po dolaznosti</value>
+  </data>
   <data name="LOC_Name" xml:space="preserve">
     <value>Ime</value>
   </data>
@@ -198,11 +201,20 @@
   <data name="LOC_Players" xml:space="preserve">
     <value>Igrači</value>
   </data>
+  <data name="LOC_Players_By_Goals_Scored" xml:space="preserve">
+    <value>Igrači po broju golova</value>
+  </data>
+  <data name="LOC_Players_By_Yellow_Cards" xml:space="preserve">
+    <value>Igrači po broju žutih kartona</value>
+  </data>
   <data name="LOC_Player_Data_is_Loading" xml:space="preserve">
     <value>Podatci o igračima se učitavaju</value>
   </data>
   <data name="LOC_Player_List" xml:space="preserve">
     <value>Popis igrača</value>
+  </data>
+  <data name="LOC_Player_Statistics" xml:space="preserve">
+    <value>Statistike igrača</value>
   </data>
   <data name="LOC_Ready" xml:space="preserve">
     <value>Spremno</value>
