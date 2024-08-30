@@ -901,7 +901,7 @@ namespace WorldCupViewer
             int numOfFavourites = 0;
             foreach (var crtl in pnlFavouritePlayerList.Controls)
             {
-                if (crtl is ISelectable)
+                if (crtl is CupPlayerDisplay)
                     numOfFavourites++;
             }
 
@@ -910,6 +910,28 @@ namespace WorldCupViewer
                 mlbConfirmFavouritePlayerSelection.Enabled = true;
             else
                 mlbConfirmFavouritePlayerSelection.Enabled = false;
+
+            SetFavouritePlayers();
+        }
+        private void SetFavouritePlayers()
+        {
+            List<CupPlayer> favourites = new();
+            foreach (var crtl in pnlFavouritePlayerList.Controls)
+            {
+                if (crtl is CupPlayerDisplay pd)
+                    favourites.Add(pd.associatedPlayer);
+            }
+
+            foreach (var crtl in LocalUtils.GetAllControls(tpPlayerStatistics).Union(LocalUtils.GetAllControls(tpTeamAndPlayerSelect)))
+            {
+                if (crtl is CupPlayerDisplay pd)
+                {
+                    if (favourites.Contains(pd.associatedPlayer))
+                        pd.SetIsFavourite(true);
+                    else
+                        pd.SetIsFavourite(false);
+                }
+            }
         }
 
         void ignoreMouseWheel(object sender, MouseEventArgs e)
@@ -938,6 +960,14 @@ namespace WorldCupViewer
             mainTabControl.Controls.Remove(tpPlayerStatistics);
             mainTabControl.Controls.Add(tpPlayerStatistics);
             mainTabControl.SelectedTab = tpPlayerStatistics;
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = !YesNoDialog.ShowNew(
+                LocalizationHandler.GetCurrentLocOptionsString(LocalizationOptions.Are_You_Sure) + "?",
+                LocalizationHandler.GetCurrentLocOptionsString(LocalizationOptions.Are_You_Sure_You_Want_To_Close_The_Application) + "?"
+            );
         }
     }
 }

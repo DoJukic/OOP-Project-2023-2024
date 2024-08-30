@@ -729,6 +729,7 @@ namespace WorldCupViewer
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "WorldCupViewer";
+            FormClosing += MainForm_FormClosing;
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
             mainTabControl.ResumeLayout(false);

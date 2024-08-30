@@ -123,6 +123,9 @@
   <data name="LOC_Are_You_Sure_You_Want_To_Change_The_Language" xml:space="preserve">
     <value>Are you sure you want to change the language</value>
   </data>
+  <data name="LOC_Are_You_Sure_You_Want_To_Close_The_Application" xml:space="preserve">
+    <value>Are you sure you want to close the application</value>
+  </data>
   <data name="LOC_Busy" xml:space="preserve">
     <value>Busy</value>
   </data>

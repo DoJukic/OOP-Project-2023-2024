@@ -160,19 +160,19 @@ namespace WorldCupViewer.UserControls
             base.OnKeyDown(e);
         }
 
-        private void CupPlayerDisplay_MouseEnter(object sender, EventArgs e)
+        private void CupPlayerDisplay_MouseEnter(object? sender, EventArgs? e)
         {
             mouseHovering = true;
             SetAppropriateBG();
         }
 
-        private void CupPlayerDisplay_MouseLeave(object sender, EventArgs e)
+        private void CupPlayerDisplay_MouseLeave(object? sender, EventArgs? e)
         {
             mouseHovering = false;
             SetAppropriateBG();
         }
 
-        private void CupPlayerDisplay_Click(object sender, EventArgs e)
+        private void CupPlayerDisplay_Click(object? sender, EventArgs? e)
         {
             if (SelectablesHandler.IsMouseOffsetTooLarge())
                 return;
@@ -266,7 +266,10 @@ namespace WorldCupViewer.UserControls
 
         private void changeImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            epbProfilePicture.Visible = false;
+            SelectExternalImageDialog dialog = new();
+
+            dialog.ShowDialog();
+            dialog.ShowDialog();
         }
 
         private void selectToolStripMenuItem_Click(object sender, EventArgs e)

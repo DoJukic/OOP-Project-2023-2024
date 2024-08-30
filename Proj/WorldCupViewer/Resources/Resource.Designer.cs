@@ -79,6 +79,15 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Are_You_Sure_You_Want_To_Close_The_Application.
+        /// </summary>
+        internal static string LOC_Are_You_Sure_You_Want_To_Close_The_Application {
+            get {
+                return ResourceManager.GetString("LOC_Are_You_Sure_You_Want_To_Close_The_Application", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Busy.
         /// </summary>
         internal static string LOC_Busy {

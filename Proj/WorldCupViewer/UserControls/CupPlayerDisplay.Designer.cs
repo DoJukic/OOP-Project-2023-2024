@@ -120,7 +120,7 @@
             // 
             lblName.AutoSize = true;
             lblName.Location = new Point(3, 5);
-            lblName.Margin = new Padding(3, 5, 3, 0);
+            lblName.Margin = new Padding(3, 5, 0, 0);
             lblName.Name = "lblName";
             lblName.Size = new Size(69, 15);
             lblName.TabIndex = 0;
@@ -128,10 +128,11 @@
             // 
             // pbIsFavourite
             // 
-            pbIsFavourite.Location = new Point(78, 0);
-            pbIsFavourite.Margin = new Padding(3, 0, 3, 6);
+            pbIsFavourite.Location = new Point(72, 4);
+            pbIsFavourite.Margin = new Padding(0, 4, 3, 6);
             pbIsFavourite.Name = "pbIsFavourite";
-            pbIsFavourite.Size = new Size(21, 21);
+            pbIsFavourite.Size = new Size(15, 15);
+            pbIsFavourite.SizeMode = PictureBoxSizeMode.Zoom;
             pbIsFavourite.TabIndex = 1;
             pbIsFavourite.TabStop = false;
             // 
