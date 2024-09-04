@@ -36,10 +36,10 @@
             // epbImage
             // 
             epbImage.ExternalImageID = null;
-            epbImage.Location = new Point(15, 0);
+            epbImage.Location = new Point(17, 4);
             epbImage.Margin = new Padding(0);
             epbImage.Name = "epbImage";
-            epbImage.Size = new Size(70, 70);
+            epbImage.Size = new Size(66, 66);
             epbImage.SizeMode = PictureBoxSizeMode.Zoom;
             epbImage.TabIndex = 0;
             epbImage.TabStop = false;

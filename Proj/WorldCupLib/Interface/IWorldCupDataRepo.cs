@@ -10,6 +10,7 @@ namespace WorldCupLib
 {
     public interface IWorldCupDataRepo
     {
+        public List<String> GetErrorList();
         public ReadonlySortedSet<CupGroup> GetCupGroups();
         public ReadonlySortedSet<CupMatch> GetCupMatches();
         public ReadonlySortedSet<CupTeam> GetCupTeams();

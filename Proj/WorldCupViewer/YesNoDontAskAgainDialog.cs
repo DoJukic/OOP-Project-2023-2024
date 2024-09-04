@@ -30,14 +30,15 @@ namespace WorldCupViewer
             if (blacklisted.Exists((str) => str == ID))
                 return new() { yes = true };
 
-            YesNoDontAskAgainDialog dialog = new(caption, text);
+            using (YesNoDontAskAgainDialog dialog = new(caption, text))
+            {
+                dialog.ShowDialog();
 
-            dialog.ShowDialog();
+                if (dialog.response.dontAskAgain)
+                    blacklisted.Add(ID);
 
-            if (dialog.response.dontAskAgain)
-                blacklisted.Add(ID);
-
-            return dialog.response;
+                return dialog.response;
+            }
         }
 
         public class Response
@@ -80,6 +81,8 @@ namespace WorldCupViewer
                     btnYesAndBuzzOff_Click(this, new());
                     break;
             }
+
+            e.Handled = true;
         }
     }
 }

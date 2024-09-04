@@ -9,11 +9,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WorldCupLib;
+using WorldCupViewer.PlayerImages;
 using WorldCupViewer.Selectables;
 
 namespace WorldCupViewer.UserControls
 {
-    public partial class CupPlayerDisplay : UserControl, ISelectable
+    public partial class CupPlayerDisplay : UserControl, ISelectable, IPlayerImageHolder, IFavouriteablePlayerHolder
     {
         private bool mouseHovering = false;
         private bool focused = false;
@@ -27,7 +28,7 @@ namespace WorldCupViewer.UserControls
             public int timesOccured = 0;
         }
 
-        public CupPlayerDisplay(CupPlayer player, bool isFavourite)
+        public CupPlayerDisplay(CupPlayer player, bool isFavourite = false)
         {
             InitializeComponent();
             TabStop = true;
@@ -266,15 +267,37 @@ namespace WorldCupViewer.UserControls
 
         private void changeImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SelectExternalImageDialog dialog = new();
+            SelectExternalImageDialog dialog = new(associatedPlayer, epbProfilePicture.ExternalImageID ?? "");
 
-            dialog.ShowDialog();
-            dialog.ShowDialog();
+            using (dialog)
+            {
+                dialog.ShowDialog();
+            }
         }
 
         private void selectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CupPlayerDisplay_Click(null, null);
+        }
+
+        public long GetPlayerNumber()
+        {
+            return associatedPlayer.shirtNumber;
+        }
+
+        public string GetPlayerImageID()
+        {
+            return epbProfilePicture.ExternalImageID ?? "";
+        }
+
+        public void SetPlayerImageID(string externalImageID)
+        {
+            epbProfilePicture.ExternalImageID = externalImageID;
+        }
+
+        public CupPlayer GetAssociatedPlayer()
+        {
+            return associatedPlayer;
         }
     }
 }

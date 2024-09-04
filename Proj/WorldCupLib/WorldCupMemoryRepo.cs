@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
+using WorldCupLib.Interface;
 
 namespace WorldCupLib
 {
@@ -14,6 +15,7 @@ namespace WorldCupLib
         readonly SortedSet<CupGroup> _groups = new();
         readonly SortedSet<CupMatch> _matches = new();
         readonly SortedSet<CupTeam> _teams = new();
+        readonly List<String> _errorList = new();
 
         /// <summary>
         /// So I'm not gonna lie, this ctor is kinda scuffed. We're translating a LOT of data into something actually useable which means a lot of code, but I'm sure it's going to pay off later.
@@ -51,20 +53,27 @@ namespace WorldCupLib
                         chickenDinner = tryGetTeamFromFifaCode(match.WinnerCode);
                         if (chickenDinner == null)
                         {
-                            noErrors = false;
-                            return; // DANGIT
+#pragma warning disable CS8602 // Dereference of a possibly null reference (compiler gets confused due to ternary operator)
+                            _errorList.Add("Match declared winning team which did not exist (" +
+                                homeTeam == null ? "NULL" : homeTeam.fifaCode +
+                                " versus " +
+                                awayTeam == null ? "NULL" : awayTeam.fifaCode +
+                                ")");
+#pragma warning restore CS8602
+                            continue; // DANGIT
                         }
                     }
 
                     if (homeTeam == null || awayTeam == null)
                     {
-                        noErrors = false;
-                        return; // DANGIT 2: electric boogaloo
-                    }
-
-                    if (homeTeam.fifaCode == "URU" || awayTeam.fifaCode == "URU")
-                    {
-                        int a = 0;
+#pragma warning disable CS8602 // Dereference of a possibly null reference (compiler gets confused due to ternary operator)
+                        _errorList.Add("Match was missing home and/or away team (" +
+                            homeTeam == null ? "NULL" : homeTeam.fifaCode +
+                            " versus " +
+                            awayTeam == null ? "NULL" : awayTeam.fifaCode +
+                            ")");
+#pragma warning restore CS8602
+                        continue; // DANGIT 2
                     }
 
                     CupWeather cupWeather = new(match.Weather.Humidity, match.Weather.TempCelsius, match.Weather.WindSpeed, match.Weather.Description);
@@ -75,70 +84,34 @@ namespace WorldCupLib
 
                     List<CupPlayer> homeTeamCaptains = new();
                     List<KeyValuePair<CupPlayer, String>> homeTeamPositionPairs = new();
-                    foreach (var man in match.HomeTeamStatistics.StartingEleven.Union(match.HomeTeamStatistics.Substitutes))
-                    {
-                        if (man.ShirtNumber == null)
-                        {
-                            noErrors = false;
-                            continue;
-                        }
-
-                        CupPlayer? cupPlayer =
-                            cupHomeStatistics._startingElevenPlayers.
-                                Union(cupHomeStatistics._substitutePlayers).
-                                    SingleOrDefault((player) => player.shirtNumber == man.ShirtNumber);
-
-                        if (cupPlayer == null)
-                        {
-                            noErrors = false;
-                            continue;
-                        }
-
-                        homeTeamPositionPairs.Add(new(cupPlayer, man.Position));
-
-                        if (man.Captain != null && (bool)man.Captain)
-                        {
-                            homeTeamCaptains.Add(cupPlayer);
-                        }
-                    }
+                    CupPlayer.ExtractListsOfCaptainsAndKeyValuePairOfPlayerPositionsFromSubstitutesAndTopEleven(
+                        match.HomeTeamStatistics.StartingEleven, match.HomeTeamStatistics.Substitutes, cupHomeStatistics,
+                        homeTeamCaptains, homeTeamPositionPairs, _errorList,
+                        homeTeam.fifaCode, awayTeam.fifaCode);
 
                     CupMatchTeamInfo cupHomeInfo = new(homeTeam, match.HomeTeam.Goals, match.HomeTeam.Penalties, homeTeamCaptains, homeTeamPositionPairs);
+                    List<CupEvent> cupHomeEvents =
+                        CupEvent.ConvertTeamEventEnumerableToCupEventList(match.HomeTeamEvents, homeTeam.SortedPlayers,
+                        _errorList, homeTeam.fifaCode, awayTeam.fifaCode);
 
                     CupMatchTeamStatistics cupAwayStatistics = convertMatchTeamStatisticsToCupMatchTeamStatistics(match.AwayTeamStatistics, awayTeam);
 
                     List<CupPlayer> awayTeamCaptains = new();
                     List<KeyValuePair<CupPlayer, String>> awayTeamPositionPairs = new();
-                    foreach (var man in match.AwayTeamStatistics.StartingEleven.Union(match.AwayTeamStatistics.Substitutes))
-                    {
-                        if (man.ShirtNumber == null)
-                        {
-                            noErrors = false;
-                            continue;
-                        }
-
-                        CupPlayer? cupPlayer =
-                            cupAwayStatistics._startingElevenPlayers.
-                                Union(cupAwayStatistics._substitutePlayers).
-                                    SingleOrDefault((player) => player.shirtNumber == man.ShirtNumber);
-
-                        if (cupPlayer == null)
-                        {
-                            noErrors = false;
-                            continue;
-                        }
-
-                        awayTeamPositionPairs.Add(new(cupPlayer, man.Position));
-
-                        if (man.Captain != null && (bool)man.Captain)
-                        {
-                            awayTeamCaptains.Add(cupPlayer);
-                        }
-                    }
+                    CupPlayer.ExtractListsOfCaptainsAndKeyValuePairOfPlayerPositionsFromSubstitutesAndTopEleven(
+                        match.AwayTeamStatistics.StartingEleven, match.AwayTeamStatistics.Substitutes, cupAwayStatistics,
+                        awayTeamCaptains, awayTeamPositionPairs, _errorList,
+                        homeTeam.fifaCode, awayTeam.fifaCode);
 
                     CupMatchTeamInfo cupAwayInfo = new(awayTeam, match.AwayTeam.Goals, match.AwayTeam.Penalties, awayTeamCaptains, awayTeamPositionPairs);
+                    List<CupEvent> cupAwayEvents =
+                        CupEvent.ConvertTeamEventEnumerableToCupEventList(match.AwayTeamEvents, awayTeam.SortedPlayers,
+                        _errorList, homeTeam.fifaCode, awayTeam.fifaCode);
 
                     CupMatch cupMatch = new(match.Venue, match.Location, match.Status, match.Time, match.FifaId.ToString(), cupWeather,
-                        match.Attendance, match.Officials.ToList(), match.StageName, cupHomeInfo, cupHomeStatistics, cupAwayInfo, cupAwayStatistics,
+                        match.Attendance, match.Officials.ToList(), match.StageName,
+                        cupHomeInfo, cupHomeStatistics, cupHomeEvents,
+                        cupAwayInfo, cupAwayStatistics, cupAwayEvents,
                         chickenDinner, match.Datetime, match.LastEventUpdateAt, match.LastScoreUpdateAt);
 
                     _matches.Add(cupMatch);
@@ -175,6 +148,11 @@ namespace WorldCupLib
         public ReadonlySortedSet<CupTeam> GetCupTeams()
         {
             return new(_teams);
+        }
+
+        public List<string> GetErrorList()
+        {
+            return new(_errorList);
         }
 
         public CupTeam? tryGetTeamFromFifaCode(String code)

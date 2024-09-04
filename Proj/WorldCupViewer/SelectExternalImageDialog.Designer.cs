@@ -39,6 +39,7 @@
             flpMain.Location = new Point(0, 0);
             flpMain.Margin = new Padding(0);
             flpMain.Name = "flpMain";
+            flpMain.Padding = new Padding(2, 0, 0, 0);
             flpMain.Size = new Size(420, 400);
             flpMain.TabIndex = 0;
             // 
@@ -48,6 +49,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(420, 400);
             Controls.Add(flpMain);
+            KeyPreview = true;
             MaximizeBox = false;
             MaximumSize = new Size(436, 439);
             MinimizeBox = false;
@@ -55,6 +57,9 @@
             Name = "SelectExternalImageDialog";
             StartPosition = FormStartPosition.CenterParent;
             Text = "SelectExternalImageDialog";
+            FormClosed += SelectExternalImageDialog_FormClosed;
+            Load += SelectExternalImageDialog_Load;
+            KeyPress += SelectExternalImageDialog_KeyPress;
             ResumeLayout(false);
         }
 

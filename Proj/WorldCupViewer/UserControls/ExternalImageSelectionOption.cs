@@ -41,6 +41,11 @@ namespace WorldCupViewer.UserControls
             }
         }
 
+        public String GetExternalImageID()
+        {
+            return epbImage.ExternalImageID ?? "";
+        }
+
         protected override void OnGotFocus(EventArgs e)
         {
             isFocused = true;
@@ -59,9 +64,6 @@ namespace WorldCupViewer.UserControls
         {
             if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space)
             {
-                if (isSelected)
-                    Deselected();
-                else
                     Selected();
             }
             if (e.KeyCode == Keys.Left)
@@ -85,10 +87,7 @@ namespace WorldCupViewer.UserControls
             if (SelectablesHandler.IsMouseOffsetTooLarge())
                 return;
 
-            if (!isSelected)
-                Selected();
-            else
-                Deselected();
+            Selected();
 
             SetAppropriateBG();
         }

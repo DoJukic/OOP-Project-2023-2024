@@ -22,6 +22,7 @@ namespace WorldCupLib
         internal bool infoFileValid;
         internal bool? fileStructureValid;
         internal bool? jsonValid;
+        internal bool jsonWarning = false;
 
         internal String remoteLink;
         private String internalImageID;
@@ -34,11 +35,12 @@ namespace WorldCupLib
         public bool InfoFileValid { get => infoFileValid; }
         public bool? FileStructureValid { get => fileStructureValid; }
         public bool? JsonValid { get => jsonValid; }
+        public bool JsonWarning { get => jsonWarning; }
 
         public string RemoteLink { get => remoteLink; }
         public string InternalImageID { get => internalImageID; }
 
-        private AvailableFileDetails(String ID, Guid guid, String? name, int year, bool infoFileValid, bool? fileStructureValid, bool? jsonValid, String? remoteLink, String? internalImageID)
+        private AvailableFileDetails(String ID, Guid guid, String? name, int year, bool infoFileValid, bool? fileStructureValid, bool? jsonValid, bool jsonWarning, String? remoteLink, String? internalImageID)
         {
             this.id = ID;
             this.guid = guid;
@@ -48,6 +50,7 @@ namespace WorldCupLib
             this.infoFileValid = infoFileValid;
             this.fileStructureValid = fileStructureValid;
             this.jsonValid = jsonValid;
+            this.jsonWarning = jsonWarning;
 
             this.remoteLink = remoteLink ?? "";
             this.internalImageID = internalImageID ?? "";
@@ -62,6 +65,7 @@ namespace WorldCupLib
             this.infoFileValid = copyTarget.InfoFileValid;
             this.fileStructureValid = copyTarget.FileStructureValid;
             this.jsonValid = copyTarget.JsonValid;
+            this.jsonWarning = copyTarget.jsonWarning;
 
             this.remoteLink = copyTarget.RemoteLink ?? "";
             this.internalImageID = copyTarget.InternalImageID ?? "";
@@ -86,6 +90,7 @@ namespace WorldCupLib
             bool infoFileValid = true;
             bool? fileStructureValid = null;
             bool? jsonValid = null;
+            bool jsonWarning = false;
             String remoteLink = "ERROR";
             String? InternalImageID = null;
 
@@ -111,7 +116,7 @@ namespace WorldCupLib
                 GUID == null || GUID == Guid.Empty)
                 infoFileValid = false;
 
-            return new(ID, (Guid)(GUID ?? Guid.Empty), name, year, infoFileValid, fileStructureValid, jsonValid, remoteLink, InternalImageID);
+            return new(ID, (Guid)(GUID ?? Guid.Empty), name, year, infoFileValid, fileStructureValid, jsonValid, jsonWarning, remoteLink, InternalImageID);
         }
 
         public void WriteToDirectory(string directoryPath)
@@ -234,7 +239,7 @@ namespace WorldCupLib
             OnDetailsChanged.SafeTrigger();
 
             bool noErrors = true;
-            WorldCupRepoBroker.GetRepoFromFolder(targetPath, ref noErrors);
+            var repo = WorldCupRepoBroker.GetRepoFromFolder(targetPath, ref noErrors);
 
             lock (suboperationsLock)
             {
@@ -242,6 +247,11 @@ namespace WorldCupLib
                     return;
 
                 this.updateTarget.jsonValid = noErrors;
+                if (repo == null)
+                    this.updateTarget.jsonValid = false;
+                else
+                    if (repo.GetErrorList().Count > 0)
+                        this.updateTarget.jsonWarning = true;
             }
             OnDetailsChanged.SafeTrigger();
         }

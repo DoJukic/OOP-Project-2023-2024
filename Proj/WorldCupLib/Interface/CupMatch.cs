@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reflection.Metadata.Ecma335;
 using System.Transactions;
+using WorldCupLib.Interface;
 
 namespace WorldCupLib
 {
@@ -19,17 +20,25 @@ namespace WorldCupLib
 
         public readonly CupMatchTeamInfo homeTeam;
         public readonly CupMatchTeamStatistics homeTeamStatistics;
+        internal readonly List<CupEvent> homeTeamEvents;
+        public List<CupEvent> HomeTeamEvents { get { return new(homeTeamEvents); } }
+
         public readonly CupMatchTeamInfo awayTeam;
         public readonly CupMatchTeamStatistics awayTeamStatistics;
         public readonly CupTeam? winningTeam;
+        internal readonly List<CupEvent> awayTeamEvents;
+        public List<CupEvent> AwayTeamEvents { get { return new(awayTeamEvents); } }
 
         public readonly DateTimeOffset matchDateTime;
 
         public readonly DateTimeOffset? lastEventUpdateTime;
         public readonly DateTimeOffset? lastScoreUpdateTime;
 
-        public CupMatch(string venue, string location, string status, string time, string fifaID, CupWeather weather, long? attendance, List<string> officials, string stageName,
-            CupMatchTeamInfo homeTeam, CupMatchTeamStatistics homeTeamStatistics, CupMatchTeamInfo awayTeam, CupMatchTeamStatistics awayTeamStatistics, CupTeam? winningTeam,
+        public CupMatch(string venue, string location, string status, string time, string fifaID,
+            CupWeather weather, long? attendance,List<string> officials, string stageName,
+            CupMatchTeamInfo homeTeam, CupMatchTeamStatistics homeTeamStatistics, List<CupEvent> homeTeamEvents,
+            CupMatchTeamInfo awayTeam, CupMatchTeamStatistics awayTeamStatistics, List<CupEvent> awayTeamEvents,
+            CupTeam? winningTeam,
             DateTimeOffset? matchDateTime, DateTimeOffset? lastEventUpdateTime, DateTimeOffset? lastScoreUpdateTime)
         {
             this.venue = venue;
@@ -43,8 +52,10 @@ namespace WorldCupLib
             this.stageName = stageName;
             this.homeTeam = homeTeam;
             this.homeTeamStatistics = homeTeamStatistics;
+            this.homeTeamEvents = homeTeamEvents;
             this.awayTeam = awayTeam;
             this.awayTeamStatistics = awayTeamStatistics;
+            this.awayTeamEvents = awayTeamEvents;
             this.winningTeam = winningTeam;
 
             if (matchDateTime.Equals(null))

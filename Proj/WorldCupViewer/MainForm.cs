@@ -6,8 +6,10 @@ using System.Xml.Linq;
 using Microsoft.VisualBasic.Devices;
 using SharedDataLib;
 using WorldCupLib;
+using WorldCupLib.Interface;
 using WorldCupViewer.ExternalImages;
 using WorldCupViewer.Localization;
+using WorldCupViewer.PlayerImages;
 using WorldCupViewer.Selectables;
 using WorldCupViewer.UserControls;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
@@ -16,6 +18,8 @@ namespace WorldCupViewer
 {
     public partial class MainForm : Form
     {
+        private bool hasBeenShown = false;
+
         private int loadingRepoActionID = 0;
         private int availableFileDetailsChangedActionID = 0;
         private int downloadableFileDetailsChangedActionID = 0;
@@ -46,7 +50,10 @@ namespace WorldCupViewer
         {
             InitializeComponent();
 
-            //cbSelectedTeam.MouseWheel += ignoreMouseWheel;
+            // This makes sizing logic give us the unique behaviour you can see in the middle tab
+            panel3.Height -= 20;
+            mgbFavouritePlayers.MaximumSize = mgbFavouritePlayers.Size;
+            panel3.Height += 20;
 
             supportedLanguages = SupportedLanguages.GetSupportedLanguageInfoList();
 
@@ -63,8 +70,8 @@ namespace WorldCupViewer
             // https://stackoverflow.com/questions/17423348/how-can-i-wait-until-a-form-handle-has-been-created-before-using-its-components
             // I think I could've just used the load event tbh
             HandleCreated += MainForm_HandleCreated;
-            if (IsHandleCreated) // Paranoia strikes deep
-                MainForm_HandleCreated(null, new()); // Into your heart it will creep
+            if (IsHandleCreated)
+                MainForm_HandleCreated(null, new());
         }
 
         private void MainForm_HandleCreated(object? sender, EventArgs e)
@@ -96,6 +103,8 @@ namespace WorldCupViewer
             pnlFavouritePlayerList.ControlRemoved += pnlFavouritePlayerListChanged;
             pnlFavouritePlayerListChanged(null, null);
 
+            PlayerImageLinkIntermediary.onPlayerImagePairListChanged += PlayerImageLinkIntermediary_OnPlayerImagePairListChanged;
+
             // Language logic
 
             SupportedLanguages.SupportedLanguageInfo targetLang;
@@ -124,6 +133,11 @@ namespace WorldCupViewer
             }
         }
 
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            hasBeenShown = true;
+        }
+
         public void NewCupDataTaskStarted(Task<IWorldCupDataRepo?> repo, String? guid, AvailableFileDetails? deets)
         {
             if (guid != null)
@@ -139,7 +153,7 @@ namespace WorldCupViewer
             {
                 repo.Wait();
 
-                this.Invoke((Delegate)(() =>
+                this.Invoke((() =>
                 {
                     if (currentActionID != loadingRepoActionID)
                         return;
@@ -156,11 +170,11 @@ namespace WorldCupViewer
                     activeRepositoryDetails = deets;
                     activeRepoData = new() { GUID = Guid.Empty.ToString(), TeamDataList = new() };
 
-                    //TODO: All tabs other than the main one must be removed here
+                    // All tabs other than the main one must be removed here
                     mainTabControl.Controls.Remove(tpTeamAndPlayerSelect);
                     mainTabControl.Controls.Remove(tpPlayerStatistics);
 
-                    // add all the data here
+                    // Add all the data here
                     if (activeRepositoryDetails != null)
                     {
                         lblSelectedCupDataName.Text = activeRepositoryDetails.Name;
@@ -212,8 +226,8 @@ namespace WorldCupViewer
                     lock (pnlFavouritePlayerListControlsChangeIDLock)
                         pnlFavouritePlayerListControlsChangeID++;
 
-                    LocalUtils.ClearWithDispose(pnlPlayerList);
-                    LocalUtils.ClearWithDispose(pnlFavouritePlayerList);
+                    LocalUtils.ClearControlsWithDispose(pnlPlayerList);
+                    LocalUtils.ClearControlsWithDispose(pnlFavouritePlayerList);
 
                     if (activeRepoData.SelectedTeamFifaID != null)
                     {
@@ -232,6 +246,27 @@ namespace WorldCupViewer
 
                     mainTabControl.Controls.Add(tpTeamAndPlayerSelect);
                     mainTabControl.SelectedTab = tpTeamAndPlayerSelect;
+
+                    var errorList = activeRepository.GetErrorList();
+                    if (errorList.Count > 0)
+                    {
+                        MTSSLErrorsDetectedInData.Visible = true;
+                        if (hasBeenShown)
+                            ErrorsDetectedDialog.ShowNew(errorList);
+                        else
+                        {
+                            EventHandler thingy = null;
+                            thingy = new((obj, e) =>
+                            {
+                                ErrorsDetectedDialog.ShowNew(errorList);
+                                this.Shown -= thingy;
+                            });
+
+                            this.Shown += thingy;
+                        }
+                    }
+                    else
+                        MTSSLErrorsDetectedInData.Visible = true;
                 }));
             });
         }
@@ -266,7 +301,7 @@ namespace WorldCupViewer
 
                         pnlDataSelectLocalSources.Visible = false;
                         pnlDataSelectLocalSources.SuspendLayout();
-                        LocalUtils.ClearWithDispose(pnlDataSelectLocalSources);
+                        LocalUtils.ClearControlsWithDispose(pnlDataSelectLocalSources);
 
                         var nonNullDeets = deets.Where((deet) => deet != null);
 
@@ -340,7 +375,7 @@ namespace WorldCupViewer
 
                         pnlDataSelectRemoteSources.Visible = false;
                         pnlDataSelectRemoteSources.SuspendLayout();
-                        LocalUtils.ClearWithDispose(pnlDataSelectRemoteSources);
+                        LocalUtils.ClearControlsWithDispose(pnlDataSelectRemoteSources);
 
                         foreach (var deet in deets.Where((deet) => deet != null))
                         {
@@ -418,7 +453,7 @@ namespace WorldCupViewer
                         LocalizationOptions.Team_Slash_Player_Select);
                 tpPlayerStatistics.Text =
                     LocalizationHandler.GetCurrentLocOptionsString(
-                        LocalizationOptions.Player_Statistics);
+                        LocalizationOptions.Team_Statistics);
             });
         }
 
@@ -429,6 +464,8 @@ namespace WorldCupViewer
                 ExternalImageUpdater.UpdateAllChildren(tpDataSelect);
                 ExternalImageUpdater.UpdateAllChildren(tpTeamAndPlayerSelect);
                 ExternalImageUpdater.UpdateAllChildren(tpPlayerStatistics);
+
+                SelectExternalImageDialog.LoadImages();
             });
         }
 
@@ -440,10 +477,16 @@ namespace WorldCupViewer
                 ApplyAPIStateToRemoteDataSources();
                 if (APIState)
                 {
+                    MTSSLDownloadState.Visible = false;
+                    MTSSLDownloadStateState.Visible = false;
+
                     MTSSLDownloadStateState.Localization = LocalizationOptions.Ready;
                     MTSSLDownloadStateState.ForeColor = Color.Green;
                     return;
                 }
+                MTSSLDownloadState.Visible = true;
+                MTSSLDownloadStateState.Visible = true;
+
                 MTSSLDownloadFailed.Visible = false;
                 MTSSLDownloadStateState.Localization = LocalizationOptions.Busy;
                 MTSSLDownloadStateState.ForeColor = Color.DarkOrange;
@@ -483,6 +526,8 @@ namespace WorldCupViewer
             if (cb.SelectedItem is not KeyValuePair<String, CupTeam> tgtCupTeamKVP)
                 return;
 
+            mainTabControl.Controls.Remove(tpPlayerStatistics);
+
             activeRepoTeamData = null;
 
             currentTargetCupTeamKVP = tgtCupTeamKVP;
@@ -504,6 +549,8 @@ namespace WorldCupViewer
                 activeRepoData.TeamDataList.Add(activeRepoTeamData);
             }
 
+            PlayerImageLinkIntermediary.Configure(activeRepoTeamData.PlayerImagePairList ??= new());
+
             SaveSettings();
 
             int currentPlayerListChangeID;
@@ -523,8 +570,8 @@ namespace WorldCupViewer
                 activeRepoTeamData.FavPlayer3ShirtNum
             };
 
-            LocalUtils.ClearWithDispose(pnlPlayerList);
-            LocalUtils.ClearWithDispose(pnlFavouritePlayerList);
+            LocalUtils.ClearControlsWithDispose(pnlPlayerList);
+            LocalUtils.ClearControlsWithDispose(pnlFavouritePlayerList);
 
             MTSSLPlayerDataIsLoading.Visible = true;
 
@@ -583,9 +630,11 @@ namespace WorldCupViewer
 
                     foreach (var control in pnlPlayerListControls)
                     {
-                        pnlPlayerList.Controls.Add(control);
                         control.Dock = DockStyle.Top;
                     }
+                    pnlPlayerList.Controls.AddRange(pnlPlayerListControls.ToArray());
+
+                    PlayerImageLinkIntermediary.UpdateAllChildPlayerImageHolders(pnlPlayerList);
 
                     pnlPlayerList.ResumeLayout();
                     pnlPlayerList.Visible = true;
@@ -605,6 +654,8 @@ namespace WorldCupViewer
                         pnlFavouritePlayerList.Controls.Add(control);
                         control.Dock = DockStyle.Top;
                     }
+
+                    PlayerImageLinkIntermediary.UpdateAllChildPlayerImageHolders(pnlFavouritePlayerList);
 
                     pnlFavouritePlayerList.ResumeLayout();
                     pnlFavouritePlayerList.Visible = true;
@@ -630,7 +681,7 @@ namespace WorldCupViewer
                 activeRepoTeamData.FavPlayer3ShirtNum
             };
 
-            LocalUtils.ClearWithDispose(pnlFavouritePlayerList);
+            LocalUtils.ClearControlsWithDispose(pnlFavouritePlayerList);
 
             Task.Run(() =>
             {
@@ -674,10 +725,13 @@ namespace WorldCupViewer
                         control.Dock = DockStyle.Top;
                     }
 
+                    PlayerImageLinkIntermediary.UpdateAllChildPlayerImageHolders(pnlFavouritePlayerList);
+
                     pnlFavouritePlayerList.ResumeLayout();
                     pnlFavouritePlayerList.Visible = true;
 
                     InitFavouritePlayerListDragAndDrop();
+                    SetCorrectImagesForAllPlayers();
                 });
             });
         }
@@ -905,65 +959,182 @@ namespace WorldCupViewer
                     numOfFavourites++;
             }
 
-            mlbConfirmFavouritePlayerSelection.SucceedingText = " (" + numOfFavourites + "/3)";
-            if (numOfFavourites >= 3)
-                mlbConfirmFavouritePlayerSelection.Enabled = true;
-            else
-                mlbConfirmFavouritePlayerSelection.Enabled = false;
+            mgbFavouritePlayers.SucceedingText = " (" + numOfFavourites + "/3)";
 
-            SetFavouritePlayers();
+            UpdateFavouritePlayers(true);
         }
-        private void SetFavouritePlayers()
+        private void UpdateFavouritePlayers(bool generateRankings = false)
         {
             List<CupPlayer> favourites = new();
             foreach (var crtl in pnlFavouritePlayerList.Controls)
             {
-                if (crtl is CupPlayerDisplay pd)
-                    favourites.Add(pd.associatedPlayer);
+                if (crtl is IFavouriteablePlayerHolder pd)
+                    favourites.Add(pd.GetAssociatedPlayer());
             }
 
             foreach (var crtl in LocalUtils.GetAllControls(tpPlayerStatistics).Union(LocalUtils.GetAllControls(tpTeamAndPlayerSelect)))
             {
-                if (crtl is CupPlayerDisplay pd)
+                if (crtl is IFavouriteablePlayerHolder pd)
                 {
-                    if (favourites.Contains(pd.associatedPlayer))
-                        pd.SetIsFavourite(true);
-                    else
-                        pd.SetIsFavourite(false);
+                    pd.SetIsFavourite(favourites.Contains(pd.GetAssociatedPlayer()));
                 }
             }
-        }
 
-        void ignoreMouseWheel(object sender, MouseEventArgs e)
-        {
-            ((HandledMouseEventArgs)e).Handled = true;
-        }
-
-        private void mlbConfirmFavouritePlayerSelection_Click(object sender, EventArgs e)
-        {
-            List<CupPlayer> favourites = new();
-
-            foreach (var crtl in pnlFavouritePlayerList.Controls)
+            if (generateRankings && favourites.Count >= 3)
             {
-                if (crtl is CupPlayerDisplay cpd)
-                    favourites.Add(cpd.associatedPlayer);
+                GenerateTeamStatistics();
             }
-
-            if (favourites.Count != 3)
-                return; // huh?
-
-            CreateRankingsListForThreeFavouritePlayers(favourites);
         }
 
-        private void CreateRankingsListForThreeFavouritePlayers(List<CupPlayer> favourites)
+        private void PlayerImageLinkIntermediary_OnPlayerImagePairListChanged()
+        {
+            SaveSettings();
+            SetCorrectImagesForAllPlayers();
+        }
+
+        private void SetCorrectImagesForAllPlayers()
+        {
+            PlayerImageLinkIntermediary.UpdateAllChildPlayerImageHolders(tpTeamAndPlayerSelect);
+            PlayerImageLinkIntermediary.UpdateAllChildPlayerImageHolders(tpPlayerStatistics);
+        }
+
+        private void GenerateTeamStatistics()
         {
             mainTabControl.Controls.Remove(tpPlayerStatistics);
+
+            LocalUtils.ClearControlsWithDispose(pnlPlayersByGoalsScored);
+            LocalUtils.ClearControlsWithDispose(pnlPlayersByYellowCards);
+            LocalUtils.ClearControlsWithDispose(pnlMatchesByAttendance);
+
+            if (currentTargetCupTeamKVP == null)
+                return;
+
+            SortedDictionary<long, LinkedList<CupPlayer>> playerGoalsScoredDict = new();
+            SortedDictionary<long, LinkedList<CupPlayer>> playerYellowCardsDict = new();
+
+            foreach (var cupPlayer in currentTargetCupTeamKVP.Value.Value.SortedPlayers)
+            {
+                long goalsScored = 0;
+                long yellowCards = 0;
+
+                foreach (var cupEvent in cupPlayer.RelatedEvents)
+                {
+                    if (CupEvent.CheckCupEvent(cupEvent, CupEvent.SupportedCupEventTypes.Goal))
+                        goalsScored++;
+                    if (CupEvent.CheckCupEvent(cupEvent, CupEvent.SupportedCupEventTypes.YellowCard))
+                        yellowCards++;
+                }
+
+                if (!playerGoalsScoredDict.TryGetValue(goalsScored, out LinkedList<CupPlayer>? llcpGoals) || llcpGoals == null)
+                {
+                    llcpGoals = new();
+                    llcpGoals.AddFirst(cupPlayer);
+                    playerGoalsScoredDict.Add(goalsScored, llcpGoals);
+                }
+                else
+                    llcpGoals.AddLast(cupPlayer);
+
+                if (!playerYellowCardsDict.TryGetValue(yellowCards, out LinkedList<CupPlayer>? llcpCards) || llcpCards == null)
+                {
+                    llcpCards = new();
+                    llcpCards.AddFirst(cupPlayer);
+                    playerYellowCardsDict.Add(yellowCards, llcpCards);
+                }
+                else
+                    llcpCards.AddLast(cupPlayer);
+            }
+
+            int counter = currentTargetCupTeamKVP.Value.Value.SortedPlayers.Count;
+
+            foreach (var kvp in playerGoalsScoredDict)
+            {
+                foreach (var cupPlayer in kvp.Value)
+                {
+                    if (pnlPlayersByGoalsScored.Controls.Count > 0)
+                    {
+                        Panel spacingPanel = new();
+                        spacingPanel.Height = 6;
+                        pnlPlayersByGoalsScored.Controls.Add(spacingPanel);
+                        spacingPanel.Dock = DockStyle.Top;
+                    }
+
+                    int count = counter--;
+                    CupPlayerStatsDisplay statsDisplay = new(cupPlayer, count.ToString() + ". " + cupPlayer.name + " (" + kvp.Key.ToString() + ")");
+                    pnlPlayersByGoalsScored.Controls.Add(statsDisplay);
+                    statsDisplay.Dock = DockStyle.Top;
+                }
+            }
+
+            counter = currentTargetCupTeamKVP.Value.Value.SortedPlayers.Count;
+
+            foreach (var kvp in playerYellowCardsDict)
+            {
+                foreach (var cupPlayer in kvp.Value)
+                {
+                    if (pnlPlayersByYellowCards.Controls.Count > 0)
+                    {
+                        Panel spacingPanel = new();
+                        spacingPanel.Height = 6;
+                        pnlPlayersByYellowCards.Controls.Add(spacingPanel);
+                        spacingPanel.Dock = DockStyle.Top;
+                    }
+
+                    int count = counter--;
+                    CupPlayerStatsDisplay statsDisplay = new(cupPlayer, count.ToString() + ". " + cupPlayer.name + " (" + kvp.Key.ToString() + ")");
+                    pnlPlayersByYellowCards.Controls.Add(statsDisplay);
+                    statsDisplay.Dock = DockStyle.Top;
+                }
+            }
+
+            counter = currentTargetCupTeamKVP.Value.Value.SortedMatches.Count;
+
+            foreach (var match in currentTargetCupTeamKVP.Value.Value.SortedMatches.OrderBy(match => match.attendance))
+            {
+                if (pnlMatchesByAttendance.Controls.Count > 0)
+                {
+                    Panel spacingPanel = new();
+                    spacingPanel.Height = 6;
+                    pnlMatchesByAttendance.Controls.Add(spacingPanel);
+                    spacingPanel.Dock = DockStyle.Top;
+                }
+
+                int count = counter--;
+                CupMatchStatsDisplay statsDisplay = new(
+                    count.ToString() + ". " + match.location,
+                    match.homeTeam.team.countryName + " (" + match.homeTeam.team.fifaCode + ")",
+                    match.attendance.ToString(),
+                    match.awayTeam.team.countryName + " (" + match.awayTeam.team.fifaCode + ")"
+                );
+                pnlMatchesByAttendance.Controls.Add(statsDisplay);
+                statsDisplay.Dock = DockStyle.Top;
+            }
+
+            PlayerImageLinkIntermediary.UpdateAllChildPlayerImageHolders(tpPlayerStatistics);
+            UpdateFavouritePlayers();
+
             mainTabControl.Controls.Add(tpPlayerStatistics);
-            mainTabControl.SelectedTab = tpPlayerStatistics;
+        }
+
+        protected override void OnResizeBegin(EventArgs e)
+        {
+            this.SuspendLayout();
+            base.OnResizeBegin(e);
+        }
+        protected override void OnResizeEnd(EventArgs e)
+        {
+            base.OnResizeEnd(e);
+            this.ResumeLayout();
+        }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            this.SuspendLayout();
+            base.OnClosing(e);
+            this.ResumeLayout();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            return; // TODO: REMOVEME
             e.Cancel = !YesNoDialog.ShowNew(
                 LocalizationHandler.GetCurrentLocOptionsString(LocalizationOptions.Are_You_Sure) + "?",
                 LocalizationHandler.GetCurrentLocOptionsString(LocalizationOptions.Are_You_Sure_You_Want_To_Close_The_Application) + "?"

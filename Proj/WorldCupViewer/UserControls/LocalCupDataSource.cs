@@ -52,7 +52,12 @@ namespace WorldCupViewer.UserControls
             if (deets.JsonValid != null)
             {
                 if ((bool)deets.JsonValid)
-                    SetLabelOK(dataStatusLabel);
+                {
+                    if (deets.JsonWarning)
+                        SetLabelNonFatalERROR(dataStatusLabel);
+                    else
+                        SetLabelOK(dataStatusLabel);
+                }
                 else
                     SetLabelERROR(dataStatusLabel);
             }
@@ -77,6 +82,11 @@ namespace WorldCupViewer.UserControls
         {   
             label.Localization = LocalizationOptions.Error;
             label.ForeColor = Color.Red;
+        }
+        private void SetLabelNonFatalERROR(MultilingualLabel label)
+        {
+            label.Localization = LocalizationOptions.Error;
+            label.ForeColor = Color.DarkOrange;
         }
 
         private void loadButton_Click(object? sender, EventArgs e)

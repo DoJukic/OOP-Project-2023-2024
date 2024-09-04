@@ -64,7 +64,7 @@ namespace WorldCupViewer
         }
 
         // Bruh
-        public static void ClearWithDispose(Control control)
+        public static void ClearControlsWithDispose(Control control)
         {
             control.SuspendLayout();
 

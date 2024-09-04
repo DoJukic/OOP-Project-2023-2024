@@ -25,11 +25,11 @@ namespace WorldCupViewer
 
         public static bool ShowNew(String caption, String text)
         {
-            YesNoDialog dialog = new(caption, text);
-
-            dialog.ShowDialog();
-
-            return dialog.response;
+            using (YesNoDialog dialog = new(caption, text))
+            {
+                dialog.ShowDialog();
+                return dialog.response;
+            }
         }
 
         private void btnYes_Click(object sender, EventArgs e)
@@ -57,6 +57,8 @@ namespace WorldCupViewer
                     btnNo_Click(this, new());
                     break;
             }
+
+            e.Handled = true;
         }
     }
 }

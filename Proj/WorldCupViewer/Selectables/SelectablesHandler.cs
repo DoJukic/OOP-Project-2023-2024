@@ -12,7 +12,7 @@ namespace WorldCupViewer.Selectables
     public static class SelectablesHandler
     {
         public static readonly Color hoverColor = Color.FromArgb(229, 241, 251);
-        public static readonly Color selectedColor = Color.FromArgb(205, 228, 246);
+        public static readonly Color selectedColor = Color.FromArgb(185, 218, 246);
 
         private static List<KeyValuePair<Control, List<ISelectable>>> selectionList = new();
 
@@ -27,18 +27,29 @@ namespace WorldCupViewer.Selectables
 
         public static void NotifySelected(Control container, ISelectable selectable)
         {
-            foreach (var knownContainerKVP in selectionList)
+            bool containerExists = false;
+            List<KeyValuePair<Control, List<ISelectable>>> selectionListClone = new(selectionList);
+
+            foreach (var knownContainerKVP in selectionListClone)
             {
                 if (knownContainerKVP.Key == container)
                 {
-
                     if (!knownContainerKVP.Value.Contains(selectable))
                         knownContainerKVP.Value.Add(selectable);
-                    return;
+                    containerExists = true;
+                }
+                else
+                {
+                    List<ISelectable> selectionListValueClone = new(knownContainerKVP.Value);
+                    foreach (var thing in selectionListValueClone)
+                    {
+                        thing.NotifySelectableIsDeselected();
+                    }
                 }
             }
 
-            selectionList.Add(new(container, new() { selectable }));
+            if (!containerExists)
+                selectionList.Add(new(container, new() { selectable }));
         }
 
         public static void NotifyDeselected(Control? container, ISelectable selectable)

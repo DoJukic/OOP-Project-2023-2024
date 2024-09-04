@@ -259,6 +259,7 @@
             // 
             // changeImageToolStripMenuItem
             // 
+            changeImageToolStripMenuItem.Image = Properties.Resources.PictureBoxPicture;
             changeImageToolStripMenuItem.Name = "changeImageToolStripMenuItem";
             changeImageToolStripMenuItem.Size = new Size(151, 22);
             changeImageToolStripMenuItem.Text = "Change Image";
@@ -266,6 +267,7 @@
             // 
             // selectToolStripMenuItem
             // 
+            selectToolStripMenuItem.Image = Properties.Resources.MouseCursorTransparent_PlusPNG;
             selectToolStripMenuItem.Name = "selectToolStripMenuItem";
             selectToolStripMenuItem.Size = new Size(151, 22);
             selectToolStripMenuItem.Text = "Select";

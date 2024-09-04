@@ -59,5 +59,25 @@ namespace WorldCupViewer.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MouseCursorTransparent_PlusPNG {
+            get {
+                object obj = ResourceManager.GetObject("MouseCursorTransparent_PlusPNG", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PictureBoxPicture {
+            get {
+                object obj = ResourceManager.GetObject("PictureBoxPicture", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

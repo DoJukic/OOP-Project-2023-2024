@@ -126,11 +126,20 @@
   <data name="LOC_Are_You_Sure_You_Want_To_Close_The_Application" xml:space="preserve">
     <value>Are you sure you want to close the application</value>
   </data>
+  <data name="LOC_Attendance" xml:space="preserve">
+    <value>Attendance</value>
+  </data>
+  <data name="LOC_Away_Team" xml:space="preserve">
+    <value>Away team</value>
+  </data>
   <data name="LOC_Busy" xml:space="preserve">
     <value>Busy</value>
   </data>
   <data name="LOC_Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="LOC_Choose_An_Image" xml:space="preserve">
+    <value>Choose an image</value>
   </data>
   <data name="LOC_Confirm_Selection" xml:space="preserve">
     <value>Confirm selection</value>
@@ -162,6 +171,12 @@
   <data name="LOC_Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="LOC_Errors_Detected" xml:space="preserve">
+    <value>Errors detected</value>
+  </data>
+  <data name="LOC_Errors_Detected_in_Data" xml:space="preserve">
+    <value>Errors detected in data</value>
+  </data>
   <data name="LOC_Failed_to_Load_Data" xml:space="preserve">
     <value>Failed to load data</value>
   </data>
@@ -177,8 +192,14 @@
   <data name="LOC_Games_Captained" xml:space="preserve">
     <value>Games captained</value>
   </data>
+  <data name="LOC_Goals_Scored" xml:space="preserve">
+    <value>Goals scored</value>
+  </data>
   <data name="LOC_Guid_Error_Data_Might_Not_Be_Saved" xml:space="preserve">
     <value>GUID error - data might not be saved</value>
+  </data>
+  <data name="LOC_Home_Team" xml:space="preserve">
+    <value>Home team</value>
   </data>
   <data name="LOC_Info" xml:space="preserve">
     <value>Info</value>
@@ -216,9 +237,6 @@
   <data name="LOC_Player_List" xml:space="preserve">
     <value>Player list</value>
   </data>
-  <data name="LOC_Player_Statistics" xml:space="preserve">
-    <value>Player statistics</value>
-  </data>
   <data name="LOC_Ready" xml:space="preserve">
     <value>Ready</value>
   </data>
@@ -237,6 +255,12 @@
   <data name="LOC_Team_Slash_Player_Select" xml:space="preserve">
     <value>Team / player select</value>
   </data>
+  <data name="LOC_Team_Statistics" xml:space="preserve">
+    <value>Team statistics</value>
+  </data>
+  <data name="LOC_The_Following_Errors_Have_Been_Detected_While_Loading_Data" xml:space="preserve">
+    <value>The following errors have been detected while loading data</value>
+  </data>
   <data name="LOC_Usual_Position" xml:space="preserve">
     <value>Usual position</value>
   </data>
@@ -245,6 +269,9 @@
   </data>
   <data name="LOC_Year" xml:space="preserve">
     <value>Year</value>
+  </data>
+  <data name="LOC_Yellow_Cards" xml:space="preserve">
+    <value>Yellow cards</value>
   </data>
   <data name="LOC_Yes" xml:space="preserve">
     <value>Yes</value>

@@ -88,6 +88,24 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Attendance.
+        /// </summary>
+        internal static string LOC_Attendance {
+            get {
+                return ResourceManager.GetString("LOC_Attendance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Away_Team.
+        /// </summary>
+        internal static string LOC_Away_Team {
+            get {
+                return ResourceManager.GetString("LOC_Away_Team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Busy.
         /// </summary>
         internal static string LOC_Busy {
@@ -102,6 +120,15 @@ namespace WorldCupViewer.Resources {
         internal static string LOC_Cancel {
             get {
                 return ResourceManager.GetString("LOC_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Choose_An_Image.
+        /// </summary>
+        internal static string LOC_Choose_An_Image {
+            get {
+                return ResourceManager.GetString("LOC_Choose_An_Image", resourceCulture);
             }
         }
         
@@ -196,6 +223,24 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Errors_Detected.
+        /// </summary>
+        internal static string LOC_Errors_Detected {
+            get {
+                return ResourceManager.GetString("LOC_Errors_Detected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Errors_Detected_in_Data.
+        /// </summary>
+        internal static string LOC_Errors_Detected_in_Data {
+            get {
+                return ResourceManager.GetString("LOC_Errors_Detected_in_Data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Failed_to_Load_Data.
         /// </summary>
         internal static string LOC_Failed_to_Load_Data {
@@ -241,11 +286,29 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Goals_Scored.
+        /// </summary>
+        internal static string LOC_Goals_Scored {
+            get {
+                return ResourceManager.GetString("LOC_Goals_Scored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Guid_Error_Data_Might_Not_Be_Saved.
         /// </summary>
         internal static string LOC_Guid_Error_Data_Might_Not_Be_Saved {
             get {
                 return ResourceManager.GetString("LOC_Guid_Error_Data_Might_Not_Be_Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Home_Team.
+        /// </summary>
+        internal static string LOC_Home_Team {
+            get {
+                return ResourceManager.GetString("LOC_Home_Team", resourceCulture);
             }
         }
         
@@ -331,15 +394,6 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LOC_Player_Statistics.
-        /// </summary>
-        internal static string LOC_Player_Statistics {
-            get {
-                return ResourceManager.GetString("LOC_Player_Statistics", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to LOC_Players.
         /// </summary>
         internal static string LOC_Players {
@@ -421,6 +475,24 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Team_Statistics.
+        /// </summary>
+        internal static string LOC_Team_Statistics {
+            get {
+                return ResourceManager.GetString("LOC_Team_Statistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_The_Following_Errors_Have_Been_Detected_while_Loading_Data.
+        /// </summary>
+        internal static string LOC_The_Following_Errors_Have_Been_Detected_While_Loading_Data {
+            get {
+                return ResourceManager.GetString("LOC_The_Following_Errors_Have_Been_Detected_While_Loading_Data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Usual_Position.
         /// </summary>
         internal static string LOC_Usual_Position {
@@ -444,6 +516,15 @@ namespace WorldCupViewer.Resources {
         internal static string LOC_Year {
             get {
                 return ResourceManager.GetString("LOC_Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Yellow_Cards.
+        /// </summary>
+        internal static string LOC_Yellow_Cards {
+            get {
+                return ResourceManager.GetString("LOC_Yellow_Cards", resourceCulture);
             }
         }
         
