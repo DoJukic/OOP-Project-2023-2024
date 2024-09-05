@@ -421,6 +421,15 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Print.
+        /// </summary>
+        internal static string LOC_Print {
+            get {
+                return ResourceManager.GetString("LOC_Print", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Ready.
         /// </summary>
         internal static string LOC_Ready {

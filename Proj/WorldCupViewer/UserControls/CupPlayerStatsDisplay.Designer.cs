@@ -53,18 +53,19 @@
             epbProfilePicture.SizeMode = PictureBoxSizeMode.Zoom;
             epbProfilePicture.TabIndex = 0;
             epbProfilePicture.TabStop = false;
+            epbProfilePicture.WaitOnLoad = true;
             // 
             // cmsCupPlayer
             // 
             cmsCupPlayer.Items.AddRange(new ToolStripItem[] { changeImageToolStripMenuItem });
             cmsCupPlayer.Name = "contextMenuStrip1";
-            cmsCupPlayer.Size = new Size(181, 48);
+            cmsCupPlayer.Size = new Size(152, 26);
             // 
             // changeImageToolStripMenuItem
             // 
             changeImageToolStripMenuItem.Image = Properties.Resources.PictureBoxPicture;
             changeImageToolStripMenuItem.Name = "changeImageToolStripMenuItem";
-            changeImageToolStripMenuItem.Size = new Size(180, 22);
+            changeImageToolStripMenuItem.Size = new Size(151, 22);
             changeImageToolStripMenuItem.Text = "Change Image";
             changeImageToolStripMenuItem.Click += changeImageToolStripMenuItem_Click;
             // 

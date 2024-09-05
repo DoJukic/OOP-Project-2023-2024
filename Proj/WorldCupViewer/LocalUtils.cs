@@ -12,6 +12,23 @@ namespace WorldCupViewer
 {
     internal static class LocalUtils
     {
+        //https://stackoverflow.com/questions/9616617/c-sharp-copy-paste-an-image-region-into-another-image
+        public static void CopyRegionIntoImage(Bitmap srcBitmap, Rectangle srcRegion, Bitmap destBitmap, Rectangle destRegion)
+        {
+            using (Graphics grD = Graphics.FromImage(destBitmap))
+            {
+                grD.DrawImage(srcBitmap, destRegion, srcRegion, GraphicsUnit.Pixel);
+            }
+        }
+
+        public static void CenterFormToParent(Form parent, Form child)
+        {
+            int differenceX = (parent.Width - child.Width) / 2;
+            int differenceY = (parent.Height - child.Height) / 2;
+
+            child.DesktopLocation = new Point(parent.DesktopLocation.X + differenceX, parent.DesktopLocation.Y + differenceY);
+        }
+
         // https://stackoverflow.com/questions/653284/get-available-controls-from-a-form - ProfK's answer, slightly modified.
         public static IEnumerable<Control> GetAllControls(Control control)
         {

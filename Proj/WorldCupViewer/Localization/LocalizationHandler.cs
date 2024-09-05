@@ -70,6 +70,7 @@ namespace WorldCupViewer.Localization
         Home_Team,
         Attendance,
         Away_Team,
+        Print
     }
 
     /// <summary>
@@ -86,6 +87,7 @@ namespace WorldCupViewer.Localization
             {
                 LocalizationOptions.TestString => Resource.TestString,
                 LocalizationOptions.TestString2 => Resource.TestString2,
+                LocalizationOptions.Print => Resource.LOC_Print,
                 LocalizationOptions.Home_Team => Resource.LOC_Home_Team,
                 LocalizationOptions.Attendance => Resource.LOC_Attendance,
                 LocalizationOptions.Away_Team => Resource.LOC_Away_Team,

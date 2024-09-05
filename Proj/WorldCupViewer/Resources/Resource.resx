@@ -237,6 +237,9 @@
   <data name="LOC_Player_List" xml:space="preserve">
     <value>LOC_Player_List</value>
   </data>
+  <data name="LOC_Print" xml:space="preserve">
+    <value>LOC_Print</value>
+  </data>
   <data name="LOC_Ready" xml:space="preserve">
     <value>LOC_Ready</value>
   </data>

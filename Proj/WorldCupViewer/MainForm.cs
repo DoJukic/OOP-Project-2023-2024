@@ -46,6 +46,10 @@ namespace WorldCupViewer
         private SettingsProvider.TeamData? activeRepoTeamData = null;
         private KeyValuePair<String, CupTeam>? currentTargetCupTeamKVP = null;
 
+        Bitmap? fullPrintBMap = null;
+        int pageNumber = 0;
+        int pagesToPrint = 0;
+
         public MainForm()
         {
             InitializeComponent();
@@ -1062,6 +1066,7 @@ namespace WorldCupViewer
                     CupPlayerStatsDisplay statsDisplay = new(cupPlayer, count.ToString() + ". " + cupPlayer.name + " (" + kvp.Key.ToString() + ")");
                     pnlPlayersByGoalsScored.Controls.Add(statsDisplay);
                     statsDisplay.Dock = DockStyle.Top;
+                    statsDisplay.TabStop = false;
                 }
             }
 
@@ -1083,6 +1088,7 @@ namespace WorldCupViewer
                     CupPlayerStatsDisplay statsDisplay = new(cupPlayer, count.ToString() + ". " + cupPlayer.name + " (" + kvp.Key.ToString() + ")");
                     pnlPlayersByYellowCards.Controls.Add(statsDisplay);
                     statsDisplay.Dock = DockStyle.Top;
+                    statsDisplay.TabStop = false;
                 }
             }
 
@@ -1107,6 +1113,7 @@ namespace WorldCupViewer
                 );
                 pnlMatchesByAttendance.Controls.Add(statsDisplay);
                 statsDisplay.Dock = DockStyle.Top;
+                statsDisplay.TabStop = false;
             }
 
             PlayerImageLinkIntermediary.UpdateAllChildPlayerImageHolders(tpPlayerStatistics);
@@ -1134,11 +1141,85 @@ namespace WorldCupViewer
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            return; // TODO: REMOVEME
             e.Cancel = !YesNoDialog.ShowNew(
                 LocalizationHandler.GetCurrentLocOptionsString(LocalizationOptions.Are_You_Sure) + "?",
                 LocalizationHandler.GetCurrentLocOptionsString(LocalizationOptions.Are_You_Sure_You_Want_To_Close_The_Application) + "?"
             );
+        }
+
+        private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            int drawStartX = e.MarginBounds.X;
+            int drawStartY = e.MarginBounds.Y;
+            int drawWidth = e.MarginBounds.Width;
+            int drawHeight = e.MarginBounds.Height;
+
+            int scrollHeight = pnlPlayersByGoalsScored.VerticalScroll.Maximum - pnlPlayersByGoalsScored.Height;
+            int totalHeight = scrollHeight + tlpPlayerStatistics.Height + 20;
+
+            if (pageNumber == 0)
+            {
+                pagesToPrint = (int)Math.Ceiling((double)totalHeight / (double)drawHeight);
+
+                fullPrintBMap = new(e.MarginBounds.Width, totalHeight);
+
+                int panelStartWidth = tlpPlayerStatistics.Width;
+                int panleStartHeight = tlpPlayerStatistics.Height;
+
+                tlpPlayerStatistics.Width = drawWidth;
+                tlpPlayerStatistics.Height = totalHeight;
+
+                tlpPlayerStatistics.DrawToBitmap(fullPrintBMap, new(0, 0, drawWidth, totalHeight));
+
+                tlpPlayerStatistics.Width = panelStartWidth;
+                tlpPlayerStatistics.Height = panleStartHeight;
+            }
+
+            if (fullPrintBMap == null)//???
+                return;
+
+            int processedHeight = pageNumber * drawHeight;
+
+            if (processedHeight + drawHeight > totalHeight)
+                drawHeight -= processedHeight + drawHeight - totalHeight;
+
+            using (Bitmap printBMap = new(drawWidth, drawHeight))
+            {
+                LocalUtils.CopyRegionIntoImage(
+                    fullPrintBMap,
+                    new(0, processedHeight, drawWidth, drawHeight),
+                    printBMap,
+                    new(0, 0, printBMap.Width, printBMap.Height)
+                );
+                using (Image printImage = Image.FromHbitmap(printBMap.GetHbitmap()))
+                    e.Graphics?.DrawImage(printImage, new Point(drawStartX, drawStartY));
+            }
+
+
+            if (++pageNumber < pagesToPrint)
+            {
+                e.HasMorePages = true;
+            }
+            else
+            {
+                e.HasMorePages = false;
+                pageNumber = 0;
+                pagesToPrint = 0;
+
+                fullPrintBMap?.Dispose();
+                fullPrintBMap = null;
+            }
+
+            //Image img = Image.FromHbitmap(printBitmap.GetHbitmap());
+            //e.Graphics.DrawImage(img, new Point(e.MarginBounds.Left, e.MarginBounds.Right));
+
+            //e.Graphics.FillRectangle(Brushes.Red, new Rectangle(100, 100, 100, 100));
+        }
+
+        private void btnPrintStatistics_Click(object sender, EventArgs e)
+        {
+            if (printDialog.ShowDialog() == DialogResult.OK)
+                printPreviewDialog.ShowDialog();
         }
     }
 }

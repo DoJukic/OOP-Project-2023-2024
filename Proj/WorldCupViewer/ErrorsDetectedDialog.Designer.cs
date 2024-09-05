@@ -30,6 +30,7 @@
         {
             lblMain = new Label();
             pnlErrorList = new Panel();
+            mlbOK = new UserControls.MultilingualButton();
             SuspendLayout();
             // 
             // lblMain
@@ -45,19 +46,35 @@
             // 
             // pnlErrorList
             // 
+            pnlErrorList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlErrorList.AutoScroll = true;
             pnlErrorList.BackColor = Color.White;
             pnlErrorList.BorderStyle = BorderStyle.FixedSingle;
             pnlErrorList.Location = new Point(12, 49);
             pnlErrorList.Name = "pnlErrorList";
-            pnlErrorList.Size = new Size(360, 300);
+            pnlErrorList.Size = new Size(360, 271);
             pnlErrorList.TabIndex = 4;
+            // 
+            // mlbOK
+            // 
+            mlbOK.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            mlbOK.CharacterCasing = CharacterCasing.Normal;
+            mlbOK.Localization = Localization.LocalizationOptions.Okay;
+            mlbOK.Location = new Point(10, 326);
+            mlbOK.Name = "mlbOK";
+            mlbOK.PreceedingText = "";
+            mlbOK.Size = new Size(364, 23);
+            mlbOK.SucceedingText = "";
+            mlbOK.TabIndex = 5;
+            mlbOK.UseVisualStyleBackColor = true;
+            mlbOK.Click += mlbOK_Click;
             // 
             // ErrorsDetectedDialog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(384, 361);
+            Controls.Add(mlbOK);
             Controls.Add(pnlErrorList);
             Controls.Add(lblMain);
             KeyPreview = true;
@@ -75,5 +92,6 @@
         #endregion
         private Label lblMain;
         private Panel pnlErrorList;
+        private UserControls.MultilingualButton mlbOK;
     }
 }

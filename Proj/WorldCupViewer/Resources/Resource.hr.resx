@@ -237,6 +237,9 @@
   <data name="LOC_Player_List" xml:space="preserve">
     <value>Popis igrača</value>
   </data>
+  <data name="LOC_Print" xml:space="preserve">
+    <value>Ispiši</value>
+  </data>
   <data name="LOC_Ready" xml:space="preserve">
     <value>Spremno</value>
   </data>
@@ -253,10 +256,10 @@
     <value>Struktura</value>
   </data>
   <data name="LOC_Team_Slash_Player_Select" xml:space="preserve">
-    <value>Odabir tima / igrača</value>
+    <value>Odabir momčadi / igrača</value>
   </data>
   <data name="LOC_Team_Statistics" xml:space="preserve">
-    <value>Statistike tima</value>
+    <value>Statistike momčadi</value>
   </data>
   <data name="LOC_The_Following_Errors_Have_Been_Detected_While_Loading_Data" xml:space="preserve">
     <value>Slijedeće greške su bile nađene pri učitavanju podataka</value>
