@@ -7,11 +7,20 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using WorldCupViewer.Localization;
 
 namespace WorldCupViewer
 {
     internal static class LocalUtils
     {
+        public static void LocalizeAllChildren(Control target)
+        {
+            foreach (ILocalizeable localizeable in LocalUtils.GetAllControls(target).OfType<ILocalizeable>())
+            {
+                localizeable.SetLocalizedText(LocalizationHandler.GetCurrentLocOptionsString(localizeable.GetLocalizationTarget()));
+            }
+        }
+
         //https://stackoverflow.com/questions/9616617/c-sharp-copy-paste-an-image-region-into-another-image
         public static void CopyRegionIntoImage(Bitmap srcBitmap, Rectangle srcRegion, Bitmap destBitmap, Rectangle destRegion)
         {

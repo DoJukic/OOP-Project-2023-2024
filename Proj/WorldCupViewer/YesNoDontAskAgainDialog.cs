@@ -19,7 +19,7 @@ namespace WorldCupViewer
         public YesNoDontAskAgainDialog(String caption, String text)
         {
             InitializeComponent();
-            LocalizationHandler.LocalizeAllChildren(this);
+            LocalUtils.LocalizeAllChildren(this);
 
             this.Text = caption;
             textLabel.Text = text;

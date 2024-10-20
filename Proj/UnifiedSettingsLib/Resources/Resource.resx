@@ -117,175 +117,202 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LOC_Application_Ran_Into_Error" xml:space="preserve">
+    <value>LOC_Application_Ran_Into_Error</value>
+  </data>
   <data name="LOC_Are_You_Sure" xml:space="preserve">
-    <value>Are you sure</value>
+    <value>LOC_Are_You_Sure</value>
   </data>
   <data name="LOC_Are_You_Sure_You_Want_To_Change_The_Language" xml:space="preserve">
-    <value>Are you sure you want to change the language</value>
+    <value>LOC_Are_You_Sure_You_Want_To_Change_The_Language</value>
   </data>
   <data name="LOC_Are_You_Sure_You_Want_To_Close_The_Application" xml:space="preserve">
-    <value>Are you sure you want to close the application</value>
+    <value>LOC_Are_You_Sure_You_Want_To_Close_The_Application</value>
   </data>
   <data name="LOC_Attendance" xml:space="preserve">
-    <value>Attendance</value>
+    <value>LOC_Attendance</value>
   </data>
   <data name="LOC_Away_Team" xml:space="preserve">
-    <value>Away team</value>
+    <value>LOC_Away_Team</value>
   </data>
   <data name="LOC_Busy" xml:space="preserve">
-    <value>Busy</value>
+    <value>LOC_Busy</value>
   </data>
   <data name="LOC_Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>LOC_Cancel</value>
   </data>
   <data name="LOC_Choose_An_Image" xml:space="preserve">
-    <value>Choose an image</value>
+    <value>LOC_Choose_An_Image</value>
   </data>
   <data name="LOC_Confirm_Selection" xml:space="preserve">
-    <value>Confirm selection</value>
+    <value>LOC_Confirm_Selection</value>
+  </data>
+  <data name="LOC_Continue" xml:space="preserve">
+    <value>LOC_Continue</value>
   </data>
   <data name="LOC_Data" xml:space="preserve">
-    <value>Data</value>
+    <value>LOC_Data</value>
   </data>
   <data name="LOC_Data_is_Loading" xml:space="preserve">
-    <value>Data is loading</value>
+    <value>LOC_Data_is_Loading</value>
   </data>
   <data name="LOC_Data_Select_/_Config" xml:space="preserve">
-    <value>Data select / config</value>
+    <value>LOC_Data_Select_/_Config</value>
   </data>
   <data name="LOC_Data_Sources" xml:space="preserve">
-    <value>Data sources</value>
+    <value>LOC_Data_Sources</value>
   </data>
   <data name="LOC_Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>LOC_Delete</value>
   </data>
   <data name="LOC_Download" xml:space="preserve">
-    <value>Download</value>
+    <value>LOC_Download</value>
   </data>
   <data name="LOC_Download_Failed" xml:space="preserve">
-    <value>Download failed</value>
+    <value>LOC_Download_Failed</value>
   </data>
   <data name="LOC_Download_State" xml:space="preserve">
-    <value>Download state</value>
+    <value>LOC_Download_State</value>
   </data>
   <data name="LOC_Error" xml:space="preserve">
-    <value>Error</value>
+    <value>LOC_Error</value>
   </data>
   <data name="LOC_Errors_Detected" xml:space="preserve">
-    <value>Errors detected</value>
+    <value>LOC_Errors_Detected</value>
   </data>
   <data name="LOC_Errors_Detected_in_Data" xml:space="preserve">
-    <value>Errors detected in data</value>
+    <value>LOC_Errors_Detected_in_Data</value>
   </data>
   <data name="LOC_Failed_to_Load_Data" xml:space="preserve">
-    <value>Failed to load data</value>
+    <value>LOC_Failed_to_Load_Data</value>
   </data>
   <data name="LOC_Failed_To_Load_Settings_Data_Will_Not_Be_Saved" xml:space="preserve">
-    <value>Failed to load settings, data will not be saved</value>
+    <value>LOC_Failed_To_Load_Settings_Data_Will_Not_Be_Saved</value>
   </data>
   <data name="LOC_Failed_To_Save_Settings" xml:space="preserve">
-    <value>Saving settings failed</value>
+    <value>LOC_Failed_To_Save_Settings</value>
   </data>
   <data name="LOC_Favourites" xml:space="preserve">
-    <value>Favourites</value>
+    <value>LOC_Favourites</value>
   </data>
   <data name="LOC_Games_Captained" xml:space="preserve">
-    <value>Games captained</value>
+    <value>LOC_Games_Captained</value>
   </data>
   <data name="LOC_Goals_Scored" xml:space="preserve">
-    <value>Goals scored</value>
+    <value>LOC_Goals_Scored</value>
   </data>
   <data name="LOC_Guid_Error_Data_Might_Not_Be_Saved" xml:space="preserve">
-    <value>GUID error - data might not be saved</value>
+    <value>LOC_Guid_Error_Data_Might_Not_Be_Saved</value>
   </data>
   <data name="LOC_Home_Team" xml:space="preserve">
-    <value>Home team</value>
+    <value>LOC_Home_Team</value>
   </data>
   <data name="LOC_Info" xml:space="preserve">
-    <value>Info</value>
+    <value>LOC_Info</value>
+  </data>
+  <data name="LOC_Language" xml:space="preserve">
+    <value>LOC_Language</value>
   </data>
   <data name="LOC_Load" xml:space="preserve">
-    <value>Load</value>
+    <value>LOC_Load</value>
   </data>
   <data name="LOC_Local" xml:space="preserve">
-    <value>Local</value>
+    <value>LOC_Local</value>
   </data>
   <data name="LOC_Matches_By_Attendance" xml:space="preserve">
-    <value>Matches by attendance</value>
+    <value>LOC_Matches_By_Attendance</value>
+  </data>
+  <data name="LOC_Maximized" xml:space="preserve">
+    <value>LOC_Maximized</value>
   </data>
   <data name="LOC_Name" xml:space="preserve">
-    <value>Name</value>
+    <value>LOC_Name</value>
   </data>
   <data name="LOC_No" xml:space="preserve">
-    <value>No</value>
+    <value>LOC_No</value>
   </data>
   <data name="LOC_Okay" xml:space="preserve">
-    <value>Okay</value>
+    <value>LOC_Okay</value>
   </data>
   <data name="LOC_Players" xml:space="preserve">
-    <value>Players</value>
+    <value>LOC_Players</value>
   </data>
   <data name="LOC_Players_By_Goals_Scored" xml:space="preserve">
-    <value>Players by goals scored</value>
+    <value>LOC_Players_By_Goals_Scored</value>
   </data>
   <data name="LOC_Players_By_Yellow_Cards" xml:space="preserve">
-    <value>Players by yellow cards</value>
+    <value>LOC_Players_By_Yellow_Cards</value>
   </data>
   <data name="LOC_Player_Data_is_Loading" xml:space="preserve">
-    <value>Player data is loading</value>
+    <value>LOC_Player_Data_is_Loading</value>
   </data>
   <data name="LOC_Player_List" xml:space="preserve">
-    <value>Player list</value>
+    <value>LOC_Player_List</value>
+  </data>
+  <data name="LOC_Please_Set_Your_Preferences" xml:space="preserve">
+    <value>LOC_Please_Set_Your_Preferences</value>
   </data>
   <data name="LOC_Print" xml:space="preserve">
-    <value>Print</value>
+    <value>LOC_Print</value>
   </data>
   <data name="LOC_Ready" xml:space="preserve">
-    <value>Ready</value>
+    <value>LOC_Ready</value>
   </data>
   <data name="LOC_Remote" xml:space="preserve">
-    <value>Remote</value>
+    <value>LOC_Remote</value>
+  </data>
+  <data name="LOC_Resolution" xml:space="preserve">
+    <value>LOC_Resolution</value>
   </data>
   <data name="LOC_Selected_Team" xml:space="preserve">
-    <value>Selected team</value>
+    <value>LOC_Selected_Team</value>
   </data>
   <data name="LOC_Shirt_Number" xml:space="preserve">
-    <value>Shirt number</value>
+    <value>LOC_Shirt_Number</value>
   </data>
   <data name="LOC_Structure" xml:space="preserve">
-    <value>Structure</value>
+    <value>LOC_Structure</value>
   </data>
   <data name="LOC_Team_Slash_Player_Select" xml:space="preserve">
-    <value>Team / player select</value>
+    <value>LOC_Team_Slash_Player_Select</value>
   </data>
   <data name="LOC_Team_Statistics" xml:space="preserve">
-    <value>Team statistics</value>
+    <value>LOC_Team_Statistics</value>
   </data>
   <data name="LOC_The_Following_Errors_Have_Been_Detected_While_Loading_Data" xml:space="preserve">
-    <value>The following errors have been detected while loading data</value>
+    <value>LOC_The_Following_Errors_Have_Been_Detected_while_Loading_Data</value>
   </data>
   <data name="LOC_Usual_Position" xml:space="preserve">
-    <value>Usual position</value>
+    <value>LOC_Usual_Position</value>
   </data>
   <data name="LOC_Wait" xml:space="preserve">
-    <value>Wait</value>
+    <value>LOC_Wait</value>
+  </data>
+  <data name="LOC_WPF_Could_Not_Load_Cup_Fatal" xml:space="preserve">
+    <value>LOC_WPF_Could_Not_Load_Cup_Fatal</value>
+  </data>
+  <data name="LOC_WPF_Could_Not_Load_Data_Fatal" xml:space="preserve">
+    <value>LOC_WPF_Could_Not_Load_Data_Fatal</value>
+  </data>
+  <data name="LOC_WPF_Could_Not_Save_Data_Warning" xml:space="preserve">
+    <value>LOC_WPF_Could_Not_Save_Data_Warning</value>
   </data>
   <data name="LOC_Year" xml:space="preserve">
-    <value>Year</value>
+    <value>LOC_Year</value>
   </data>
   <data name="LOC_Yellow_Cards" xml:space="preserve">
-    <value>Yellow cards</value>
+    <value>LOC_Yellow_Cards</value>
   </data>
   <data name="LOC_Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>LOC_Yes</value>
   </data>
   <data name="LOC_Yes_And_Do_Not_Ask_Again" xml:space="preserve">
-    <value>Yes, and don't ask again</value>
+    <value>LOC_Yes_And_Do_Not_Ask_Again</value>
   </data>
   <data name="TestString" xml:space="preserve">
-    <value>English test</value>
+    <value>Default Test</value>
   </data>
   <data name="TestString2" xml:space="preserve">
-    <value>English test2</value>
+    <value>Default Test2</value>
   </data>
 </root>

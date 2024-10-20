@@ -1,0 +1,33 @@
+﻿<Window x:Class="WorldCupWpf.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WorldCupWpf"
+        mc:Ignorable="d"
+        Title="Settings" WindowStartupLocation="CenterOwner" PreviewKeyUp="Window_PreviewKeyUp" ResizeMode="NoResize" Width="240" Height="240" Background="#FFFAFAFA">
+	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,10,10">
+		<Label x:Name="lblPleaseSetPreferences" Content="Please set preferences text" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Grid.IsSharedSizeScope="True" Margin="0,5,0,5"/>
+		<Grid Height="Auto" MaxWidth="165">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="1*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30"/>
+				<RowDefinition Height="30"/>
+			</Grid.RowDefinitions>
+			<Label x:Name="lblLanguage" Content="Lang text" VerticalAlignment="Center"/>
+			<Label x:Name="lblResolution" Content="Resolution text" Grid.Row="1" VerticalAlignment="Center"/>
+			<ComboBox x:Name="cbLanguage" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cbLanguage_SelectionChanged" VerticalAlignment="Center" Grid.Column="1"/>
+			<ComboBox x:Name="cbResolution" SelectionChanged="cbResolution_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+		</Grid>
+		<WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5">
+			<TextBox x:Name="tbResolutionX" TextWrapping="Wrap" Text="1234" Margin="5,0,0,0" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" MinWidth="50" MaxLength="6"/>
+			<Label Content=":"/>
+			<TextBox x:Name="tbResolutionY" TextWrapping="Wrap" Text="1234" Margin="0,0,5,0" VerticalContentAlignment="Center" MinWidth="50" MaxLength="6"/>
+		</WrapPanel>
+		<CheckBox x:Name="chbMaximized"  Content="Maxxed text" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,5" Checked="chbMaximized_Checked" Unchecked="chbMaximized_Unchecked"></CheckBox>
+		<Button x:Name="btnConfirm" Content="Confirm text" Margin="0,5,0,5" Click="BtnConfirm_Click" Height="25" Width="180"/>
+	</StackPanel>
+</Window>

@@ -440,9 +440,9 @@ namespace WorldCupViewer
         {
             this.Invoke(() =>
             {
-                LocalizationHandler.LocalizeAllChildren(tpDataSelect);
-                LocalizationHandler.LocalizeAllChildren(tpTeamAndPlayerSelect);
-                LocalizationHandler.LocalizeAllChildren(tpPlayerStatistics);
+                LocalUtils.LocalizeAllChildren(tpDataSelect);
+                LocalUtils.LocalizeAllChildren(tpTeamAndPlayerSelect);
+                LocalUtils.LocalizeAllChildren(tpPlayerStatistics);
 
                 // status strips are *special*
                 foreach (var unkn in statusStrip.Items)
@@ -1218,6 +1218,7 @@ namespace WorldCupViewer
 
         private void btnPrintStatistics_Click(object sender, EventArgs e)
         {
+            printPreviewDialog.UseAntiAlias = false;
             if (printDialog.ShowDialog() == DialogResult.OK)
                 printPreviewDialog.ShowDialog();
         }

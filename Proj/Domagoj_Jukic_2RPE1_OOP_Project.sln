@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorldCupViewer", "WorldCupV
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedDataLib", "UnifiedSettingsLib\SharedDataLib.csproj", "{7FBEC5A1-CF7B-40C9-9FE2-5F502CA76C89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2ManyUtils", "2ManyUtils\2ManyUtils.csproj", "{871489F1-6AF1-415B-98D3-F9EC9AC1C34A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2ManyUtils", "2ManyUtils\2ManyUtils.csproj", "{871489F1-6AF1-415B-98D3-F9EC9AC1C34A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCupWpf", "WorldCupWpf\WorldCupWpf.csproj", "{7AF03F26-80EC-452E-8437-CD32FA53DB6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{871489F1-6AF1-415B-98D3-F9EC9AC1C34A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{871489F1-6AF1-415B-98D3-F9EC9AC1C34A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{871489F1-6AF1-415B-98D3-F9EC9AC1C34A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AF03F26-80EC-452E-8437-CD32FA53DB6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AF03F26-80EC-452E-8437-CD32FA53DB6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AF03F26-80EC-452E-8437-CD32FA53DB6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AF03F26-80EC-452E-8437-CD32FA53DB6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

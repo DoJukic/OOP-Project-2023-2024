@@ -1,0 +1,1243 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <BaseOutputPath>..\..\OutputDir</BaseOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="WindowTest\**" />
+    <EmbeddedResource Remove="WindowTest\**" />
+    <None Remove="WindowTest\**" />
+    <Page Remove="WindowTest\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\LoadingIcon.png" />
+    <None Remove="Resources\TheRealFootballField.png" />
+    <None Remove="Resources\vecteezy_spanners.jpg" />
+    <None Remove="SmokeEffect\SmokeHandler.cs~RF1853c49.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UnifiedSettingsLib\SharedDataLib.csproj" />
+    <ProjectReference Include="..\WorldCupLib\WorldCupLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\LoadingIcon.png" />
+    <Resource Include="Resources\TheRealFootballField.png" />
+    <Resource Include="Resources\vecteezy_spanners.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="2024-03-25 00-41-03.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-001.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-002.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-003.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-004.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-005.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-006.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-007.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-008.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-009.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-010.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-011.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-012.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-013.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-014.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-015.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-016.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-017.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-018.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-019.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-020.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-021.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-022.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-023.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-024.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-025.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-026.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-027.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-028.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-029.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-030.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-031.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-032.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-033.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-034.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-035.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-036.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-037.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-038.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-039.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-040.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-041.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-042.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-043.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-044.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-045.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-046.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-047.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-048.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-049.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-050.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-051.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-052.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-053.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-054.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-055.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-056.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-057.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-058.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-059.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-060.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-061.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-062.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-063.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-064.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-065.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-066.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-067.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-068.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-069.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-070.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-071.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-072.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-073.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-074.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-075.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-076.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-077.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-078.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-079.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-080.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-081.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-082.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-083.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-084.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-085.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-086.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-087.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-088.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-089.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-090.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-091.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-092.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-093.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-094.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-095.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-096.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-097.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-098.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-099.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-100.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-101.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-102.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-103.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-104.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-105.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-106.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-107.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-108.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-109.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-110.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-111.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-112.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-113.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-114.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-115.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-116.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-117.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-118.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-119.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-120.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-121.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-122.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-123.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-124.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-125.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-126.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-127.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-128.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-129.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-130.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-131.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-132.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-133.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-134.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-135.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-136.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-137.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-138.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-139.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-140.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-141.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-142.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-143.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-144.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-145.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-146.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-147.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-148.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-149.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-150.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-151.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-152.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-153.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-154.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-155.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-156.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-157.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-158.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-159.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-160.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-161.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-162.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-163.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-164.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-165.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-166.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-167.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-168.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-169.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-170.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-171.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-172.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-173.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-174.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-175.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-176.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-177.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-178.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-179.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-180.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-181.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-182.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-183.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-184.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-185.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-186.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-187.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-188.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-189.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-190.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-191.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-192.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-193.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-194.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-195.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-196.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-197.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-198.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-199.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\2_ezgif-2-0193414524-jpg\ezgif-frame-200.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-001.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-002.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-003.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-004.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-005.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-006.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-007.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-008.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-009.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-010.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-011.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-012.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-013.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-014.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-015.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-016.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-017.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-018.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-019.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-020.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-021.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-022.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-023.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-024.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-025.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-026.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-027.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-028.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-029.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-030.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-031.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-032.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-033.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-034.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-035.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-036.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-037.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-038.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-039.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-040.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-041.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-042.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-043.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-044.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-045.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-046.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-047.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-048.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-049.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-050.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-051.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-052.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-053.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-054.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-055.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-056.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-057.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-058.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-059.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-060.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-061.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-062.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-063.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-064.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-065.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-066.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-067.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-068.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-069.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-070.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-071.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-072.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-073.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-074.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-075.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-076.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-077.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-078.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-079.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-080.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-081.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-082.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-083.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-084.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-085.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-086.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-087.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-088.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-089.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-090.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-091.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-092.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-093.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-094.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-095.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-096.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-097.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-098.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-099.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-100.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-101.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-102.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-103.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-104.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-105.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-106.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-107.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-108.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-109.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-110.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-111.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-112.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-113.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-114.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-115.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-116.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-117.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-118.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-119.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-120.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-121.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-122.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-123.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-124.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-125.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-126.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-127.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-128.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-129.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-130.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-131.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-132.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-133.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-134.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-135.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-136.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-137.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-138.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-139.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-140.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-141.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-142.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-143.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-144.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-145.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-146.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-147.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-148.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-149.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-150.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-151.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-152.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-153.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-154.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-155.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-156.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-157.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-158.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-159.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-160.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-161.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-162.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-163.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-164.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-165.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-166.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-167.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-168.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-169.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-170.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-171.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-172.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-173.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-174.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-175.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-176.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-177.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-178.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-179.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-180.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-181.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-182.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-183.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-184.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-185.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-186.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-187.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-188.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-189.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-190.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-191.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-192.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-193.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-194.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-195.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-196.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-197.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-198.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-199.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SmokeEffect\1_ezgif-2-ddd77cfd7f-jpg\ezgif-frame-200.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

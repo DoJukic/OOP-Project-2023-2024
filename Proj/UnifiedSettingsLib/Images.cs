@@ -47,8 +47,8 @@ namespace SharedDataLib
 
             try
             {
-                DirectoryInfo info = new(baseDir);
-                foreach (var file in info.GetFiles())
+                DirectoryInfo baseDirInfo = new(baseDir);
+                foreach (var file in baseDirInfo.GetFiles())
                 {
                     switch (file.Extension.ToLower())
                     {
@@ -85,6 +85,13 @@ namespace SharedDataLib
             lock (operationsLock)
             {
                 OnExternalImagesChanged += action;
+            }
+        }
+        public static void UnsubscribeFromExternalImagesChanged(Action action)
+        {
+            lock (operationsLock)
+            {
+                OnExternalImagesChanged -= action;
             }
         }
         private static void ExternalImagesFailed()
@@ -153,7 +160,7 @@ namespace SharedDataLib
         {
             return errorDetected;
         }
-        public static String? GetExternalImagePath(string ID)
+        public static String? TryGetExternalImagePath(string ID)
         {
             IEnumerable<ExternalImageDetails> tgt;
             lock (externalImagesPlsLock)
@@ -162,6 +169,19 @@ namespace SharedDataLib
 
                 if (tgt.Any())
                     return tgt.First().path;
+            }
+
+            return null;
+        }
+        public static byte[]? TryGetExternalImageBytes(string ID)
+        {
+            IEnumerable<ExternalImageDetails> tgt;
+            lock (externalImagesPlsLock)
+            {
+                tgt = externalImagesPlsLock.Where((tgt) => tgt.identifier == ID);
+
+                if (tgt.Any())
+                    return tgt.First().TryGetBytes();
             }
 
             return null;
@@ -199,11 +219,26 @@ namespace SharedDataLib
         {
             public readonly string identifier;
             public readonly string path;
+            private byte[]? data;
 
             public ExternalImageDetails(string identifier, string path)
             {
                 this.identifier = identifier;
                 this.path = path;
+            }
+
+            public byte[]? TryGetBytes()
+            {
+                try
+                {
+                    if (data == null)
+                        data = File.ReadAllBytes(path);
+                }
+                catch (Exception)
+                {
+                }
+
+                return data;
             }
         }
     }

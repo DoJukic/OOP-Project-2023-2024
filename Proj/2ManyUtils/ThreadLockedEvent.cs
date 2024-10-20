@@ -34,6 +34,16 @@ namespace TooManyUtils
             }
         }
 
+        public void SafeUnubscribe(Action action) { Task.Run(() => this.Subscribe(action)).ConfigureAwait(false); }
+        public void Unubscribe(Action action)
+        {
+            lock (theLock)
+            {
+                if (!wasDisposed)
+                    TheEvent -= action;
+            }
+        }
+
         public void SafeTrigger() { Task.Run(this.Trigger).ConfigureAwait(false); }
         public void Trigger()
         {

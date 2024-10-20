@@ -117,175 +117,202 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LOC_Application_Ran_Into_Error" xml:space="preserve">
+    <value>The application ran into an error</value>
+  </data>
   <data name="LOC_Are_You_Sure" xml:space="preserve">
-    <value>Jeste li sigurni</value>
+    <value>Are you sure</value>
   </data>
   <data name="LOC_Are_You_Sure_You_Want_To_Change_The_Language" xml:space="preserve">
-    <value>Jeste li sigurni da želite promijeniti jezik</value>
+    <value>Are you sure you want to change the language</value>
   </data>
   <data name="LOC_Are_You_Sure_You_Want_To_Close_The_Application" xml:space="preserve">
-    <value>Jeste li sigurni da želite isključiti aplikaciju</value>
+    <value>Are you sure you want to close the application</value>
   </data>
   <data name="LOC_Attendance" xml:space="preserve">
-    <value>Dolazništvo</value>
+    <value>Attendance</value>
   </data>
   <data name="LOC_Away_Team" xml:space="preserve">
-    <value>Strani tim</value>
+    <value>Away team</value>
   </data>
   <data name="LOC_Busy" xml:space="preserve">
-    <value>Zauzeto</value>
+    <value>Busy</value>
   </data>
   <data name="LOC_Cancel" xml:space="preserve">
-    <value>Otkaži</value>
+    <value>Cancel</value>
   </data>
   <data name="LOC_Choose_An_Image" xml:space="preserve">
-    <value>Odaberite sliku</value>
+    <value>Choose an image</value>
   </data>
   <data name="LOC_Confirm_Selection" xml:space="preserve">
-    <value>Potvrdi odabir</value>
+    <value>Confirm selection</value>
+  </data>
+  <data name="LOC_Continue" xml:space="preserve">
+    <value>Continue</value>
   </data>
   <data name="LOC_Data" xml:space="preserve">
-    <value>Podaci</value>
+    <value>Data</value>
   </data>
   <data name="LOC_Data_is_Loading" xml:space="preserve">
-    <value>Podatci se učitavaju</value>
+    <value>Data is loading</value>
   </data>
   <data name="LOC_Data_Select_/_Config" xml:space="preserve">
-    <value>Izbor podataka / postavke</value>
+    <value>Data select / config</value>
   </data>
   <data name="LOC_Data_Sources" xml:space="preserve">
-    <value>Izvori podataka</value>
+    <value>Data sources</value>
   </data>
   <data name="LOC_Delete" xml:space="preserve">
-    <value>Izbriši</value>
+    <value>Delete</value>
   </data>
   <data name="LOC_Download" xml:space="preserve">
-    <value>Preuzmi</value>
+    <value>Download</value>
   </data>
   <data name="LOC_Download_Failed" xml:space="preserve">
-    <value>Preuzimanje nije uspjelo</value>
+    <value>Download failed</value>
   </data>
   <data name="LOC_Download_State" xml:space="preserve">
-    <value>Stanje preuzimanja</value>
+    <value>Download state</value>
   </data>
   <data name="LOC_Error" xml:space="preserve">
-    <value>Greška</value>
+    <value>Error</value>
   </data>
   <data name="LOC_Errors_Detected" xml:space="preserve">
-    <value>Greške nađene</value>
+    <value>Errors detected</value>
   </data>
   <data name="LOC_Errors_Detected_in_Data" xml:space="preserve">
-    <value>Otkrivene pogreške u podacima</value>
+    <value>Errors detected in data</value>
   </data>
   <data name="LOC_Failed_to_Load_Data" xml:space="preserve">
-    <value>Učitavanje podataka nije uspjelo</value>
+    <value>Failed to load data</value>
   </data>
   <data name="LOC_Failed_To_Load_Settings_Data_Will_Not_Be_Saved" xml:space="preserve">
-    <value>Učitavanje postavki nije uspjelo, podatci neće biti spremljeni</value>
+    <value>Failed to load settings, data will not be saved</value>
   </data>
   <data name="LOC_Failed_To_Save_Settings" xml:space="preserve">
-    <value>Spremanje postavki neuspješno</value>
+    <value>Saving settings failed</value>
   </data>
   <data name="LOC_Favourites" xml:space="preserve">
-    <value>Favoriti</value>
+    <value>Favourites</value>
   </data>
   <data name="LOC_Games_Captained" xml:space="preserve">
-    <value>Puta kapetan</value>
+    <value>Games captained</value>
   </data>
   <data name="LOC_Goals_Scored" xml:space="preserve">
-    <value>Broj golova</value>
+    <value>Goals scored</value>
   </data>
   <data name="LOC_Guid_Error_Data_Might_Not_Be_Saved" xml:space="preserve">
-    <value>GUID greška - podatci bi mogli biti izgubljjeni</value>
+    <value>GUID error - data might not be saved</value>
   </data>
   <data name="LOC_Home_Team" xml:space="preserve">
-    <value>Domaći tim</value>
+    <value>Home team</value>
   </data>
   <data name="LOC_Info" xml:space="preserve">
-    <value>Informacije</value>
+    <value>Info</value>
+  </data>
+  <data name="LOC_Language" xml:space="preserve">
+    <value>Language</value>
   </data>
   <data name="LOC_Load" xml:space="preserve">
-    <value>Učitaj</value>
+    <value>Load</value>
   </data>
   <data name="LOC_Local" xml:space="preserve">
-    <value>Lokalno</value>
+    <value>Local</value>
   </data>
   <data name="LOC_Matches_By_Attendance" xml:space="preserve">
-    <value>Utakmice po dolaznosti</value>
+    <value>Matches by attendance</value>
+  </data>
+  <data name="LOC_Maximized" xml:space="preserve">
+    <value>Maximized</value>
   </data>
   <data name="LOC_Name" xml:space="preserve">
-    <value>Ime</value>
+    <value>Name</value>
   </data>
   <data name="LOC_No" xml:space="preserve">
-    <value>Ne</value>
+    <value>No</value>
   </data>
   <data name="LOC_Okay" xml:space="preserve">
-    <value>U Redu</value>
+    <value>Okay</value>
   </data>
   <data name="LOC_Players" xml:space="preserve">
-    <value>Igrači</value>
+    <value>Players</value>
   </data>
   <data name="LOC_Players_By_Goals_Scored" xml:space="preserve">
-    <value>Igrači po broju golova</value>
+    <value>Players by goals scored</value>
   </data>
   <data name="LOC_Players_By_Yellow_Cards" xml:space="preserve">
-    <value>Igrači po broju žutih kartona</value>
+    <value>Players by yellow cards</value>
   </data>
   <data name="LOC_Player_Data_is_Loading" xml:space="preserve">
-    <value>Podatci o igračima se učitavaju</value>
+    <value>Player data is loading</value>
   </data>
   <data name="LOC_Player_List" xml:space="preserve">
-    <value>Popis igrača</value>
+    <value>Player list</value>
+  </data>
+  <data name="LOC_Please_Set_Your_Preferences" xml:space="preserve">
+    <value>Please set your preferences</value>
   </data>
   <data name="LOC_Print" xml:space="preserve">
-    <value>Ispiši</value>
+    <value>Print</value>
   </data>
   <data name="LOC_Ready" xml:space="preserve">
-    <value>Spremno</value>
+    <value>Ready</value>
   </data>
   <data name="LOC_Remote" xml:space="preserve">
-    <value>Daljinski</value>
+    <value>Remote</value>
+  </data>
+  <data name="LOC_Resolution" xml:space="preserve">
+    <value>Resolution</value>
   </data>
   <data name="LOC_Selected_Team" xml:space="preserve">
-    <value>Odabrani tim</value>
+    <value>Selected team</value>
   </data>
   <data name="LOC_Shirt_Number" xml:space="preserve">
-    <value>Broj majce</value>
+    <value>Shirt number</value>
   </data>
   <data name="LOC_Structure" xml:space="preserve">
-    <value>Struktura</value>
+    <value>Structure</value>
   </data>
   <data name="LOC_Team_Slash_Player_Select" xml:space="preserve">
-    <value>Odabir momčadi / igrača</value>
+    <value>Team / player select</value>
   </data>
   <data name="LOC_Team_Statistics" xml:space="preserve">
-    <value>Statistike momčadi</value>
+    <value>Team statistics</value>
   </data>
   <data name="LOC_The_Following_Errors_Have_Been_Detected_While_Loading_Data" xml:space="preserve">
-    <value>Slijedeće greške su bile nađene pri učitavanju podataka</value>
+    <value>The following errors have been detected while loading data</value>
   </data>
   <data name="LOC_Usual_Position" xml:space="preserve">
-    <value>Uobičajeni položaj</value>
+    <value>Usual position</value>
   </data>
   <data name="LOC_Wait" xml:space="preserve">
-    <value>Čekaj</value>
+    <value>Wait</value>
+  </data>
+  <data name="LOC_WPF_Could_Not_Load_Cup_Fatal" xml:space="preserve">
+    <value>Application couldn't load world cup data. Please select another data source from the previous application</value>
+  </data>
+  <data name="LOC_WPF_Could_Not_Load_Data_Fatal" xml:space="preserve">
+    <value>Application is unable to access data. If another app is using the same data, please close it and try again</value>
+  </data>
+  <data name="LOC_WPF_Could_Not_Save_Data_Warning" xml:space="preserve">
+    <value>Application failed to save data. It will resume working, but further actions might not be saved</value>
   </data>
   <data name="LOC_Year" xml:space="preserve">
-    <value>Godina</value>
+    <value>Year</value>
   </data>
   <data name="LOC_Yellow_Cards" xml:space="preserve">
-    <value>Broj žutih kartona</value>
+    <value>Yellow cards</value>
   </data>
   <data name="LOC_Yes" xml:space="preserve">
-    <value>Da</value>
+    <value>Yes</value>
   </data>
   <data name="LOC_Yes_And_Do_Not_Ask_Again" xml:space="preserve">
-    <value>Da, i ne pitaj ponovo</value>
+    <value>Yes, and don't ask again</value>
   </data>
   <data name="TestString" xml:space="preserve">
-    <value>Hrvatski Test</value>
+    <value>English test</value>
   </data>
   <data name="TestString2" xml:space="preserve">
-    <value>Hrvatski Test2</value>
+    <value>English test2</value>
   </data>
 </root>

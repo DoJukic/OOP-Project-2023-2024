@@ -14,7 +14,6 @@ namespace SharedDataLib
         private static bool error = false;
         private static CurrSettings settings;
 
-
         static SettingsProvider()
         {
             try
@@ -103,6 +102,18 @@ namespace SharedDataLib
             [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
             [JsonPropertyName("language")]
             public SupportedLanguage? Language { get; set; }
+
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("resolutionX")]
+            public long? ResolutionX { get; set; }
+
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("resolutionY")]
+            public long? ResolutionY { get; set; }
+
+            [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+            [JsonPropertyName("maximized")]
+            public bool? Maximized { get; set; }
 
             [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
             [JsonPropertyName("selected_world_cup_guid")]

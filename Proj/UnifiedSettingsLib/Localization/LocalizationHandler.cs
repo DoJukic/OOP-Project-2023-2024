@@ -7,8 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SharedDataLib;
-using WorldCupViewer.Properties;
-using WorldCupViewer.Resources;
+using SharedDataLib.Resources;
 
 namespace WorldCupViewer.Localization
 {
@@ -70,7 +69,16 @@ namespace WorldCupViewer.Localization
         Home_Team,
         Attendance,
         Away_Team,
-        Print
+        Print,
+        Please_Set_Your_Preferences,
+        Language,
+        Resolution,
+        Continue,
+        Application_Ran_Into_Error,
+        Could_Not_Load_Data_Fatal,
+        Could_Not_Save_Data_Warning,
+        Could_Not_Load_Cup_Fatal,
+        Maximized
     }
 
     /// <summary>
@@ -87,6 +95,15 @@ namespace WorldCupViewer.Localization
             {
                 LocalizationOptions.TestString => Resource.TestString,
                 LocalizationOptions.TestString2 => Resource.TestString2,
+                LocalizationOptions.Maximized => Resource.LOC_Maximized,
+                LocalizationOptions.Could_Not_Load_Data_Fatal => Resource.LOC_WPF_Could_Not_Load_Data_Fatal,
+                LocalizationOptions.Could_Not_Save_Data_Warning => Resource.LOC_WPF_Could_Not_Save_Data_Warning,
+                LocalizationOptions.Could_Not_Load_Cup_Fatal => Resource.LOC_WPF_Could_Not_Load_Cup_Fatal,
+                LocalizationOptions.Application_Ran_Into_Error => Resource.LOC_Application_Ran_Into_Error,
+                LocalizationOptions.Continue => Resource.LOC_Continue,
+                LocalizationOptions.Resolution => Resource.LOC_Resolution,
+                LocalizationOptions.Language => Resource.LOC_Language,
+                LocalizationOptions.Please_Set_Your_Preferences => Resource.LOC_Please_Set_Your_Preferences,
                 LocalizationOptions.Print => Resource.LOC_Print,
                 LocalizationOptions.Home_Team => Resource.LOC_Home_Team,
                 LocalizationOptions.Attendance => Resource.LOC_Attendance,
@@ -95,8 +112,7 @@ namespace WorldCupViewer.Localization
                 LocalizationOptions.Yellow_Cards => Resource.LOC_Yellow_Cards,
                 LocalizationOptions.Goals_Scored => Resource.LOC_Goals_Scored,
                 LocalizationOptions.Errors_Detected => Resource.LOC_Errors_Detected,
-                LocalizationOptions.The_Following_Errors_Have_Been_Detected_While_Loading_Data =>
-                    Resource.LOC_The_Following_Errors_Have_Been_Detected_While_Loading_Data,
+                LocalizationOptions.The_Following_Errors_Have_Been_Detected_While_Loading_Data => Resource.LOC_The_Following_Errors_Have_Been_Detected_While_Loading_Data,
                 LocalizationOptions.Choose_An_Image => Resource.LOC_Choose_An_Image,
                 LocalizationOptions.Are_You_Sure_You_Want_To_Close_The_Application => Resource.LOC_Are_You_Sure_You_Want_To_Close_The_Application,
                 LocalizationOptions.Players_By_Goals_Scored => Resource.LOC_Players_By_Goals_Scored,
@@ -185,16 +201,6 @@ namespace WorldCupViewer.Localization
             ApplyCulture();
 
             OnLocalizationChanged?.Invoke();
-        }
-
-        public static void LocalizeAllChildren(Control target)
-        {
-            ApplyCulture();
-
-            foreach (ILocalizeable localizeable in LocalUtils.GetAllControls(target).OfType<ILocalizeable>())
-            {
-                localizeable.SetLocalizedText(GetCurrentLocOptionsString(localizeable.GetLocalizationTarget()));
-            }
         }
 
         public static void LocalizeOne(ILocalizeable target)

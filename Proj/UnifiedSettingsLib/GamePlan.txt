@@ -1,0 +1,12 @@
+﻿General appearance:
+- Dark background
+- Smoke effect on bottom ~2/5 of screen (moving?)
+
+Loading screen:
+- Show image of loaded cup on top, loading circle below it, centered obv.
+- Every loop of loading circle check status of load? Make sure laoding screen is seen so it isn't wasted effort like the overly multithreaded file source checks
+- BG needs to be partially transparent and otherwise dark so this can be displayed over things
+
+Teams view:
+- Selected team on left or top, depending on how much screen we're working with - ratio where screen X is less than Y make things to top to bottom?
+- OPFOR right or bottom

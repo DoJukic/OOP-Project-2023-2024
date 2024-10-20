@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WorldCupViewer.Resources {
+namespace SharedDataLib.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace WorldCupViewer.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WorldCupViewer.Resources.Resource", typeof(Resource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SharedDataLib.Resources.Resource", typeof(Resource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,15 @@ namespace WorldCupViewer.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Application_Ran_Into_Error.
+        /// </summary>
+        internal static string LOC_Application_Ran_Into_Error {
+            get {
+                return ResourceManager.GetString("LOC_Application_Ran_Into_Error", resourceCulture);
             }
         }
         
@@ -138,6 +147,15 @@ namespace WorldCupViewer.Resources {
         internal static string LOC_Confirm_Selection {
             get {
                 return ResourceManager.GetString("LOC_Confirm_Selection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Continue.
+        /// </summary>
+        internal static string LOC_Continue {
+            get {
+                return ResourceManager.GetString("LOC_Continue", resourceCulture);
             }
         }
         
@@ -322,6 +340,15 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Language.
+        /// </summary>
+        internal static string LOC_Language {
+            get {
+                return ResourceManager.GetString("LOC_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Load.
         /// </summary>
         internal static string LOC_Load {
@@ -345,6 +372,15 @@ namespace WorldCupViewer.Resources {
         internal static string LOC_Matches_By_Attendance {
             get {
                 return ResourceManager.GetString("LOC_Matches_By_Attendance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Maximized.
+        /// </summary>
+        internal static string LOC_Maximized {
+            get {
+                return ResourceManager.GetString("LOC_Maximized", resourceCulture);
             }
         }
         
@@ -421,6 +457,15 @@ namespace WorldCupViewer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Please_Set_Your_Preferences.
+        /// </summary>
+        internal static string LOC_Please_Set_Your_Preferences {
+            get {
+                return ResourceManager.GetString("LOC_Please_Set_Your_Preferences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Print.
         /// </summary>
         internal static string LOC_Print {
@@ -444,6 +489,15 @@ namespace WorldCupViewer.Resources {
         internal static string LOC_Remote {
             get {
                 return ResourceManager.GetString("LOC_Remote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Resolution.
+        /// </summary>
+        internal static string LOC_Resolution {
+            get {
+                return ResourceManager.GetString("LOC_Resolution", resourceCulture);
             }
         }
         
@@ -516,6 +570,33 @@ namespace WorldCupViewer.Resources {
         internal static string LOC_Wait {
             get {
                 return ResourceManager.GetString("LOC_Wait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_WPF_Could_Not_Load_Cup_Fatal.
+        /// </summary>
+        internal static string LOC_WPF_Could_Not_Load_Cup_Fatal {
+            get {
+                return ResourceManager.GetString("LOC_WPF_Could_Not_Load_Cup_Fatal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_WPF_Could_Not_Load_Data_Fatal.
+        /// </summary>
+        internal static string LOC_WPF_Could_Not_Load_Data_Fatal {
+            get {
+                return ResourceManager.GetString("LOC_WPF_Could_Not_Load_Data_Fatal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_WPF_Could_Not_Save_Data_Warning.
+        /// </summary>
+        internal static string LOC_WPF_Could_Not_Save_Data_Warning {
+            get {
+                return ResourceManager.GetString("LOC_WPF_Could_Not_Save_Data_Warning", resourceCulture);
             }
         }
         

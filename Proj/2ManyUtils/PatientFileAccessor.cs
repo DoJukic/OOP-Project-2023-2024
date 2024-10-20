@@ -77,5 +77,40 @@ namespace TooManyUtils
 
             return data;
         }
+
+        /// <summary>
+        /// ATTENTION: this WILL make the thread sleep a bit. You have been warned.
+        /// </summary>
+        /// <param name="targetPath"></param>
+        /// <param name="timeout"></param>
+        /// <returns></returns>
+        public static byte[] ReadAllBytes(string targetPath, int timeout = 10)
+        {
+            bool success = false;
+            byte[] data = { };
+
+            if (!File.Exists(targetPath))
+                return data;
+
+            while (!success)
+            {
+                timeout--;
+
+                try
+                {
+                    data = File.ReadAllBytes(targetPath);
+                    success = true;
+                }
+                catch (IOException)
+                {
+                    if (timeout <= 0)
+                        throw;
+
+                    Thread.Sleep(5);
+                }
+            }
+
+            return data;
+        }
     }
 }

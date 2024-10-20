@@ -29,6 +29,7 @@ namespace WorldCupLib.Interface
             SubstitutionIn,
             SubstitutionOut,
             YellowCard,
+            RedCard,
             Goal,
         }
 
@@ -42,6 +43,8 @@ namespace WorldCupLib.Interface
                     return cupEvent.typeOfEvent == "substitution-out";
                 case SupportedCupEventTypes.YellowCard:
                     return cupEvent.typeOfEvent == "yellow-card";
+                case SupportedCupEventTypes.RedCard:
+                    return cupEvent.typeOfEvent == "red-card";
                 case SupportedCupEventTypes.Goal:
                     return cupEvent.typeOfEvent == "goal";
             }

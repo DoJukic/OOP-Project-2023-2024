@@ -12,8 +12,10 @@ using WorldCupViewer.ExternalImages;
 
 namespace WorldCupViewer.UserControls
 {
-    public partial class ExternalImage : PictureBox, IExternalImage
+    public partial class ExternalImage : PictureBox, IExternalImage, IDisposable
     {
+        private MemoryStream? imageDataStream;
+
         private String? externalImageID;
         public String? ExternalImageID
         {
@@ -26,15 +28,39 @@ namespace WorldCupViewer.UserControls
             if (ExternalImageID == null)
                 return;
 
-            var imgPath = Images.GetExternalImagePath(ExternalImageID);
-            if (imgPath == null)
+            var imgBytes = Images.TryGetExternalImageBytes(ExternalImageID);
+            if (imgBytes == null)
             {
-                var stream = new MemoryStream(Images.GetNoDataPngBytes());
-                Image = Image.FromStream(stream);
+                ImageLoadFailed();
+                return;
             }
 
-            this.ImageLocation = imgPath;
-            return;
+            try
+            {
+                imageDataStream?.Dispose();
+                imageDataStream = null;
+
+                imageDataStream = new(imgBytes);
+                Image = Image.FromStream(imageDataStream);
+            }
+            catch (Exception)
+            {
+                ImageLoadFailed();
+            }
+        }
+
+        public new void Dispose()
+        {
+            base.Dispose();
+
+            imageDataStream?.Dispose();
+            imageDataStream = null;
+        }
+
+        private void ImageLoadFailed()
+        {
+            var stream = new MemoryStream(Images.GetNoDataPngBytes());
+            Image = Image.FromStream(stream);
         }
     }
 }
