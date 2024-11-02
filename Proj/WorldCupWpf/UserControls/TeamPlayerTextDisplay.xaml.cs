@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,7 +16,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WorldCupLib;
 using WorldCupLib.Interface;
+using WorldCupWpf.Dialog;
 using WorldCupWpf.Signals;
+using static SharedDataLib.SettingsProvider;
 using static WorldCupWpf.LocalUtils;
 
 namespace WorldCupWpf.UserControls
@@ -26,11 +30,19 @@ namespace WorldCupWpf.UserControls
     {
         private string signalStartHovering;
         private string signalStopHovering;
-        private LinearAnimationController linearAnimationController;
+        private LinearScaleAnimationController linearAnimationController;
 
-        public TeamPlayerTextDisplay(CupPlayer player)
+        private CupPlayer player;
+        private CupMatch match;
+        private TeamData teamData;
+
+        public TeamPlayerTextDisplay(CupPlayer player, CupMatch match, TeamData teamData)
         {
             InitializeComponent();
+
+            this.player = player;
+            this.match = match;
+            this.teamData = teamData;
 
             lblName.Content = player.name;
             lblNumber.Content = player.shirtNumber;
@@ -39,15 +51,28 @@ namespace WorldCupWpf.UserControls
             signalStopHovering = GetPlayerStoppedHoveringSignal(player);
 
             linearAnimationController = new(this);
-            linearAnimationController.scaleXEnd = 1.1;
-            linearAnimationController.scaleYEnd = 1.1;
-            linearAnimationController.animDirTowardsEnd = false;
+            linearAnimationController.ScaleXEnd = 1.1;
+            linearAnimationController.ScaleYEnd = 1.1;
+            linearAnimationController.AnimDirTowardsEnd = false;
+            linearAnimationController.AnimationDurationSec = 0.15;
 
             SignalController.SubscribeToSignal(signalStartHovering, this);
             SignalController.SubscribeToSignal(signalStopHovering, this);
 
             MouseEnter += NotifyStartHover;
             MouseLeave += NotifyEndHover;
+        }
+
+        public void ReverseText()
+        {
+            lblNameScaleTransorm.ScaleX = -1;
+            lblNumberScaleTransorm.ScaleX = -1;
+        }
+
+        public void SetFontSize(int fontSize)
+        {
+            lblName.FontSize = fontSize;
+            lblNumber.FontSize = fontSize;
         }
 
         private void NotifyStartHover(object sender, MouseEventArgs e)
@@ -70,12 +95,19 @@ namespace WorldCupWpf.UserControls
 
         private void SignalStopHovering()
         {
-            linearAnimationController.animDirTowardsEnd = false;
+            linearAnimationController.AnimDirTowardsEnd = true;
         }
 
         private void SignalStartHovering()
         {
-            linearAnimationController.animDirTowardsEnd = true;
+            linearAnimationController.AnimDirTowardsEnd = false;
+        }
+
+        private void UserControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            PlayerInfoWindow piw = new(player, teamData, match);
+            piw.Owner = Application.Current.MainWindow;
+            piw.Show();
         }
     }
 }

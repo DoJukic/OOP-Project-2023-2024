@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WorldCupLib.Interface;
 
 namespace WorldCupLib
 {
@@ -21,6 +22,30 @@ namespace WorldCupLib
             this.penalties = penalties ?? 0;
             this.captainList = captainList ?? new();
             this.playerPositionPairList = playerPositionPairList ?? new();
+        }
+        public enum SupportedCupPlayerPositions
+        {
+            Goalkeeper,
+            Defence,
+            Midfield,
+            Forward,
+        }
+
+        public static bool CheckPositionString(String position, SupportedCupPlayerPositions targetPosition)
+        {
+            switch (targetPosition)
+            {
+                case SupportedCupPlayerPositions.Goalkeeper:
+                    return position == "Goalie";
+                case SupportedCupPlayerPositions.Defence:
+                    return position == "Defender";
+                case SupportedCupPlayerPositions.Midfield:
+                    return position == "Midfield";
+                case SupportedCupPlayerPositions.Forward:
+                    return position == "Forward";
+            }
+
+            return false;
         }
     }
 }

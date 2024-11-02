@@ -20,7 +20,7 @@
 			<Label x:Name="lblLanguage" Content="Lang text" VerticalAlignment="Center"/>
 			<Label x:Name="lblResolution" Content="Resolution text" Grid.Row="1" VerticalAlignment="Center"/>
 			<ComboBox x:Name="cbLanguage" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cbLanguage_SelectionChanged" VerticalAlignment="Center" Grid.Column="1"/>
-			<ComboBox x:Name="cbResolution" SelectionChanged="cbResolution_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+			<ComboBox x:Name="cbResolution" SelectionChanged="cbResolution_SelectionChanged" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" PreviewMouseDown="cbResolution_PreviewMouseDown"/>
 		</Grid>
 		<WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5">
 			<TextBox x:Name="tbResolutionX" TextWrapping="Wrap" Text="1234" Margin="5,0,0,0" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" MinWidth="50" MaxLength="6"/>

@@ -18,6 +18,10 @@ namespace SharedDataLib
         {
             try
             {
+                if (!File.Exists(settingsPath))
+                {
+                    File.WriteAllText(settingsPath, CurrSettings.ToJson(new CurrSettings()));
+                }
                 settings = CurrSettings.FromJson(File.ReadAllText(settingsPath));
             }
             catch (Exception)

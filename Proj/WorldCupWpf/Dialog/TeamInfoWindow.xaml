@@ -1,0 +1,124 @@
+﻿<Window x:Class="WorldCupWpf.Dialog.TeamInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WorldCupWpf.Dialog"
+        mc:Ignorable="d"
+        Title="TeamInfoWindow" Loaded="Window_Loaded" WindowStartupLocation="CenterOwner" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+
+	<Grid>
+		<StackPanel Margin="20,20,20,20" HorizontalAlignment="Center" VerticalAlignment="Center">
+			<Label x:Name="lblTeamName" Content="Namehere (CODEHERE)" HorizontalAlignment="Center" Opacity="0" d:Opacity="1">
+				<Label.Triggers>
+					<EventTrigger RoutedEvent="Loaded">
+						<BeginStoryboard>
+							<Storyboard Duration="0:0:0.2" Storyboard.TargetProperty="Opacity">
+								<DoubleAnimation From="0" To="1" Duration="0:0:0.2"/>
+							</Storyboard>
+						</BeginStoryboard>
+					</EventTrigger>
+				</Label.Triggers>
+			</Label>
+
+			<Label x:Name="lblGames" Content="Games" HorizontalAlignment="Center" Margin="0,0,0,-10" Opacity="0" d:Opacity="1">
+				<Label.Triggers>
+					<EventTrigger RoutedEvent="Loaded">
+						<BeginStoryboard>
+							<Storyboard BeginTime="0:0:0.1" Duration="0:0:0.2" Storyboard.TargetProperty="Opacity">
+								<DoubleAnimation From="0" To="1" Duration="0:0:0.2"/>
+							</Storyboard>
+						</BeginStoryboard>
+					</EventTrigger>
+				</Label.Triggers>
+			</Label>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Opacity="0" d:Opacity="1">
+				<StackPanel.Triggers>
+					<EventTrigger RoutedEvent="Loaded">
+						<BeginStoryboard>
+							<Storyboard BeginTime="0:0:0.2" Duration="0:0:0.2" Storyboard.TargetProperty="Opacity">
+								<DoubleAnimation From="0" To="1" Duration="0:0:0.2"/>
+							</Storyboard>
+						</BeginStoryboard>
+					</EventTrigger>
+				</StackPanel.Triggers>
+				
+				<StackPanel>
+					<Label x:Name="lblGamesPlayed" Margin="0,0,0,-10" Content="Played:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					<Label x:Name="lblGamesPlayedData" Content="NUM" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</StackPanel>
+				<StackPanel>
+					<Label x:Name="lblGamesWon" Margin="0,0,0,-10" Content="Wins:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					<Label x:Name="lblGamesWonData" Content="NUM" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</StackPanel>
+				<StackPanel>
+					<Label x:Name="lblGamesLost" Margin="0,0,0,-10" Content="Losses:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					<Label x:Name="lblGamesLostData" Content="NUM" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</StackPanel>
+				<StackPanel>
+					<Label x:Name="lblGamesDraw" Margin="0,0,0,-10" Content="Draws:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					<Label x:Name="lblGamesDrawData" Content="NUM" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</StackPanel>
+			</StackPanel>
+
+			<Label x:Name="lblGoals" Content="Goals" HorizontalAlignment="Center" Margin="0,0,0,-10" Opacity="0" d:Opacity="1">
+				<Label.Triggers>
+					<EventTrigger RoutedEvent="Loaded">
+						<BeginStoryboard>
+							<Storyboard BeginTime="0:0:0.3" Duration="0:0:0.2" Storyboard.TargetProperty="Opacity">
+								<DoubleAnimation From="0" To="1" Duration="0:0:0.2"/>
+							</Storyboard>
+						</BeginStoryboard>
+					</EventTrigger>
+				</Label.Triggers>
+			</Label>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Opacity="0" d:Opacity="1">
+				<StackPanel.Triggers>
+					<EventTrigger RoutedEvent="Loaded">
+						<BeginStoryboard>
+							<Storyboard BeginTime="0:0:0.4" Duration="0:0:0.2" Storyboard.TargetProperty="Opacity">
+								<DoubleAnimation From="0" To="1" Duration="0:0:0.2"/>
+							</Storyboard>
+						</BeginStoryboard>
+					</EventTrigger>
+				</StackPanel.Triggers>
+				
+				<StackPanel>
+					<Label x:Name="lblGoalsScored" Margin="0,0,0,-10" Content="Scored:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					<Label x:Name="lblGoalsScoredData" Content="NUM" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</StackPanel>
+				<StackPanel>
+					<Label x:Name="lblGoalsTaken" Margin="0,0,0,-10" Content="Taken:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					<Label x:Name="lblGoalsTakenData" Content="NUM" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</StackPanel>
+				<StackPanel>
+					<Label x:Name="lblGoalsDifferential" Margin="0,0,0,-10" Content="Differential:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					<Label x:Name="lblGoalsDifferentialData" Content="NUM" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+				</StackPanel>
+			</StackPanel>
+		</StackPanel>
+
+		<Grid x:Name="LoadingOverlay" Background="#33000000" Panel.ZIndex="-10000000" Opacity="0">
+			<Border MinWidth="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#A5000000" BorderBrush="#E5000000" BorderThickness="2,2,2,2" CornerRadius="10,10,10,10">
+				<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,10,10">
+					<Image x:Name="LoadingIcon" Height="25" Width="25" Source="/Resources/LoadingIcon.png" RenderTransformOrigin="0.5, 0.5">
+						<Image.RenderTransform>
+							<RotateTransform x:Name="noFreeze" />
+						</Image.RenderTransform>
+						<Image.Triggers>
+							<EventTrigger RoutedEvent="Loaded">
+								<BeginStoryboard>
+									<Storyboard>
+										<DoubleAnimation
+									Storyboard.TargetProperty="(Image.RenderTransform).(RotateTransform.Angle)"
+									To="360" Duration="0:0:1" RepeatBehavior="Forever" />
+									</Storyboard>
+								</BeginStoryboard>
+							</EventTrigger>
+						</Image.Triggers>
+					</Image>
+				</StackPanel>
+			</Border>
+		</Grid>
+	</Grid>
+</Window>

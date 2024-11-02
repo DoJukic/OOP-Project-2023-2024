@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,8 +15,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SharedDataLib;
 using WorldCupLib;
+using WorldCupLib.Interface;
 using WorldCupViewer.Localization;
+using WorldCupWpf.Dialog;
+using WorldCupWpf.Signals;
 using static System.Net.Mime.MediaTypeNames;
+using static SharedDataLib.SettingsProvider;
 using static WorldCupWpf.LocalUtils;
 
 namespace WorldCupWpf
@@ -23,17 +28,19 @@ namespace WorldCupWpf
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, ISignalReciever
     {
         private SharedDataLib.SettingsProvider.CurrSettings settings = SharedDataLib.SettingsProvider.GetSettings();
         private SharedDataLib.SettingsProvider.WorldCupData? selectedWorldCupData;
-        private IWorldCupDataRepo? worldCupRepo;
 
         private MainWindowBindings bindings = new();
 
         bool saveDataWarningShown = false;
 
-        Thickness dumbassFieldImageShadowBinding;
+        private bool disableDateReload = false;
+
+        // we start in the loading screen, this is really just a dumb workaround for both the load cup info and settings window closing the loading screens, do not use elsewhere!
+        private int loadingScreenCounter = 1;
 
         public MainWindow()
         {
@@ -43,6 +50,9 @@ namespace WorldCupWpf
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             DoBindings();
+
+            SignalController.SubscribeToSignal(LocalUtils.GetFullPauseSignal(), this);
+            SignalController.SubscribeToSignal(LocalUtils.GetFullResumeSignal(), this);
 
             cbSelectedTeam.DisplayMemberPath = "TeamName";
             cbSelectedOPFOR.DisplayMemberPath = "TeamName";
@@ -80,6 +90,7 @@ namespace WorldCupWpf
             this.Top = (screenY - this.Height) / 2;
 
             LocalizationHandler.SubscribeToLocalizationChanged(() => { Dispatcher.Invoke(LocBinder.LocalizationChanged); });
+            LocalizationHandler.SubscribeToLocalizationChanged(() => { Dispatcher.Invoke(RefreshDates); });
 
             SettingsData resDat = new() { X = (int?)settings.ResolutionX ?? (int)this.Width,
                                             Y = (int?)settings.ResolutionY ?? (int)this.Height,
@@ -92,10 +103,41 @@ namespace WorldCupWpf
 
             if (settings.Language == null || settings.ResolutionX == null || settings.ResolutionY == null)
             {
-                ShowSettingsDialog(resDat);
+                _ = Task.Run(async () =>
+                {
+                    await Task.Delay(1); // Breaks the loading circle animation otherwise, apparently.
+
+                    System.Windows.Application.Current.Dispatcher.Invoke(() => {
+                        ShowSettingsDialog(resDat, false);
+                    });
+                });
             }
 
             PerformResolutionLogic(resDat);
+
+            playerTextListRight.ReverseDisplay();
+
+            ResizeLogic();
+        }
+
+        private void RefreshDates()
+        {
+            disableDateReload = true;
+
+            var selectedItem = cbSelectedOPFORDate.SelectedItem;
+            List<Object?> items = new();
+
+            foreach (var item in cbSelectedOPFORDate.Items)
+                items.Add(item);
+
+            cbSelectedOPFORDate.Items.Clear();
+
+            foreach (var item in items)
+                cbSelectedOPFORDate.Items.Add(item);
+
+            cbSelectedOPFORDate.SelectedItem = selectedItem;
+
+            disableDateReload = false;
         }
 
         private void DoBindings()
@@ -205,14 +247,27 @@ namespace WorldCupWpf
             }
         }
 
-        private void ShowSettingsDialog(SettingsData settingsDat)
+        private void ShowSettingsDialog(SettingsData settingsDat, bool useConfirmationMsg = true)
         {
+            SignalController.TriggerSignal(LocalUtils.GetFullPauseSignal());
+
             SettingsWindow SW = new(settingsDat);
             SW.Owner = this;
             SW.ShowDialog();
 
             settings.Language = SupportedLanguages.GetSupportedLanguageInfoList()
                 .Where(x => x.culture.ThreeLetterISOLanguageName == Thread.CurrentThread.CurrentCulture.ThreeLetterISOLanguageName)?.SingleOrDefault()?.langID;
+
+            if (settingsDat.changesMade && useConfirmationMsg)
+            {
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("These settings will be saved.", "Are you sure?", System.Windows.MessageBoxButton.OKCancel);
+                if (messageBoxResult != System.Windows.MessageBoxResult.OK)
+                {
+                    SaveData(); // Language changes dynamically, no point in not saving - it'd just be odd
+                    return;
+                }
+            }
+
             settings.ResolutionX = settingsDat.X;
             settings.ResolutionY = settingsDat.Y;
             settings.Maximized = settingsDat.maximized;
@@ -220,6 +275,8 @@ namespace WorldCupWpf
             PerformResolutionLogic(settingsDat);
 
             SaveData();
+
+            SignalController.TriggerSignal(LocalUtils.GetFullResumeSignal());
         }
         private void PerformResolutionLogic(SettingsData settingsDat)
         {
@@ -250,22 +307,31 @@ namespace WorldCupWpf
 
         private void ShowLoadingScreen()
         {
-            Panel.SetZIndex(LoadingOverlay, 0);
-            AnimationHelper.FadeIn(LoadingOverlay, 250);
+            if (loadingScreenCounter == 0)
+            {
+                Panel.SetZIndex(LoadingOverlay, 0);
+                AnimationHelper.FadeIn(LoadingOverlay, 250);
+            }
+            loadingScreenCounter++;
         }
         private void HideLoadingScreen()
         {
-            AnimationHelper.FadeOut(LoadingOverlay, 250, () => { Panel.SetZIndex(LoadingOverlay, -1000000); });
+            loadingScreenCounter--;
+            if (loadingScreenCounter <= 0)
+            {
+                if (loadingScreenCounter < 0)
+                    loadingScreenCounter = 0;
+                AnimationHelper.FadeOut(LoadingOverlay, 250, () => { Panel.SetZIndex(LoadingOverlay, -1000000); });
+            }
         }
 
         private void SettingsButtonClick(object sender, RoutedEventArgs e)
         {
-            ShowLoadingScreen();
+            //ShowLoadingScreen();
             SettingsData resDat = new() { X = (int)this.Width, Y = (int)this.Height, maximized = (this.WindowState == WindowState.Maximized) };
 
             ShowSettingsDialog(resDat);
-
-            HideLoadingScreen();
+            //HideLoadingScreen();
         }
 
         private class CupTeamWrapper
@@ -377,23 +443,172 @@ namespace WorldCupWpf
 
         private void cbSelectedOPFORDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (disableDateReload)
+                return;
+            if (cbSelectedOPFORDate.SelectedItem == null || cbSelectedOPFORDate.SelectedItem is not CupMatchTimeWrapper cmtw)
+                return;
+            if (cbSelectedTeam.SelectedItem == null || cbSelectedTeam.SelectedItem is not CupTeamWrapper ctw)
+                return;
+            if (cbSelectedOPFOR.SelectedItem == null || cbSelectedOPFOR.SelectedItem is not CupOppositionWrapper cow)
+                return;
 
+            CupMatchTeamInfo BLUFORTeamInfo;
+            CupMatchTeamInfo OPFORTeamInfo;
+            CupMatchTeamStatistics BLUFORTeamStatistics;
+            CupMatchTeamStatistics OPFORTeamStatistics;
+            List<CupEvent> BLUFORCupTeamEvents;
+            List<CupEvent> OPFORCupTeamEvents;
+
+            if (cmtw.relatedMatch.homeTeam.team == ctw.relatedTeam)
+            {
+                BLUFORTeamStatistics = cmtw.relatedMatch.homeTeamStatistics;
+                BLUFORTeamInfo = cmtw.relatedMatch.homeTeam;
+                OPFORTeamStatistics = cmtw.relatedMatch.awayTeamStatistics;
+                OPFORTeamInfo = cmtw.relatedMatch.awayTeam;
+                BLUFORCupTeamEvents = cmtw.relatedMatch.HomeTeamEvents;
+                OPFORCupTeamEvents = cmtw.relatedMatch.AwayTeamEvents;
+            }
+            else
+            {
+                BLUFORTeamStatistics = cmtw.relatedMatch.awayTeamStatistics;
+                BLUFORTeamInfo = cmtw.relatedMatch.awayTeam;
+                OPFORTeamStatistics = cmtw.relatedMatch.homeTeamStatistics;
+                OPFORTeamInfo = cmtw.relatedMatch.homeTeam;
+                BLUFORCupTeamEvents = cmtw.relatedMatch.AwayTeamEvents;
+                OPFORCupTeamEvents = cmtw.relatedMatch.HomeTeamEvents;
+            }
+
+            TeamData? BLUFORTargetTeamData = null;
+            if (selectedWorldCupData != null && selectedWorldCupData.TeamDataList != null)
+                foreach (var teamData in selectedWorldCupData.TeamDataList)
+                    if (teamData.FifaID == BLUFORTeamInfo.team.fifaCode)
+                        BLUFORTargetTeamData = teamData;
+            if (BLUFORTargetTeamData == null)
+                BLUFORTargetTeamData = new();
+
+            TeamData? OPFORTargetTeamData = null;
+            if (selectedWorldCupData != null && selectedWorldCupData.TeamDataList != null)
+                foreach (var teamData in selectedWorldCupData.TeamDataList)
+                    if (teamData.FifaID == OPFORTeamInfo.team.fifaCode)
+                        OPFORTargetTeamData = teamData;
+            if (OPFORTargetTeamData == null)
+                OPFORTargetTeamData = new();
+
+            playerTextListLeft.LoadTeam(cmtw.relatedMatch, BLUFORTeamStatistics, BLUFORTargetTeamData);
+            playerTextListLeft.Visibility = Visibility.Visible;
+            playerTextListRight.LoadTeam(cmtw.relatedMatch, OPFORTeamStatistics, OPFORTargetTeamData, Colors.Red);
+            playerTextListRight.Visibility = Visibility.Visible;
+
+            playerTextListRight.ReverseDisplay();
+
+            int goalsBLUFOR = 0;
+            int goalsOPFOR = 0;
+            foreach (var cupEvent in BLUFORCupTeamEvents)
+                if (CupEvent.CheckCupEvent(cupEvent, CupEvent.SupportedCupEventTypes.Goal))
+                    goalsBLUFOR++;
+            foreach (var cupEvent in OPFORCupTeamEvents)
+                if (CupEvent.CheckCupEvent(cupEvent, CupEvent.SupportedCupEventTypes.Goal))
+                    goalsOPFOR++;
+
+            lblResultBLUFOR.Content = goalsBLUFOR;
+            lblResultOPFOR.Content = goalsOPFOR;
+
+            //Away team top, home team bottom
+            
+            bottomImageList.LoadFromData(BLUFORTeamStatistics, cmtw.relatedMatch, BLUFORTeamInfo, BLUFORTargetTeamData, true);
+
+            lblPlayerDistributionBLUFOR.Content = bottomImageList.GetPlayerDistributionString();
+
+            topImageList.LoadFromData(OPFORTeamStatistics, cmtw.relatedMatch, OPFORTeamInfo, OPFORTargetTeamData, false);
+
+            lblPlayerDistributionOPFOR.Content = topImageList.GetPlayerDistributionString();
+
+            SignalController.TriggerSignal(LocalUtils.GetMatchChangedSignal());
         }
 
-        LinearAnimationController crtl;
+        LinearScaleAnimationController crtl;
         private void btnTEST_Click(object sender, RoutedEventArgs e)
         {
             if (crtl is not null)
             {
-                crtl.animDirTowardsEnd = !crtl.animDirTowardsEnd;
+                crtl.AnimDirTowardsEnd = !crtl.AnimDirTowardsEnd;
             }
             else
             {
                 crtl = new(imgFootball);
-                crtl.scaleXEnd = 2;
-                crtl.scaleYEnd = 1.5;
-                crtl.animationDurationSec = 2;
+                crtl.ScaleXEnd = 2;
+                crtl.ScaleYEnd = 1.5;
+                crtl.AnimationDurationSec = 2;
             }
+        }
+
+        private void mainWindow_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ResizeLogic();
+        }
+
+        private void ResizeLogic()
+        {
+            RemoveFromParent(playerTextListLeft.Parent, playerTextListLeft);
+            RemoveFromParent(playerTextListRight.Parent, playerTextListRight);
+
+            if ((this.ActualWidth - imgFootball.ActualWidth) < 600)
+            {
+                grdContentTop.Children.Add(playerTextListLeft);
+                grdContentTop.Children.Add(playerTextListRight);
+                playerTextListLeft.HideText();
+                playerTextListRight.DisplaceText();
+                return;
+            }
+
+            grdContentMiddle.Children.Add(playerTextListLeft);
+            grdContentMiddle.Children.Add(playerTextListRight);
+            playerTextListLeft.ResetText();
+            playerTextListRight.ResetText();
+        }
+
+        private void btnBLUFORInfo_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbSelectedTeam.SelectedItem is not CupTeamWrapper cupTeamWrapper)
+                return;
+
+            TeamInfoWindow tiw = new(cupTeamWrapper.relatedTeam);
+            tiw.Owner = this;
+            tiw.Show();
+        }
+
+        private void btnOPFORInfo_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbSelectedOPFOR.SelectedItem is not CupOppositionWrapper cupTeamWrapper)
+                return;
+
+            TeamInfoWindow tiw = new(cupTeamWrapper.relatedTeam);
+            tiw.Owner = this;
+            tiw.Show();
+        }
+
+        public void RecieveSignal(string signalSignature)
+        {
+            if (signalSignature == LocalUtils.GetFullPauseSignal())
+            {
+                ShowLoadingScreen();
+            }
+            if (signalSignature == LocalUtils.GetFullResumeSignal())
+            {
+                HideLoadingScreen();
+            }
+        }
+
+        private void mainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("The application will close.", "Are you sure?", System.Windows.MessageBoxButton.OKCancel);
+            if (messageBoxResult != System.Windows.MessageBoxResult.OK)
+            {
+                e.Cancel = true;
+                return;
+            }
+            e.Cancel = false;
+            return;
         }
     }
 }

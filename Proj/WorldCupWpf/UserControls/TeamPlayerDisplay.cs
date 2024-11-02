@@ -15,7 +15,7 @@ namespace WorldCupWpf.UserControls
     {
         private string signalStartHovering;
         private string signalStopHovering;
-        private LinearAnimationController linearAnimationController;
+        private LinearScaleAnimationController linearAnimationController;
 
         public TeamPlayerDisplay(CupPlayer player)
         {
@@ -23,9 +23,9 @@ namespace WorldCupWpf.UserControls
             signalStopHovering = GetPlayerStoppedHoveringSignal(player);
 
             linearAnimationController = new(this);
-            linearAnimationController.scaleXEnd = 1.1;
-            linearAnimationController.scaleYEnd = 1.1;
-            linearAnimationController.animDirTowardsEnd = false;
+            linearAnimationController.ScaleXEnd = 1.1;
+            linearAnimationController.ScaleYEnd = 1.1;
+            linearAnimationController.AnimDirTowardsEnd = false;
 
             SignalController.SubscribeToSignal(signalStartHovering, this);
             SignalController.SubscribeToSignal(signalStopHovering, this);
@@ -54,12 +54,12 @@ namespace WorldCupWpf.UserControls
 
         private void SignalStopHovering()
         {
-            linearAnimationController.animDirTowardsEnd = false;
+            linearAnimationController.AnimDirTowardsEnd = false;
         }
 
         private void SignalStartHovering()
         {
-            linearAnimationController.animDirTowardsEnd = true;
+            linearAnimationController.AnimDirTowardsEnd = true;
         }
     }
 }

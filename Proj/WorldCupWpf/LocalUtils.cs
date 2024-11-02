@@ -42,29 +42,120 @@ namespace WorldCupWpf
             return image;
         }
 
-        public class LinearAnimationController
+        // https://stackoverflow.com/questions/19317064/disconnecting-an-element-from-any-unspecified-parent-container-in-wpf
+        public static void RemoveFromParent(DependencyObject parent, UIElement child)
         {
-            private UIElement target;
+            var panel = parent as Panel;
+            if (panel != null)
+            {
+                panel.Children.Remove(child);
+                return;
+            }
 
+            var decorator = parent as Decorator;
+            if (decorator != null)
+            {
+                if (decorator.Child == child)
+                {
+                    decorator.Child = null;
+                }
+                return;
+            }
+
+            var contentPresenter = parent as ContentPresenter;
+            if (contentPresenter != null)
+            {
+                if (contentPresenter.Content == child)
+                {
+                    contentPresenter.Content = null;
+                }
+                return;
+            }
+
+            var contentControl = parent as ContentControl;
+            if (contentControl != null)
+            {
+                if (contentControl.Content == child)
+                {
+                    contentControl.Content = null;
+                }
+                return;
+            }
+
+            // maybe more
+        }
+
+        public class LinearScaleAnimationController
+        {
             private const double FPS = 60;
-            public int animationDurationSec = 1;
-
-#pragma warning disable IDE0052 // Remove unread private members
-            private Timer? timer;
-#pragma warning restore IDE0052 // Remove unread private members
+            public double animationDurationSec = 1;
+            public double AnimationDurationSec
+            {
+                get { return animationDurationSec; }
+                set
+                {
+                    animationDurationSec = value;
+                    AnimationStart();
+                }
+            }
 
             private ScaleTransform targetScaleTransform;
             public double scaleXStart = 1;
+            public double ScaleXStart
+            {
+                get { return scaleXStart; }
+                set
+                {
+                    scaleXStart = value;
+                    AnimationStart();
+                }
+            }
             public double scaleXEnd = 1;
+            public double ScaleXEnd
+            {
+                get { return scaleXEnd; }
+                set
+                {
+                    scaleXEnd = value;
+                    AnimationStart();
+                }
+            }
+
             public double scaleYStart = 1;
+            public double ScaleYStart
+            {
+                get { return scaleYStart; }
+                set
+                {
+                    scaleYStart = value;
+                    AnimationStart();
+                }
+            }
             public double scaleYEnd = 1;
+            public double ScaleYEnd
+            {
+                get { return scaleYEnd; }
+                set
+                {
+                    scaleYEnd = value;
+                    AnimationStart();
+                }
+            }
+
+            private bool animRunning = false;
 
             public bool animDirTowardsEnd = true;
-
-            public LinearAnimationController(UIElement target)
+            public bool AnimDirTowardsEnd
             {
-                this.target = target;
+                get { return animDirTowardsEnd; }
+                set {
+                    animDirTowardsEnd = value;
+                    AnimationStart();
+                }
+            }
 
+            public LinearScaleAnimationController(UIElement target)
+            {
                 TransformGroup trGroup;
                 if (target.RenderTransform != null && target.RenderTransform is TransformGroup transformGroup)
                 {
@@ -79,19 +170,105 @@ namespace WorldCupWpf
                 targetScaleTransform = new();
                 trGroup.Children.Add(targetScaleTransform);
 
-                int timerMS = (int)(1000 / FPS);
-                timer = new(LinearAnimationController.TimerCallbackFunc, new WeakReference<LinearAnimationController>(this), timerMS, timerMS);
+                AnimationStart();
+
+                return;
+
+                //int timerMS = (int)(1000 / FPS);
+                //timer = new(LinearAnimationController.TimerCallbackFunc, new WeakReference<LinearAnimationController>(this), timerMS, timerMS);
             }
 
-            ~LinearAnimationController()
+            private void AnimationStart()
             {
-                timer?.Dispose();
-                timer = null; // buh bye
+                if (!animRunning)
+                {
+                    animRunning = true;
+                    RunAnimation(new(this));
+                }
+            }
+            private void AnimationFinished()
+            {
+                animRunning = false;
+            }
+
+            private static void RunAnimation(WeakReference<LinearScaleAnimationController> crtlMaybe)
+            {
+                Task.Run(async () =>
+                {
+                    await Task.Delay((int)(1000 / FPS)); if (!crtlMaybe.TryGetTarget(out var crtl) || crtl == null)
+                        return;
+
+                    try
+                    {
+                        // Needed when exiting application :(
+                        if (Application.Current == null)
+                            return;
+
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            double total;
+                            double step;
+                            double toGo;
+
+                            if (crtl.AnimDirTowardsEnd)
+                            {
+                                total = crtl.ScaleXEnd - crtl.ScaleXStart;
+                                step = total / FPS / crtl.AnimationDurationSec;
+                                toGo = crtl.ScaleXEnd - crtl.targetScaleTransform.ScaleX;
+
+                                if (step > toGo)
+                                    step = toGo;
+
+                                crtl.targetScaleTransform.ScaleX += step;
+
+                                total = crtl.ScaleYEnd - crtl.ScaleYStart;
+                                step = total / FPS / crtl.AnimationDurationSec;
+                                toGo = crtl.ScaleYEnd - crtl.targetScaleTransform.ScaleY;
+
+                                if (step > toGo)
+                                    step = toGo;
+
+                                crtl.targetScaleTransform.ScaleY += step;
+                            }
+                            else
+                            {
+                                total = crtl.ScaleXStart - crtl.ScaleXEnd;
+                                step = total / FPS / crtl.AnimationDurationSec;
+                                toGo = crtl.ScaleXStart - crtl.targetScaleTransform.ScaleX;
+
+                                if (step < toGo)
+                                    step = toGo;
+
+                                crtl.targetScaleTransform.ScaleX += step;
+
+                                total = crtl.ScaleYStart - crtl.ScaleYEnd;
+                                step = total / FPS / crtl.AnimationDurationSec;
+                                toGo = crtl.ScaleYStart - crtl.targetScaleTransform.ScaleY;
+
+                                if (step < toGo)
+                                    step = toGo;
+
+                                crtl.targetScaleTransform.ScaleY += step;
+                            }
+
+                            if (toGo != 0)
+                            {
+                                RunAnimation(crtlMaybe);
+                                return;
+                            }
+                            crtl.AnimationFinished();
+                        });
+                    }
+                    catch (Exception)
+                    {
+                        return; // dang
+                    }
+                });
             }
 
             private static void TimerCallbackFunc(object? obj)
             {
-                if (obj is not WeakReference<LinearAnimationController> crtlMaybe)
+                if (obj is not WeakReference<LinearScaleAnimationController> crtlMaybe)
                     return;
 
                 if (!crtlMaybe.TryGetTarget(out var crtl) || crtl == null)
@@ -109,20 +286,20 @@ namespace WorldCupWpf
                         double step;
                         double toGo;
 
-                        if (crtl.animDirTowardsEnd)
+                        if (crtl.AnimDirTowardsEnd)
                         {
-                            total = crtl.scaleXEnd - crtl.scaleXStart;
-                            step = total / FPS / crtl.animationDurationSec;
-                            toGo = crtl.scaleXEnd - crtl.targetScaleTransform.ScaleX;
+                            total = crtl.ScaleXEnd - crtl.ScaleXStart;
+                            step = total / FPS / crtl.AnimationDurationSec;
+                            toGo = crtl.ScaleXEnd - crtl.targetScaleTransform.ScaleX;
 
                             if (step > toGo)
                                 step = toGo;
 
                             crtl.targetScaleTransform.ScaleX += step;
 
-                            total = crtl.scaleYEnd - crtl.scaleYStart;
-                            step = total / FPS / crtl.animationDurationSec;
-                            toGo = crtl.scaleYEnd - crtl.targetScaleTransform.ScaleY;
+                            total = crtl.ScaleYEnd - crtl.ScaleYStart;
+                            step = total / FPS / crtl.AnimationDurationSec;
+                            toGo = crtl.ScaleYEnd - crtl.targetScaleTransform.ScaleY;
 
                             if (step > toGo)
                                 step = toGo;
@@ -131,18 +308,18 @@ namespace WorldCupWpf
                         }
                         else
                         {
-                            total = crtl.scaleXStart - crtl.scaleXEnd;
-                            step = total / FPS / crtl.animationDurationSec;
-                            toGo = crtl.scaleXStart - crtl.targetScaleTransform.ScaleX;
+                            total = crtl.ScaleXStart - crtl.ScaleXEnd;
+                            step = total / FPS / crtl.AnimationDurationSec;
+                            toGo = crtl.ScaleXStart - crtl.targetScaleTransform.ScaleX;
 
                             if (step < toGo)
                                 step = toGo;
 
                             crtl.targetScaleTransform.ScaleX += step;
 
-                            total = crtl.scaleYStart - crtl.scaleYEnd;
-                            step = total / FPS / crtl.animationDurationSec;
-                            toGo = crtl.scaleYStart - crtl.targetScaleTransform.ScaleY;
+                            total = crtl.ScaleYStart - crtl.ScaleYEnd;
+                            step = total / FPS / crtl.AnimationDurationSec;
+                            toGo = crtl.ScaleYStart - crtl.targetScaleTransform.ScaleY;
 
                             if (step < toGo)
                                 step = toGo;
@@ -162,5 +339,11 @@ namespace WorldCupWpf
             (nameof(CupPlayer) + "|IS_HOVERING|" + player.team.fifaCode + '|' + player.shirtNumber);
         public static string GetPlayerStoppedHoveringSignal(CupPlayer player) =>
             (nameof(CupPlayer) + "|IS_NOT_HOVERING|" + player.team.fifaCode + '|' + player.shirtNumber);
+        public static string GetFullPauseSignal() =>
+            (nameof(MainWindow) + "|START_PAUSE");
+        public static string GetFullResumeSignal() =>
+            (nameof(MainWindow) + "|STOP_PAUSE");
+        public static string GetMatchChangedSignal() =>
+            (nameof(MainWindow) + "|MATCH_CHANGED");
     }
 }

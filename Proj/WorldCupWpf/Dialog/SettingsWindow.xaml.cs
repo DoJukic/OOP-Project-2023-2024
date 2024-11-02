@@ -24,6 +24,7 @@ namespace WorldCupWpf
         private int y = 900;
 
         public bool maximized = false;
+        public bool changesMade = false;
 
         public int X
         {
@@ -68,12 +69,12 @@ namespace WorldCupWpf
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        SettingsData resDat;
+        SettingsData settingsDat;
         bool initializing = true;
 
         public SettingsWindow(SettingsData resDat)
         {
-            this.resDat = resDat;
+            this.settingsDat = resDat;
 
             InitializeComponent();
 
@@ -98,7 +99,6 @@ namespace WorldCupWpf
             SettingsData resDatOption3 = new() { X = 1600, Y = 900 };
 
             cbResolution.Items.Add(resDatOption1);
-            cbResolution.SelectedItem = resDatOption1;
             cbResolution.Items.Add(resDatOption2);
             cbResolution.Items.Add(resDatOption3);
 
@@ -184,8 +184,9 @@ namespace WorldCupWpf
             if (cb.SelectedItem is not SettingsData rd)
                 return;
 
-            resDat.X = rd.X;
-            resDat.Y = rd.Y;
+            settingsDat.X = rd.X;
+            settingsDat.Y = rd.Y;
+            settingsDat.changesMade = true;
         }
 
         private void BtnConfirm_Click(object sender, RoutedEventArgs e)
@@ -217,7 +218,8 @@ namespace WorldCupWpf
             if (initializing)
                 return;
 
-            resDat.maximized = chbMaximized.IsChecked ?? false;
+            settingsDat.maximized = chbMaximized.IsChecked ?? false;
+            settingsDat.changesMade = true;
         }
 
         // Am so mad rn
@@ -226,7 +228,13 @@ namespace WorldCupWpf
             if (initializing)
                 return;
 
-            resDat.maximized = chbMaximized.IsChecked ?? false;
+            settingsDat.maximized = chbMaximized.IsChecked ?? false;
+            settingsDat.changesMade = true;
+        }
+
+        private void cbResolution_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            cbResolution.SelectedItem = null;
         }
     }
 }

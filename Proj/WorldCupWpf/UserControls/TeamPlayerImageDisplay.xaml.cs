@@ -19,6 +19,9 @@ using SharedDataLib;
 using static SharedDataLib.SettingsProvider;
 using System.IO;
 using System.Numerics;
+using System.Windows.Threading;
+using WorldCupWpf.Dialog;
+using System.Text.RegularExpressions;
 
 namespace WorldCupWpf.UserControls
 {
@@ -29,21 +32,27 @@ namespace WorldCupWpf.UserControls
     {
         private string signalStartHovering;
         private string signalStopHovering;
-        private LinearAnimationController linearAnimationController;
+        private LinearScaleAnimationController linearAnimationController;
 
         private CupPlayer player;
         private TeamData teamData;
+        private CupMatch match;
 
         private Action imgRefreshAction;
 
-        public TeamPlayerImageDisplay(CupPlayer player, TeamData teamData)
+        public TeamPlayerImageDisplay(CupPlayer player, TeamData teamData, CupMatch match)
         {
             InitializeComponent();
 
             this.player = player;
             this.teamData = teamData;
+            this.match = match;
 
-            imgRefreshAction = () => { TeamPlayerImageDisplay.ImageRefreshNeeded(new(this)); };
+            WeakReference<TeamPlayerImageDisplay> weakRef = new(this);
+            imgRefreshAction = () => {
+                if (Application.Current != null)
+                    Application.Current.Dispatcher.Invoke(() => { TeamPlayerImageDisplay.ImageRefreshNeeded(weakRef); });
+            };
             Images.SubscribeToExternalImagesChanged(imgRefreshAction);
 
             ReloadImage();
@@ -52,20 +61,28 @@ namespace WorldCupWpf.UserControls
             signalStopHovering = GetPlayerStoppedHoveringSignal(player);
 
             linearAnimationController = new(this);
-            linearAnimationController.scaleXEnd = 1.1;
-            linearAnimationController.scaleYEnd = 1.1;
-            linearAnimationController.animDirTowardsEnd = false;
+            linearAnimationController.ScaleXEnd = 1.1;
+            linearAnimationController.ScaleYEnd = 1.1;
+            linearAnimationController.AnimDirTowardsEnd = false;
+            linearAnimationController.AnimationDurationSec = 0.15;
 
             SignalController.SubscribeToSignal(signalStartHovering, this);
             SignalController.SubscribeToSignal(signalStopHovering, this);
 
             MouseEnter += NotifyStartHover;
             MouseLeave += NotifyEndHover;
+
+            lblNumber.Content = player.shirtNumber;
         }
 
         ~TeamPlayerImageDisplay()
         {
             Images.UnsubscribeFromExternalImagesChanged(imgRefreshAction);
+        }
+
+        public void ReverseImageVertically()
+        {
+            gridScaleTransform.ScaleY = -1;
         }
 
         public static void ImageRefreshNeeded(WeakReference<TeamPlayerImageDisplay> weakRef)
@@ -111,7 +128,7 @@ namespace WorldCupWpf.UserControls
             goto fin;
 
         failed:
-            imgData = Images.GetImgNotFoundPngBytes();
+            imgData = Images.GetNoDataPngBytes();
 
         fin:
             imgPlayer.Source = LoadImageFromByteArray(imgData);
@@ -127,12 +144,19 @@ namespace WorldCupWpf.UserControls
 
         private void SignalStopHovering()
         {
-            linearAnimationController.animDirTowardsEnd = false;
+            linearAnimationController.AnimDirTowardsEnd = true;
         }
 
         private void SignalStartHovering()
         {
-            linearAnimationController.animDirTowardsEnd = true;
+            linearAnimationController.AnimDirTowardsEnd = false;
+        }
+
+        private void userControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            PlayerInfoWindow piw = new(player, teamData, match);
+            piw.Owner = Application.Current.MainWindow;
+            piw.Show();
         }
     }
 }

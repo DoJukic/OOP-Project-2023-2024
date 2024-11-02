@@ -8,34 +8,82 @@
 
         mc:Ignorable="d"
 		SnapsToDevicePixels="True"
-        Title="MainWindow" d:Height="1200" d:Width="1200" Height="600" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" MinWidth="700" MinHeight="600">
+        Title="MainWindow" d:Height="1200" d:Width="1200" Height="600" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" MinWidth="700" MinHeight="600" SizeChanged="mainWindow_SizeChanged" Closing="mainWindow_Closing">
 
 	<Grid>
 		<ScrollViewer VerticalScrollBarVisibility="Auto">
 			<Grid Margin="0,0,0,20">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="1*"/>
+				</Grid.RowDefinitions>
+				
 				<Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Margin="5,10,5,5" Click="SettingsButtonClick">
 					<Image Source="/Resources/vecteezy_spanners.jpg" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
 				</Button>
 				<Button x:Name="btnTEST" Content="TEST" HorizontalAlignment="Left" VerticalAlignment="Top" Width="30" Margin="50,10,5,5" Click="btnTEST_Click"/>
 
-				<Grid Height="50" VerticalAlignment="Top">
+				<Grid VerticalAlignment="Top">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="1*"/>
 						<ColumnDefinition Width="Auto"/>
 						<ColumnDefinition Width="1*"/>
 					</Grid.ColumnDefinitions>
 
-					<ComboBox Style="{DynamicResource WhiteComboBox}" x:Name="cbSelectedTeam" Margin="5,5,5,5" Width="200" HorizontalAlignment="Right" Height="35" VerticalAlignment="Center" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cbSelectedTeam_SelectionChanged" Background="White"/>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+
+					<StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">
+						<Button x:Name="btnBLUFORInfo" Content="Info" Margin="0,5,0,5" Background="White" Click="btnBLUFORInfo_Click">
+							<Button.LayoutTransform>
+								<TransformGroup>
+									<ScaleTransform/>
+									<SkewTransform/>
+									<RotateTransform Angle="-90"/>
+									<TranslateTransform/>
+								</TransformGroup>
+							</Button.LayoutTransform>
+						</Button>
+						<ComboBox Style="{DynamicResource WhiteComboBox}" x:Name="cbSelectedTeam" Margin="5,5,5,5" Width="200" HorizontalAlignment="Right" Height="35" VerticalAlignment="Center" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cbSelectedTeam_SelectionChanged" Background="White"/>
+					</StackPanel>
 
 					<Label Content="VS" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontFamily="Stencil"/>
 
 					<StackPanel Grid.Column="2" Orientation="Horizontal">
 						<ComboBox Style="{DynamicResource WhiteComboBox}" x:Name="cbSelectedOPFOR" Margin="5,5,5,5" Width="200" HorizontalAlignment="Left" Grid.Column="2" Height="35" VerticalAlignment="Center" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cbSelectedOPFOR_SelectionChanged"/>
-						<ComboBox Style="{DynamicResource WhiteComboBox}" x:Name="cbSelectedOPFORDate" Width="100" Height="25" HorizontalAlignment="Left" Grid.Column="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cbSelectedOPFORDate_SelectionChanged" DisplayMemberPath="LocalTimeString" />
+						<Button x:Name="btnOPFORInfo" Content="Info" Margin="0,5,0,5" Background="White" Click="btnOPFORInfo_Click">
+							<Button.LayoutTransform>
+								<TransformGroup>
+									<ScaleTransform/>
+									<SkewTransform/>
+									<RotateTransform Angle="90"/>
+									<TranslateTransform/>
+								</TransformGroup>
+							</Button.LayoutTransform>
+						</Button>
+						<ComboBox Style="{DynamicResource WhiteComboBox}" x:Name="cbSelectedOPFORDate" Width="100" Height="25" HorizontalAlignment="Left" Grid.Column="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="cbSelectedOPFORDate_SelectionChanged" DisplayMemberPath="LocalTimeString" Margin="5,0,0,0" />
 					</StackPanel>
+
+					<Grid x:Name="grdContentTop" Grid.Row="2" Grid.ColumnSpan="3">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+					</Grid>
+
+					<Label x:Name="lblPlayerDistributionBLUFOR" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Content="1-2-3-4" FontSize="22" FontFamily="Stencil" Margin="0,0,65,0"/>
+					<Label x:Name="lblResultBLUFOR" Content="12" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="22" FontFamily="Stencil"/>
+
+					<Label Content=":" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Stencil" Grid.Row="1"/>
+
+					<Label x:Name="lblResultOPFOR" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Content="13" FontSize="22" FontFamily="Stencil"/>
+					<Label x:Name="lblPlayerDistributionOPFOR" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Content="1-2-3-4" FontSize="22" FontFamily="Stencil" Margin="65,0,0,0"/>
 				</Grid>
 
-				<Grid Margin="0,70,0,10" Grid.Row="2" Grid.Column="2">
+				<Grid x:Name="grdContentMiddle" Margin="0,20,0,10" Grid.Row="1" Grid.Column="0">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="1*"/>
 						<ColumnDefinition Width="Auto"/>
@@ -49,7 +97,7 @@
 						<RowDefinition Height="1*"/>
 					</Grid.RowDefinitions>
 
-					<Rectangle Fill="#26000000"  Grid.Row="2" Grid.Column="1" RenderTransformOrigin="0,0">
+					<Rectangle Fill="#0C000000"  Grid.Row="2" Grid.Column="1" RenderTransformOrigin="0,0">
 						<Rectangle.RenderTransform>
 							<TransformGroup>
 								<ScaleTransform ScaleY="1.25" ScaleX="1000"/>
@@ -59,13 +107,23 @@
 							</TransformGroup>
 						</Rectangle.RenderTransform>
 					</Rectangle>
+					
 					<Border x:Name="FieldImageBorder" BorderBrush="Black" BorderThickness="1,1,1,1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
 						<Image x:Name="imgFootball" Source="/Resources/TheRealFootballField.png" HorizontalAlignment="Center" Width="500" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5"/>
 					</Border>
+					
+					<Grid Grid.Row="2" Grid.Column="1">
+						<Grid.RowDefinitions>
+							<RowDefinition/>
+							<RowDefinition/>
+						</Grid.RowDefinitions>
 
-					<UserControls:TeamPlayerList x:Name="TEMP_THING" Grid.Row="2" Grid.Column="0" RenderTransformOrigin="0.5,0.5">
-						
-					</UserControls:TeamPlayerList>
+						<UserControls:TeamPlayerImageList x:Name="topImageList"/>
+						<UserControls:TeamPlayerImageList x:Name="bottomImageList" Grid.Row="1"/>
+					</Grid>
+
+					<UserControls:TeamPlayerTextList x:Name="playerTextListLeft" Grid.Row="2" d:Visibility="Visible" Visibility="Hidden"/>
+					<UserControls:TeamPlayerTextList x:Name="playerTextListRight" Grid.Row="2" Grid.Column="2" d:Visibility="Visible" Visibility="Hidden"/>
 				</Grid>
 			</Grid>
 		</ScrollViewer>

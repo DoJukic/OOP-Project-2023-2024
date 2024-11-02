@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="WorldCupWpf.UserControls.TeamPlayerImageList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorldCupWpf.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" d:Background="White" RenderTransformOrigin="0.5,0.5">
+	<UserControl.RenderTransform>
+		<TransformGroup>
+			<ScaleTransform x:Name="userControlScaleTransform" ScaleY="1"/>
+			<SkewTransform/>
+			<RotateTransform/>
+			<TranslateTransform/>
+		</TransformGroup>
+	</UserControl.RenderTransform>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+
+		<Grid x:Name="grGoalkeeper">
+			<Grid.ColumnDefinitions>
+			</Grid.ColumnDefinitions>
+
+		</Grid>
+
+		<Grid x:Name="grDefence" Grid.Row="1">
+			<Grid.ColumnDefinitions>
+			</Grid.ColumnDefinitions>
+
+		</Grid>
+
+		<Grid x:Name="grMidfield" Grid.Row="2">
+			<Grid.ColumnDefinitions>
+			</Grid.ColumnDefinitions>
+
+		</Grid>
+
+		<Grid x:Name="grAttack" Grid.Row="3">
+			<Grid.ColumnDefinitions>
+			</Grid.ColumnDefinitions>
+
+		</Grid>
+	</Grid>
+</UserControl>

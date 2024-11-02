@@ -115,6 +115,15 @@ namespace SharedDataLib.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Bench.
+        /// </summary>
+        internal static string LOC_Bench {
+            get {
+                return ResourceManager.GetString("LOC_Bench", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Busy.
         /// </summary>
         internal static string LOC_Busy {
@@ -129,6 +138,15 @@ namespace SharedDataLib.Resources {
         internal static string LOC_Cancel {
             get {
                 return ResourceManager.GetString("LOC_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Captain.
+        /// </summary>
+        internal static string LOC_Captain {
+            get {
+                return ResourceManager.GetString("LOC_Captain", resourceCulture);
             }
         }
         
@@ -205,6 +223,15 @@ namespace SharedDataLib.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Differential.
+        /// </summary>
+        internal static string LOC_Differential {
+            get {
+                return ResourceManager.GetString("LOC_Differential", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Download.
         /// </summary>
         internal static string LOC_Download {
@@ -228,6 +255,15 @@ namespace SharedDataLib.Resources {
         internal static string LOC_Download_State {
             get {
                 return ResourceManager.GetString("LOC_Download_State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Draws.
+        /// </summary>
+        internal static string LOC_Draws {
+            get {
+                return ResourceManager.GetString("LOC_Draws", resourceCulture);
             }
         }
         
@@ -295,11 +331,29 @@ namespace SharedDataLib.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Games.
+        /// </summary>
+        internal static string LOC_Games {
+            get {
+                return ResourceManager.GetString("LOC_Games", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Games_Captained.
         /// </summary>
         internal static string LOC_Games_Captained {
             get {
                 return ResourceManager.GetString("LOC_Games_Captained", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Goals.
+        /// </summary>
+        internal static string LOC_Goals {
+            get {
+                return ResourceManager.GetString("LOC_Goals", resourceCulture);
             }
         }
         
@@ -367,6 +421,24 @@ namespace SharedDataLib.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Losses.
+        /// </summary>
+        internal static string LOC_Losses {
+            get {
+                return ResourceManager.GetString("LOC_Losses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Match_Data.
+        /// </summary>
+        internal static string LOC_Match_Data {
+            get {
+                return ResourceManager.GetString("LOC_Match_Data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Matches_By_Attendance.
         /// </summary>
         internal static string LOC_Matches_By_Attendance {
@@ -408,6 +480,15 @@ namespace SharedDataLib.Resources {
         internal static string LOC_Okay {
             get {
                 return ResourceManager.GetString("LOC_Okay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Played.
+        /// </summary>
+        internal static string LOC_Played {
+            get {
+                return ResourceManager.GetString("LOC_Played", resourceCulture);
             }
         }
         
@@ -466,6 +547,15 @@ namespace SharedDataLib.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Position.
+        /// </summary>
+        internal static string LOC_Position {
+            get {
+                return ResourceManager.GetString("LOC_Position", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Print.
         /// </summary>
         internal static string LOC_Print {
@@ -502,6 +592,15 @@ namespace SharedDataLib.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Scored.
+        /// </summary>
+        internal static string LOC_Scored {
+            get {
+                return ResourceManager.GetString("LOC_Scored", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Selected_Team.
         /// </summary>
         internal static string LOC_Selected_Team {
@@ -520,11 +619,29 @@ namespace SharedDataLib.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOC_Starting_Eleven.
+        /// </summary>
+        internal static string LOC_Starting_Eleven {
+            get {
+                return ResourceManager.GetString("LOC_Starting_Eleven", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LOC_Structure.
         /// </summary>
         internal static string LOC_Structure {
             get {
                 return ResourceManager.GetString("LOC_Structure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Taken.
+        /// </summary>
+        internal static string LOC_Taken {
+            get {
+                return ResourceManager.GetString("LOC_Taken", resourceCulture);
             }
         }
         
@@ -570,6 +687,15 @@ namespace SharedDataLib.Resources {
         internal static string LOC_Wait {
             get {
                 return ResourceManager.GetString("LOC_Wait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOC_Wins.
+        /// </summary>
+        internal static string LOC_Wins {
+            get {
+                return ResourceManager.GetString("LOC_Wins", resourceCulture);
             }
         }
         

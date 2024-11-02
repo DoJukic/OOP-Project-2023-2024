@@ -21,6 +21,7 @@
     <None Remove="Resources\TheRealFootballField.png" />
     <None Remove="Resources\vecteezy_spanners.jpg" />
     <None Remove="SmokeEffect\SmokeHandler.cs~RF1853c49.TMP" />
+    <None Remove="udd1tiyv.kjx~" />
   </ItemGroup>
 
   <ItemGroup>

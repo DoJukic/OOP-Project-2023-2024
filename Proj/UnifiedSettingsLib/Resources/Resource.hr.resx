@@ -135,11 +135,17 @@
   <data name="LOC_Away_Team" xml:space="preserve">
     <value>Strani tim</value>
   </data>
+  <data name="LOC_Bench" xml:space="preserve">
+    <value>Klupa</value>
+  </data>
   <data name="LOC_Busy" xml:space="preserve">
     <value>Zauzeto</value>
   </data>
   <data name="LOC_Cancel" xml:space="preserve">
     <value>Otkaži</value>
+  </data>
+  <data name="LOC_Captain" xml:space="preserve">
+    <value>Kapetan</value>
   </data>
   <data name="LOC_Choose_An_Image" xml:space="preserve">
     <value>Odaberite sliku</value>
@@ -165,6 +171,9 @@
   <data name="LOC_Delete" xml:space="preserve">
     <value>Izbriši</value>
   </data>
+  <data name="LOC_Differential" xml:space="preserve">
+    <value>Razlika</value>
+  </data>
   <data name="LOC_Download" xml:space="preserve">
     <value>Preuzmi</value>
   </data>
@@ -173,6 +182,9 @@
   </data>
   <data name="LOC_Download_State" xml:space="preserve">
     <value>Stanje preuzimanja</value>
+  </data>
+  <data name="LOC_Draws" xml:space="preserve">
+    <value>Izjednačeno</value>
   </data>
   <data name="LOC_Error" xml:space="preserve">
     <value>Greška</value>
@@ -195,8 +207,14 @@
   <data name="LOC_Favourites" xml:space="preserve">
     <value>Favoriti</value>
   </data>
+  <data name="LOC_Games" xml:space="preserve">
+    <value>Utakmice</value>
+  </data>
   <data name="LOC_Games_Captained" xml:space="preserve">
     <value>Puta kapetan</value>
+  </data>
+  <data name="LOC_Goals" xml:space="preserve">
+    <value>Golovi</value>
   </data>
   <data name="LOC_Goals_Scored" xml:space="preserve">
     <value>Broj golova</value>
@@ -219,8 +237,14 @@
   <data name="LOC_Local" xml:space="preserve">
     <value>Lokalno</value>
   </data>
+  <data name="LOC_Losses" xml:space="preserve">
+    <value>Gubitci</value>
+  </data>
   <data name="LOC_Matches_By_Attendance" xml:space="preserve">
     <value>Utakmice po dolaznosti</value>
+  </data>
+  <data name="LOC_Match_Data" xml:space="preserve">
+    <value>Podatci iz utakmice</value>
   </data>
   <data name="LOC_Maximized" xml:space="preserve">
     <value>Maksimizirano</value>
@@ -233,6 +257,9 @@
   </data>
   <data name="LOC_Okay" xml:space="preserve">
     <value>U redu</value>
+  </data>
+  <data name="LOC_Played" xml:space="preserve">
+    <value>Odigrano</value>
   </data>
   <data name="LOC_Players" xml:space="preserve">
     <value>Igrači</value>
@@ -252,6 +279,9 @@
   <data name="LOC_Please_Set_Your_Preferences" xml:space="preserve">
     <value>Molimo podesite vaše postavke</value>
   </data>
+  <data name="LOC_Position" xml:space="preserve">
+    <value>Pozicija</value>
+  </data>
   <data name="LOC_Print" xml:space="preserve">
     <value>Ispiši</value>
   </data>
@@ -264,14 +294,23 @@
   <data name="LOC_Resolution" xml:space="preserve">
     <value>Rezolucija</value>
   </data>
+  <data name="LOC_Scored" xml:space="preserve">
+    <value>Zabijeno</value>
+  </data>
   <data name="LOC_Selected_Team" xml:space="preserve">
     <value>Odabrani tim</value>
   </data>
   <data name="LOC_Shirt_Number" xml:space="preserve">
     <value>Broj majce</value>
   </data>
+  <data name="LOC_Starting_Eleven" xml:space="preserve">
+    <value>Početna jedanaestorica</value>
+  </data>
   <data name="LOC_Structure" xml:space="preserve">
     <value>Struktura</value>
+  </data>
+  <data name="LOC_Taken" xml:space="preserve">
+    <value>Primljeno</value>
   </data>
   <data name="LOC_Team_Slash_Player_Select" xml:space="preserve">
     <value>Odabir momčadi / igrača</value>
@@ -287,6 +326,9 @@
   </data>
   <data name="LOC_Wait" xml:space="preserve">
     <value>Čekaj</value>
+  </data>
+  <data name="LOC_Wins" xml:space="preserve">
+    <value>Pobjede</value>
   </data>
   <data name="LOC_WPF_Could_Not_Load_Cup_Fatal" xml:space="preserve">
     <value>Aplikacija ne može učitati podatke o svjetskom prvenstvu. Molimo vas da odaberete drugi izvor podataka u prijašnjoj aplikaciji</value>
