@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static WorldCupWpf.LocalUtils;
+using static WorldCupWpf.LocalUtils.Utils;
 using WorldCupWpf.Signals;
 using WorldCupLib;
 using SharedDataLib;
@@ -22,6 +22,9 @@ using System.Numerics;
 using System.Windows.Threading;
 using WorldCupWpf.Dialog;
 using System.Text.RegularExpressions;
+using WorldCupWpf.LocalUtils;
+using System.Windows.Media.Animation;
+using System.Xml.Linq;
 
 namespace WorldCupWpf.UserControls
 {
@@ -40,9 +43,18 @@ namespace WorldCupWpf.UserControls
 
         private Action imgRefreshAction;
 
+        private int imageReloadActionCounter = 0;
+
+        private DoubleAnimation OpacityAnimation = new();
+
         public TeamPlayerImageDisplay(CupPlayer player, TeamData teamData, CupMatch match)
         {
             InitializeComponent();
+
+            // https://stackoverflow.com/questions/20298/how-to-stop-an-animation-in-c-sharp-wpf
+            OpacityAnimation.From = 0;
+            OpacityAnimation.To = 1;
+            OpacityAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.3));
 
             this.player = player;
             this.teamData = teamData;
@@ -105,33 +117,52 @@ namespace WorldCupWpf.UserControls
 
         public void ReloadImage()
         {
-            string cupPlayerImageTarget = "";
-            byte[]? imgData;
+            this.BeginAnimation(UserControl.OpacityProperty, null);
 
-            if (teamData.PlayerImagePairList == null)
-                goto failed;
-
-            foreach (var entry in teamData.PlayerImagePairList)
+            int imageActionID = ++imageReloadActionCounter;
+            Task.Run((Action)(() =>
             {
-                if (entry.Key != player.shirtNumber)
-                    continue;
+                string cupPlayerImageTarget = "";
+                byte[]? imgData;
 
-                cupPlayerImageTarget = entry.Value;
-                break;
-            }
+                if (teamData.PlayerImagePairList == null)
+                    goto failed;
 
-            imgData = Images.TryGetExternalImageBytes(cupPlayerImageTarget);
+                foreach (var entry in teamData.PlayerImagePairList)
+                {
+                    if (entry.Key != player.shirtNumber)
+                        continue;
 
-            if (imgData == null)
-                goto failed;
+                    cupPlayerImageTarget = entry.Value;
+                    break;
+                }
 
-            goto fin;
+                imgData = Images.TryGetExternalImageBytes(cupPlayerImageTarget);
 
-        failed:
-            imgData = Images.GetNoDataPngBytes();
+                if (imgData == null)
+                    goto failed;
 
-        fin:
-            imgPlayer.Source = LoadImageFromByteArray(imgData);
+                goto fin;
+
+            failed:
+                imgData = Images.GetNoDataPngBytes();
+
+            fin:
+                if (Application.Current == null)
+                    return;
+
+                BitmapImage btmpimg = LoadImageFromByteArray(imgData);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    if (imageActionID != imageReloadActionCounter)
+                        return;
+
+                    imgPlayer.Source = btmpimg;
+
+                    this.BeginAnimation(UserControl.OpacityProperty, OpacityAnimation);
+                });
+            }));
         }
 
         public void RecieveSignal(string signalSignature)

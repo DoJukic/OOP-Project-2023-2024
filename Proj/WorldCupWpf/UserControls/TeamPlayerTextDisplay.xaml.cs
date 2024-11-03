@@ -17,9 +17,10 @@ using System.Windows.Shapes;
 using WorldCupLib;
 using WorldCupLib.Interface;
 using WorldCupWpf.Dialog;
+using WorldCupWpf.LocalUtils;
 using WorldCupWpf.Signals;
 using static SharedDataLib.SettingsProvider;
-using static WorldCupWpf.LocalUtils;
+using static WorldCupWpf.LocalUtils.Utils;
 
 namespace WorldCupWpf.UserControls
 {

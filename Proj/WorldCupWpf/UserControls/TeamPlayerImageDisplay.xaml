@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WorldCupWpf.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="800" d:Background="White" MinWidth="80" MinHeight="80" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" MouseLeftButtonUp="userControl_MouseLeftButtonUp">
+             Opacity ="0" d:Opacity="1" d:DesignHeight="500" d:DesignWidth="800" d:Background="White" MinWidth="80" MinHeight="80" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5" MouseLeftButtonUp="userControl_MouseLeftButtonUp">
 
 	<Grid RenderTransformOrigin="0.5,0.5">
 		<Grid.RenderTransform>
@@ -16,7 +16,7 @@
 				<TranslateTransform/>
 			</TransformGroup>
 		</Grid.RenderTransform>
-		
+
 		<Border x:Name="border" HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding ActualHeight, ElementName=border, Mode=OneWay}" Height="80">
 			<Border.Background>
 				<RadialGradientBrush>
@@ -26,7 +26,7 @@
 			</Border.Background>
 		</Border>
 
-		<Image Source="/Resources/TheRealFootballField.png" x:Name="imgPlayer" Stretch="Fill" Width="{Binding ActualHeight, ElementName=imgPlayer, Mode=OneWay}" RenderTransformOrigin="0.5,0.5" MinWidth="40" MinHeight="40" Height="74">
+		<Image x:Name="imgPlayer" Stretch="Fill" Width="{Binding ActualHeight, ElementName=imgPlayer, Mode=OneWay}" RenderTransformOrigin="0.5,0.5" MinWidth="40" MinHeight="40" Height="74">
 			<Image.OpacityMask>
 				<RadialGradientBrush>
 					<GradientStop Offset="1" Color="White"/>

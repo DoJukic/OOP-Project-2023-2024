@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WorldCupLib;
 using WorldCupLib.Interface;
+using WorldCupWpf.LocalUtils;
+using WorldCupWpf.LocalUtils.LocalUtils;
 using WorldCupWpf.Signals;
 using WorldCupWpf.UserControls;
 using static SharedDataLib.SettingsProvider;
@@ -35,9 +37,9 @@ namespace WorldCupWpf.Dialog
         {
             InitializeComponent();
 
-            SignalController.SubscribeToSignal(LocalUtils.GetFullPauseSignal(), this);
-            SignalController.SubscribeToSignal(LocalUtils.GetFullResumeSignal(), this);
-            SignalController.SubscribeToSignal(LocalUtils.GetMatchChangedSignal(), this);
+            SignalController.SubscribeToSignal(Utils.GetFullPauseSignal(), this);
+            SignalController.SubscribeToSignal(Utils.GetFullResumeSignal(), this);
+            SignalController.SubscribeToSignal(Utils.GetMatchChangedSignal(), this);
 
             LocDataBindable.GenerateBindingsForTarget(lblName, Label.ContentProperty, WorldCupViewer.Localization.LocalizationOptions.Name, ":");
             LocDataBindable.GenerateBindingsForTarget(lblShirtNumber, Label.ContentProperty, WorldCupViewer.Localization.LocalizationOptions.Shirt_Number, ":");
@@ -118,15 +120,15 @@ namespace WorldCupWpf.Dialog
 
         public void RecieveSignal(string signalSignature)
         {
-            if (signalSignature == LocalUtils.GetFullPauseSignal())
+            if (signalSignature == Utils.GetFullPauseSignal())
             {
                 ShowLoadingScreen();
             }
-            if (signalSignature == LocalUtils.GetFullResumeSignal())
+            if (signalSignature == Utils.GetFullResumeSignal())
             {
                 HideLoadingScreen();
             }
-            if (signalSignature == LocalUtils.GetMatchChangedSignal())
+            if (signalSignature == Utils.GetMatchChangedSignal())
             {
                 Close();
             }
@@ -178,7 +180,7 @@ namespace WorldCupWpf.Dialog
             imgData = Images.GetNoDataPngBytes();
 
         fin:
-            imgPlayer.Source = LocalUtils.LoadImageFromByteArray(imgData);
+            imgPlayer.Source = Utils.LoadImageFromByteArray(imgData);
         }
     }
 }

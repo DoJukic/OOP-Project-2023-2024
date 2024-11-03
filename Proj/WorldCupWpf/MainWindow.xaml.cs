@@ -21,7 +21,7 @@ using WorldCupWpf.Dialog;
 using WorldCupWpf.Signals;
 using static System.Net.Mime.MediaTypeNames;
 using static SharedDataLib.SettingsProvider;
-using static WorldCupWpf.LocalUtils;
+using static WorldCupWpf.LocalUtils.Utils;
 
 namespace WorldCupWpf
 {
@@ -51,8 +51,8 @@ namespace WorldCupWpf
         {
             DoBindings();
 
-            SignalController.SubscribeToSignal(LocalUtils.GetFullPauseSignal(), this);
-            SignalController.SubscribeToSignal(LocalUtils.GetFullResumeSignal(), this);
+            SignalController.SubscribeToSignal(GetFullPauseSignal(), this);
+            SignalController.SubscribeToSignal(GetFullResumeSignal(), this);
 
             cbSelectedTeam.DisplayMemberPath = "TeamName";
             cbSelectedOPFOR.DisplayMemberPath = "TeamName";
@@ -249,7 +249,7 @@ namespace WorldCupWpf
 
         private void ShowSettingsDialog(SettingsData settingsDat, bool useConfirmationMsg = true)
         {
-            SignalController.TriggerSignal(LocalUtils.GetFullPauseSignal());
+            SignalController.TriggerSignal(GetFullPauseSignal());
 
             SettingsWindow SW = new(settingsDat);
             SW.Owner = this;
@@ -276,7 +276,7 @@ namespace WorldCupWpf
 
             SaveData();
 
-            SignalController.TriggerSignal(LocalUtils.GetFullResumeSignal());
+            SignalController.TriggerSignal(GetFullResumeSignal());
         }
         private void PerformResolutionLogic(SettingsData settingsDat)
         {
@@ -310,7 +310,7 @@ namespace WorldCupWpf
             if (loadingScreenCounter == 0)
             {
                 Panel.SetZIndex(LoadingOverlay, 0);
-                AnimationHelper.FadeIn(LoadingOverlay, 250);
+                LocalUtils.LocalUtils.AnimationHelper.FadeIn(LoadingOverlay, 250);
             }
             loadingScreenCounter++;
         }
@@ -321,7 +321,7 @@ namespace WorldCupWpf
             {
                 if (loadingScreenCounter < 0)
                     loadingScreenCounter = 0;
-                AnimationHelper.FadeOut(LoadingOverlay, 250, () => { Panel.SetZIndex(LoadingOverlay, -1000000); });
+                LocalUtils.LocalUtils.AnimationHelper.FadeOut(LoadingOverlay, 250, () => { Panel.SetZIndex(LoadingOverlay, -1000000); });
             }
         }
 
@@ -523,10 +523,10 @@ namespace WorldCupWpf
 
             lblPlayerDistributionOPFOR.Content = topImageList.GetPlayerDistributionString();
 
-            SignalController.TriggerSignal(LocalUtils.GetMatchChangedSignal());
+            SignalController.TriggerSignal(GetMatchChangedSignal());
         }
 
-        LinearScaleAnimationController crtl;
+        LocalUtils.LinearScaleAnimationController crtl;
         private void btnTEST_Click(object sender, RoutedEventArgs e)
         {
             if (crtl is not null)
@@ -589,11 +589,11 @@ namespace WorldCupWpf
 
         public void RecieveSignal(string signalSignature)
         {
-            if (signalSignature == LocalUtils.GetFullPauseSignal())
+            if (signalSignature == GetFullPauseSignal())
             {
                 ShowLoadingScreen();
             }
-            if (signalSignature == LocalUtils.GetFullResumeSignal())
+            if (signalSignature == GetFullResumeSignal())
             {
                 HideLoadingScreen();
             }

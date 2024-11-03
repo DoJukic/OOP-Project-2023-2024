@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static WorldCupWpf.LocalUtils;
+using static WorldCupWpf.LocalUtils.Utils;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WorldCupWpf.Signals;
 using WorldCupLib;
+using WorldCupWpf.LocalUtils;
 
 namespace WorldCupWpf.UserControls
 {

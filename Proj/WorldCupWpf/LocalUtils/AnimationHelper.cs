@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Animation;
 using System.Windows;
 
-namespace WorldCupWpf
+namespace WorldCupWpf.LocalUtils.LocalUtils
 {
     // https://stackoverflow.com/questions/36517594/wpf-trigger-animation-from-code
     // (Modified)
@@ -21,7 +21,7 @@ namespace WorldCupWpf
                 Duration = TimeSpan.FromMilliseconds(durationMS),
             };
 
-            opacityAnimation.Completed += (object? dont, EventArgs care) => { OnFinished?.Invoke(); };
+            opacityAnimation.Completed += (dont, care) => { OnFinished?.Invoke(); };
 
             Storyboard.SetTarget(opacityAnimation, target);
             Storyboard.SetTargetProperty(opacityAnimation, new("Opacity"));
