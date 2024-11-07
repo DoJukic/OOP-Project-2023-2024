@@ -33,10 +33,9 @@ namespace WorldCupWpf
         private SharedDataLib.SettingsProvider.CurrSettings settings = SharedDataLib.SettingsProvider.GetSettings();
         private SharedDataLib.SettingsProvider.WorldCupData? selectedWorldCupData;
 
-        private MainWindowBindings bindings = new();
-
         bool saveDataWarningShown = false;
 
+        private bool disableExitWarning = false;
         private bool disableDateReload = false;
 
         // we start in the loading screen, this is really just a dumb workaround for both the load cup info and settings window closing the loading screens, do not use elsewhere!
@@ -224,6 +223,8 @@ namespace WorldCupWpf
                             }
                         }
                     }
+
+                    disableExitWarning = true;
                 });
             });
         }
@@ -501,20 +502,18 @@ namespace WorldCupWpf
 
             playerTextListRight.ReverseDisplay();
 
-            int goalsBLUFOR = 0;
-            int goalsOPFOR = 0;
-            foreach (var cupEvent in BLUFORCupTeamEvents)
-                if (CupEvent.CheckCupEvent(cupEvent, CupEvent.SupportedCupEventTypes.Goal))
-                    goalsBLUFOR++;
-            foreach (var cupEvent in OPFORCupTeamEvents)
-                if (CupEvent.CheckCupEvent(cupEvent, CupEvent.SupportedCupEventTypes.Goal))
-                    goalsOPFOR++;
+            if (BLUFORTeamInfo.penalties > 0)
+                lblResultBLUFOR.Content = BLUFORTeamInfo.goals + " (" + BLUFORTeamInfo.penalties + ")";
+            else
+                lblResultBLUFOR.Content = BLUFORTeamInfo.goals;
 
-            lblResultBLUFOR.Content = goalsBLUFOR;
-            lblResultOPFOR.Content = goalsOPFOR;
+            if (OPFORTeamInfo.penalties > 0)
+                lblResultOPFOR.Content = OPFORTeamInfo.goals + " (" + OPFORTeamInfo.penalties + ")";
+            else
+                lblResultOPFOR.Content = OPFORTeamInfo.goals;
 
             //Away team top, home team bottom
-            
+
             bottomImageList.LoadFromData(BLUFORTeamStatistics, cmtw.relatedMatch, BLUFORTeamInfo, BLUFORTargetTeamData, true);
 
             lblPlayerDistributionBLUFOR.Content = bottomImageList.GetPlayerDistributionString();
@@ -601,6 +600,9 @@ namespace WorldCupWpf
 
         private void mainWindow_Closing(object sender, CancelEventArgs e)
         {
+            if (!disableExitWarning)
+                return;
+
             MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("The application will close.", "Are you sure?", System.Windows.MessageBoxButton.OKCancel);
             if (messageBoxResult != System.Windows.MessageBoxResult.OK)
             {

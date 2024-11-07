@@ -107,8 +107,7 @@ namespace WorldCupWpf.UserControls
         public string GetPlayerDistributionString()
         {
             const char SEP = '-';
-            return CountPlayersInGridChildren(grGoalkeeper).ToString() + SEP +
-                CountPlayersInGridChildren(grDefence).ToString() + SEP +
+            return CountPlayersInGridChildren(grDefence).ToString() + SEP +
                 CountPlayersInGridChildren(grMidfield).ToString() + SEP +
                 CountPlayersInGridChildren(grAttack).ToString();
         }

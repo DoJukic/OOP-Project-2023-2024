@@ -74,13 +74,13 @@
 						</Grid.ColumnDefinitions>
 					</Grid>
 
-					<Label x:Name="lblPlayerDistributionBLUFOR" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Content="1-2-3-4" FontSize="22" FontFamily="Stencil" Margin="0,0,65,0"/>
+					<Label x:Name="lblPlayerDistributionBLUFOR" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Content="2-3-4" FontSize="22" FontFamily="Stencil" Margin="0,0,75,0"/>
 					<Label x:Name="lblResultBLUFOR" Content="12" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="22" FontFamily="Stencil"/>
 
 					<Label Content=":" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Stencil" Grid.Row="1"/>
 
 					<Label x:Name="lblResultOPFOR" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Content="13" FontSize="22" FontFamily="Stencil"/>
-					<Label x:Name="lblPlayerDistributionOPFOR" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Content="1-2-3-4" FontSize="22" FontFamily="Stencil" Margin="65,0,0,0"/>
+					<Label x:Name="lblPlayerDistributionOPFOR" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Content="2-3-4" FontSize="22" FontFamily="Stencil" Margin="75,0,0,0"/>
 				</Grid>
 
 				<Grid x:Name="grdContentMiddle" Margin="0,20,0,10" Grid.Row="1" Grid.Column="0">
